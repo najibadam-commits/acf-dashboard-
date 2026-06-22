@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPM Dashboard – ACF Nigeria | Better Aid Foundation</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --un-blue: #009EDB;
+    --un-dark: #1A3C5E;
+    --who-green: #008B61;
+    --who-teal: #00A087;
+    --alert-red: #C0392B;
+    --alert-amber: #E67E22;
+    --ok-green: #27AE60;
+    --bg: #F4F6F9;
+    --card: #FFFFFF;
+    --text: #1A2B3C;
+    --muted: #6B7C93;
+    --border: #DDE3EA;
+    --font: 'Segoe UI', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 13px; }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--un-dark);
+    color: #fff;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .header-top {
+    background: var(--un-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 28px;
+    font-size: 11px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .header-main {
+    padding: 20px 28px 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .header-main h1 { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  .header-main h1 span { color: var(--un-blue); }
+  .header-meta { text-align: right; font-size: 11px; color: rgba(255,255,255,.75); line-height: 1.8; }
+  .tabs {
+    display: flex;
+    padding: 0 28px;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+  }
+  .tab {
+    padding: 9px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,.65);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    transition: all .2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab:hover { color: #fff; }
+  .tab.active { color: #fff; border-bottom-color: var(--un-blue); }
+
+  /* ── LAYOUT ── */
+  .body { padding: 20px 28px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .row { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+  .card {
+    background: var(--card);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    padding: 16px;
+    flex: 1;
+    min-width: 0;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* ── KPI TILES ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi {
+    background: var(--card);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--un-blue);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .kpi.green { border-left-color: var(--ok-green); }
+  .kpi.amber { border-left-color: var(--alert-amber); }
+  .kpi.red   { border-left-color: var(--alert-red); }
+  .kpi-val { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+  .kpi-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+  .kpi-sub { font-size: 11px; color: var(--muted); }
+
+  /* ── GAUGE / DONUT ── */
+  .gauge-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+  .gauge-wrap canvas { width: 120px !important; height: 120px !important; }
+  .gauge-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; pointer-events: none;
+  }
+  .gauge-center .val { font-size: 20px; font-weight: 700; }
+  .gauge-center .lbl { font-size: 10px; color: var(--muted); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .ind-table th {
+    text-align: left; padding: 6px 8px;
+    background: var(--bg); color: var(--muted);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    border-bottom: 2px solid var(--border);
+  }
+  .ind-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .ind-table tr:hover td { background: #f7f9fc; }
+
+  /* ── PILL BADGES ── */
+  .pill {
+    display: inline-block; padding: 2px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 700;
+  }
+  .pill.green { background: #E8F8F0; color: #1A7A46; }
+  .pill.amber { background: #FEF3E7; color: #B45309; }
+  .pill.red   { background: #FDECEC; color: #9B1C1C; }
+  .pill.blue  { background: #E6F4FC; color: #0369A1; }
+
+  /* ── PROGRESS BAR ── */
+  .bar-track { background: var(--bg); border-radius: 4px; height: 10px; overflow: hidden; flex: 1; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+  .bar-row .bar-label { width: 150px; flex-shrink: 0; color: var(--text); }
+  .bar-row .bar-pct { width: 38px; text-align: right; font-weight: 600; color: var(--text); }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    border-radius: 5px; padding: 10px 14px; margin-bottom: 10px;
+    font-size: 12px; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .alert-box.red { background: #FDECEC; border-left: 3px solid var(--alert-red); color: #7B1C1C; }
+  .alert-box.amber { background: #FEF3E7; border-left: 3px solid var(--alert-amber); color: #7C4A0A; }
+  .alert-box.green { background: #E8F8F0; border-left: 3px solid var(--ok-green); color: #145A32; }
+  .alert-icon { font-size: 15px; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--un-dark); color: rgba(255,255,255,.6);
+    padding: 12px 28px; font-size: 11px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 10px;
+  }
+
+  /* ── CHART CONTAINER ── */
+  .chart-box { position: relative; height: 200px; }
+  .chart-box-sm { position: relative; height: 160px; }
+
+  /* ── LGA ROW ── */
+  .lga-badge {
+    display: inline-block; padding: 1px 7px;
+    background: var(--un-blue); color: #fff;
+    border-radius: 3px; font-size: 10px; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <span>Action Against Hunger (ACF) Nigeria — Third Party Monitoring (TPM)</span>
+    <span>Better Aid Foundation (BAF) &nbsp;|&nbsp; Borno State</span>
+  </div>
+  <div class="header-main">
+    <div>
+      <h1>TPM Field Monitoring Dashboard<br><span>Magumeri &amp; Gubio LGAs</span></h1>
+      <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.7)">
+        Survey period: 24 – 31 March 2026 &nbsp;|&nbsp; 45 respondents &nbsp;|&nbsp; 41 sites visited
+      </div>
+    </div>
+    <div class="header-meta">
+      <div><strong>SECTORS COVERED</strong></div>
+      <div>Nutrition &nbsp;·&nbsp; Health &nbsp;·&nbsp; WASH &nbsp;·&nbsp; MHPSS</div>
+      <div style="margin-top:4px"><strong>DATA SOURCE</strong></div>
+      <div>KoBoCollect / ODK &nbsp;·&nbsp; April 2026</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview',this)">Overview</button>
+    <button class="tab" onclick="switchTab('protection',this)">Protection & AAP</button>
+    <button class="tab" onclick="switchTab('nutrition',this)">Nutrition (OTP)</button>
+    <button class="tab" onclick="switchTab('health',this)">Health Services</button>
+    <button class="tab" onclick="switchTab('wash',this)">WASH</button>
+    <button class="tab" onclick="switchTab('alerts',this)">Findings & Alerts</button>
+    <button class="tab" onclick="switchTab('mhpss',this)">MHPSS Services</button>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body">
+
+<!-- ══════════════════════ OVERVIEW ══════════════════════ -->
+<div class="section active" id="sec-overview">
+  <div class="kpi-grid">
+    <div class="kpi blue">
+      <div class="kpi-val">45</div>
+      <div class="kpi-label">Total Respondents</div>
+      <div class="kpi-sub">24 – 31 March 2026</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-val">2</div>
+      <div class="kpi-label">LGAs Covered</div>
+      <div class="kpi-sub">Magumeri (82%) · Gubio (18%)</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">5</div>
+      <div class="kpi-label">Sectors Monitored</div>
+      <div class="kpi-sub">WASH · Nutrition · Health · Protection · MHPSS</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-val">9</div>
+      <div class="kpi-label">Protection Incidents</div>
+      <div class="kpi-sub">Abuse / discrimination reported</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Sector distribution -->
+    <div class="card" style="flex:1.2">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>Services Sought by Respondents</div>
+      <div class="chart-box"><canvas id="chartSector"></canvas></div>
+    </div>
+
+    <!-- LGA distribution -->
+    <div class="card" style="flex:.8">
+      <div class="card-title"><span class="dot" style="background:var(--who-green)"></span>LGA Distribution</div>
+      <div class="chart-box"><canvas id="chartLGA"></canvas></div>
+    </div>
+
+    <!-- Survey timeline -->
+    <div class="card" style="flex:1.4">
+      <div class="card-title"><span class="dot" style="background:var(--alert-amber)"></span>Survey Activity by Date</div>
+      <div class="chart-box"><canvas id="chartDate"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Access snapshot -->
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>Access &amp; Distance to Facility</div>
+      <div class="bar-row"><div class="bar-label">Less than 30 min</div><div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--ok-green)"></div></div><div class="bar-pct">64%</div></div>
+      <div class="bar-row"><div class="bar-label">30 – 60 minutes</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:var(--alert-amber)"></div></div><div class="bar-pct">27%</div></div>
+      <div class="bar-row"><div class="bar-label">1 – 2 hours</div><div class="bar-track"><div class="bar-fill" style="width:4%;background:var(--alert-red)"></div></div><div class="bar-pct">4%</div></div>
+      <div class="bar-row"><div class="bar-label">2+ hours</div><div class="bar-track"><div class="bar-fill" style="width:4%;background:var(--alert-red)"></div></div><div class="bar-pct">4%</div></div>
+    </div>
+
+    <!-- Wait time -->
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--who-teal)"></span>Wait Time Before Being Attended</div>
+      <div class="bar-row"><div class="bar-label">Less than 30 min</div><div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--ok-green)"></div></div><div class="bar-pct">64%</div></div>
+      <div class="bar-row"><div class="bar-label">30 – 60 minutes</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:var(--alert-amber)"></div></div><div class="bar-pct">27%</div></div>
+      <div class="bar-row"><div class="bar-label">1 – 2 hours</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--alert-red)"></div></div><div class="bar-pct">2%</div></div>
+      <div class="bar-row"><div class="bar-label">2+ hours</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--alert-red)"></div></div><div class="bar-pct">7%</div></div>
+    </div>
+
+    <!-- Overall rights -->
+    <div class="card" style="flex:.8">
+      <div class="card-title"><span class="dot" style="background:var(--ok-green)"></span>Overall Rights &amp; Dignity (P10)</div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;gap:8px">
+        <div style="font-size:52px;font-weight:800;color:var(--ok-green)">100%</div>
+        <div style="font-size:12px;color:var(--muted);text-align:center">Beneficiaries believe ACF services<br>protect their rights and dignity</div>
+        <span class="pill green">All 45 respondents</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PROTECTION & AAP ══════════════════════ -->
+<div class="section" id="sec-protection">
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-val">80%</div>
+      <div class="kpi-label">Feel Safe Accessing Services</div>
+      <div class="kpi-sub">36/45 respondents</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">89%</div>
+      <div class="kpi-label">Treated with Respect &amp; Dignity</div>
+      <div class="kpi-sub">40/45 respondents</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-val">20%</div>
+      <div class="kpi-label">Reported Abuse / Discrimination</div>
+      <div class="kpi-sub">9/45 — needs follow-up</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-val">64%</div>
+      <div class="kpi-label">Aware of Complaint Mechanism</div>
+      <div class="kpi-sub">29/45 — AAP gap identified</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1.2">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>Protection Indicators — At a Glance</div>
+      <table class="ind-table">
+        <thead>
+          <tr><th>Indicator</th><th>Yes</th><th>No / Issue</th><th>%Yes</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>P1. Felt safe accessing services</td><td>36</td><td>9</td><td>80%</td><td><span class="pill amber">Monitor</span></td></tr>
+          <tr><td>P2. Treated with respect &amp; dignity</td><td>40</td><td>5</td><td>89%</td><td><span class="pill green">Acceptable</span></td></tr>
+          <tr><td>P3. Experienced abuse/discrimination</td><td>9</td><td>36</td><td>20%</td><td><span class="pill red">Alert</span></td></tr>
+          <tr><td>P4. Disability-inclusive services</td><td>37</td><td>8</td><td>82%</td><td><span class="pill green">Acceptable</span></td></tr>
+          <tr><td>P5. Gender equality in service delivery</td><td>37</td><td>8</td><td>82%</td><td><span class="pill green">Acceptable</span></td></tr>
+          <tr><td>P8. Knows complaint channel</td><td>29</td><td>16</td><td>64%</td><td><span class="pill amber">Below target</span></td></tr>
+          <tr><td>P10. Services protect rights &amp; dignity</td><td>45</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Protection Radar</div>
+      <div class="chart-box"><canvas id="chartProtection"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--alert-amber)"></span>Complaint Mechanism Awareness — by Channel</div>
+      <div class="chart-box-sm"><canvas id="chartAAP"></canvas></div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Abuse / Discrimination Type Reported</div>
+      <div style="padding-top:6px">
+        <div class="bar-row"><div class="bar-label">Displacement status</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--alert-red)"></div></div><div class="bar-pct">100%</div></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">All 9 reported abuse cases cited <strong>displacement status</strong> as the basis of discrimination — a critical protection gap requiring structured response from ACF and BAF.</div>
+        <div class="alert-box red" style="margin-top:12px">
+          <span class="alert-icon">⚠</span>
+          <span>Recommended action: Conduct targeted staff sensitization on IDP non-discrimination protocols across Magumeri facilities.</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--un-dark)"></span>Previous Complaints — Resolution Status</div>
+      <div style="display:flex;align-items:center;justify-content:center;height:120px;flex-direction:column;gap:6px">
+        <div style="font-size:36px;font-weight:800;color:var(--muted)">N/A</div>
+        <div style="font-size:12px;color:var(--muted);text-align:center">All respondents stated<br>"I have not made a complaint"</div>
+        <span class="pill amber">Possible under-reporting</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ NUTRITION ══════════════════════ -->
+<div class="section" id="sec-nutrition">
+  <div class="kpi-grid">
+    <div class="kpi blue">
+      <div class="kpi-val">16</div>
+      <div class="kpi-label">Nutrition Respondents</div>
+      <div class="kpi-sub">OTP: 6 · Porridge/Tombrown: 10</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">69%</div>
+      <div class="kpi-label">RUTF Received</div>
+      <div class="kpi-sub">11/16 OTP clients confirmed</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">88%</div>
+      <div class="kpi-label">Appetite Test Conducted</div>
+      <div class="kpi-sub">14/16 observed</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">75%</div>
+      <div class="kpi-label">Immunization Available</div>
+      <div class="kpi-sub">12/16 at facility</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>OTP Service Quality Indicators</div>
+      <table class="ind-table">
+        <thead><tr><th>Indicator</th><th>Compliant</th><th>Total</th><th>%</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Appetite test conducted</td><td>14</td><td>16</td><td>88%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Routine medications given</td><td>14</td><td>16</td><td>88%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>RUTF (Plumpy'Nut) received</td><td>11</td><td>16</td><td>69%</td><td><span class="pill amber">Monitor</span></td></tr>
+          <tr><td>Immunization services available</td><td>12</td><td>16</td><td>75%</td><td><span class="pill green">Acceptable</span></td></tr>
+          <tr><td>Referral explained if needed</td><td>14</td><td>16</td><td>88%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Proper screening equipment used</td><td>16</td><td>16</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>OTP register updated</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Stock cards updated</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Cold chain temperature correct</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--who-green)"></span>Nutrition Quality Score</div>
+      <div class="chart-box"><canvas id="chartNutrition"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--alert-amber)"></span>Porridge Mum (Mother-to-Mother) Programme</div>
+      <div class="alert-box green">
+        <span class="alert-icon">✓</span>
+        <span>Kitchen site and utensils reported clean. Food quantity sufficient for all group members.</span>
+      </div>
+      <div class="alert-box green">
+        <span class="alert-icon">✓</span>
+        <span>Beneficiaries satisfied with recipes provided. Ingredients of good quality confirmed.</span>
+      </div>
+      <div class="alert-box amber">
+        <span class="alert-icon">⚑</span>
+        <span>10 respondents enrolled in Porridge/Tombrown — group names and kitchen distances not consistently recorded for all.</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>Unofficial Fees Collected</div>
+      <div style="display:flex;align-items:center;justify-content:center;height:130px;flex-direction:column;gap:8px">
+        <div style="font-size:48px;font-weight:800;color:var(--ok-green)">0%</div>
+        <div style="font-size:12px;color:var(--muted);text-align:center">No unofficial payments reported<br>across all nutrition services</div>
+        <span class="pill green">Zero-fee compliance confirmed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ HEALTH ══════════════════════ -->
+<div class="section" id="sec-health">
+  <div class="kpi-grid">
+    <div class="kpi blue">
+      <div class="kpi-val">7</div>
+      <div class="kpi-label">Health Respondents</div>
+      <div class="kpi-sub">Across Magumeri &amp; Gubio</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">100%</div>
+      <div class="kpi-label">Gloves / PPE Available</div>
+      <div class="kpi-sub">All facilities observed</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">100%</div>
+      <div class="kpi-label">Hand Hygiene Observed</div>
+      <div class="kpi-sub">Staff before patient contact</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-val">43%</div>
+      <div class="kpi-label">Electricity Available</div>
+      <div class="kpi-sub">3 Yes / 3 No / 1 Sometimes</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1.1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>IPC &amp; Facility Environment Indicators</div>
+      <table class="ind-table">
+        <thead><tr><th>Indicator</th><th>Compliant</th><th>Total Obs.</th><th>%</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Facility environment clean</td><td>6</td><td>7</td><td>86%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Gloves / PPE available</td><td>6</td><td>7</td><td>86%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Instruments from sterile packs</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Staff hand hygiene observed</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Waste properly disposed</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Sterilization equipment functional</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Drugs prescribed available</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Electricity functional</td><td>3</td><td>7</td><td>43%</td><td><span class="pill red">Critical Gap</span></td></tr>
+          <tr><td>Disability physical access</td><td>7</td><td>7</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--who-teal)"></span>Facility Compliance Score</div>
+      <div class="chart-box"><canvas id="chartHealth"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Key Health Findings</div>
+      <div class="alert-box red">
+        <span class="alert-icon">⚠</span>
+        <span><strong>Electricity gap (57% facilities lack reliable power)</strong> — affects cold chain, sterilization, lighting for night deliveries. Urgent solar/generator backup required for 4 facilities.</span>
+      </div>
+      <div class="alert-box green">
+        <span class="alert-icon">✓</span>
+        <span>IPC compliance is exemplary — 100% hand hygiene, sterile instruments, and waste disposal across all observed health facilities.</span>
+      </div>
+      <div class="alert-box green">
+        <span class="alert-icon">✓</span>
+        <span>Drug supply chain intact — all essential medicines and delivery equipment confirmed available at observed facilities.</span>
+      </div>
+      <div class="alert-box amber">
+        <span class="alert-icon">⚑</span>
+        <span>Satisfaction data limited (7 observations). Broader sampling recommended in the next TPM cycle to strengthen health service conclusions.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ WASH ══════════════════════ -->
+<div class="section" id="sec-wash">
+  <div class="kpi-grid">
+    <div class="kpi blue">
+      <div class="kpi-val">21</div>
+      <div class="kpi-label">WASH Respondents</div>
+      <div class="kpi-sub">Boreholes, latrines, hygiene</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-val">50%</div>
+      <div class="kpi-label">Daily Water Availability</div>
+      <div class="kpi-sub">11 Yes / 8 No / 3 Sometimes</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-val">37%</div>
+      <div class="kpi-label">Latrines Clean</div>
+      <div class="kpi-sub">7/22 — critical sanitation gap</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-val">14%</div>
+      <div class="kpi-label">Handwashing Stations Available</div>
+      <div class="kpi-sub">Only 3/22 sites with soap &amp; water</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1.1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>WASH Indicators Summary</div>
+      <table class="ind-table">
+        <thead><tr><th>Indicator</th><th>Positive</th><th>Total</th><th>%</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Water available daily</td><td>11</td><td>22</td><td>50%</td><td><span class="pill red">Critical</span></td></tr>
+          <tr><td>Water perceived as good quality</td><td>20</td><td>22</td><td>91%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Latrines clean (no odor/overflow)</td><td>7</td><td>22</td><td>32%</td><td><span class="pill red">Critical</span></td></tr>
+          <tr><td>Latrine doors have privacy locks</td><td>7</td><td>22</td><td>32%</td><td><span class="pill red">Critical</span></td></tr>
+          <tr><td>Latrines segregated by sex</td><td>7</td><td>22</td><td>32%</td><td><span class="pill red">Critical</span></td></tr>
+          <tr><td>Handwashing facility with soap</td><td>3</td><td>22</td><td>14%</td><td><span class="pill red">Critical</span></td></tr>
+          <tr><td>Water point safe for women &amp; girls</td><td>21</td><td>22</td><td>95%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Hygiene promotion messages received</td><td>22</td><td>22</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Hygiene kit received</td><td>22</td><td>22</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>No diarrhea cases (last 3 months)</td><td>22</td><td>22</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>WASH Compliance Radar</div>
+      <div class="chart-box"><canvas id="chartWASH"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Priority WASH Gaps</div>
+      <div class="alert-box red">
+        <span class="alert-icon">⚠</span>
+        <span><strong>Handwashing stations (14%):</strong> Only 3 of 22 sites had functional handwashing with soap. Immediate NFI replenishment and infrastructure repair required.</span>
+      </div>
+      <div class="alert-box red">
+        <span class="alert-icon">⚠</span>
+        <span><strong>Latrine hygiene (32%):</strong> 15 latrines observed as dirty or with overflow. Risk of disease transmission and GBV exposure (no privacy locks).</span>
+      </div>
+      <div class="alert-box red">
+        <span class="alert-icon">⚠</span>
+        <span><strong>Daily water access (50%):</strong> 8 communities reported water not available daily. Solar pump functionality checks recommended.</span>
+      </div>
+      <div class="alert-box green">
+        <span class="alert-icon">✓</span>
+        <span>Water quality perceived positively (91%). No diarrhea reported. Hygiene promotion 100% coverage confirmed.</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--who-teal)"></span>Water vs. Sanitation Performance</div>
+      <div class="chart-box"><canvas id="chartWashBar"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ALERTS ══════════════════════ -->
+<div class="section" id="sec-alerts">
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title" style="color:var(--alert-red)"><span class="dot" style="background:var(--alert-red)"></span>🔴 Critical Findings (Immediate Action Required)</div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Handwashing facilities:</strong> Only 14% of WASH sites had functional handwashing with soap. Immediate restocking and rehabilitation needed across Gajiganna cluster.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Latrine condition:</strong> 68% of latrines dirty/overflowing, no privacy locks. Female beneficiaries at heightened GBV risk. Emergency latrine rehabilitation needed.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Protection — Discrimination:</strong> 20% of respondents reported experiencing discrimination based on displacement status. Staff re-orientation on do-no-harm principles required.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Health — Electricity:</strong> 57% of health facilities without reliable electricity. Cold chain integrity and maternal delivery safety at risk. Solar backup procurement critical.</span></div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-title" style="color:var(--alert-amber)"><span class="dot" style="background:var(--alert-amber)"></span>🟡 Moderate Concerns (Monitor Closely)</div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>AAP — Complaint awareness:</strong> 36% of beneficiaries unaware of any complaint channel. CFM sensitization campaign recommended at next outreach cycle.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>WASH — Daily water supply:</strong> 50% of water points not available daily. Suspected pump failures or power outages. Asset maintenance checks needed.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Nutrition — RUTF coverage:</strong> 31% of OTP clients did not confirm RUTF receipt. Stock-out or distribution process gap to be investigated at facility level.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Safety — 20% felt unsafe:</strong> 7 respondents did not feel safe; 2 were unsure. Root cause analysis (insecurity vs. facility conditions) needed at site level.</span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card">
+      <div class="card-title" style="color:var(--ok-green)"><span class="dot" style="background:var(--ok-green)"></span>🟢 Positive Findings (Maintain &amp; Document)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>IPC Compliance 100%:</strong> All health staff observed washing hands, using sterile instruments, and properly disposing waste.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Zero unofficial fees:</strong> No beneficiaries reported paying unofficial fees for any service — strong accountability record.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Overall dignity 100%:</strong> Every single respondent (45/45) believes ACF services protect their rights and dignity as a beneficiary.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Hygiene promotion 100%:</strong> All WASH beneficiaries received hygiene messages and hygiene kits — behaviour change programming is functional.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>No diarrhea reported:</strong> Zero diarrhea cases in the last 3 months across all WASH communities surveyed — positive health outcome.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Nutrition registers 100%:</strong> OTP, immunization tally sheets, and monthly summary reports all updated at visited sites.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--un-dark)"></span>Recommended Actions Summary</div>
+      <table class="ind-table">
+        <thead><tr><th>#</th><th>Finding</th><th>Sector</th><th>Priority</th><th>Responsible</th><th>Timeline</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Rehabilitate latrines — privacy locks, cleaning</td><td>WASH</td><td><span class="pill red">Immediate</span></td><td>ACF WASH Team</td><td>2 weeks</td></tr>
+          <tr><td>2</td><td>Restore handwashing stations with soap supply</td><td>WASH</td><td><span class="pill red">Immediate</span></td><td>ACF WASH Team</td><td>2 weeks</td></tr>
+          <tr><td>3</td><td>Staff sensitization on IDP non-discrimination</td><td>Protection</td><td><span class="pill red">Immediate</span></td><td>ACF Protection</td><td>1 month</td></tr>
+          <tr><td>4</td><td>Solar / generator backup for health facilities</td><td>Health</td><td><span class="pill red">Immediate</span></td><td>ACF Health</td><td>1 month</td></tr>
+          <tr><td>5</td><td>CFM awareness campaign at distribution points</td><td>AAP</td><td><span class="pill amber">High</span></td><td>BAF / ACF AAP</td><td>Next cycle</td></tr>
+          <tr><td>6</td><td>Investigate RUTF stock distribution at OTP sites</td><td>Nutrition</td><td><span class="pill amber">High</span></td><td>ACF Nutrition</td><td>Next cycle</td></tr>
+          <tr><td>7</td><td>Borehole pump functionality audit</td><td>WASH</td><td><span class="pill amber">High</span></td><td>ACF WASH Team</td><td>Next cycle</td></tr>
+          <tr><td>8</td><td>Expand health sample in next TPM round (n&gt;15)</td><td>Health</td><td><span class="pill blue">Routine</span></td><td>BAF TPM Team</td><td>Next round</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- end body -->
+
+<!-- ══════════════════════ MHPSS SERVICES ══════════════════════ -->
+<div class="section" id="sec-mhpss">
+
+  <!-- KPI Row -->
+  <div class="kpi-grid">
+    <div class="kpi blue">
+      <div class="kpi-val">68</div>
+      <div class="kpi-label">MHPSS Respondents</div>
+      <div class="kpi-sub">May 2026 · 3 LGAs covered</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">93%</div>
+      <div class="kpi-label">Felt Emotionally Safe</div>
+      <div class="kpi-sub">63/68 — 5 reported feeling unsafe</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-val">100%</div>
+      <div class="kpi-label">Satisfaction Rate</div>
+      <div class="kpi-sub">Very Satisfied (44%) · Satisfied (56%)</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-val">5</div>
+      <div class="kpi-label">Emotional Safety Gaps</div>
+      <div class="kpi-sub">Needs follow-up — flagged across 3 service types</div>
+    </div>
+  </div>
+
+  <!-- Row 1: Service type donut + Session quality radar + Satisfaction gauge -->
+  <div class="row">
+    <div class="card" style="flex:1.1">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>MHPSS Service Type Distribution</div>
+      <div class="chart-box"><canvas id="chartMhpssType"></canvas></div>
+    </div>
+
+    <div class="card" style="flex:1.3">
+      <div class="card-title"><span class="dot" style="background:var(--who-green)"></span>Session Quality Indicators — % Positive</div>
+      <div class="chart-box"><canvas id="chartMhpssQuality"></canvas></div>
+    </div>
+
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--alert-amber)"></span>Overall Satisfaction</div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:170px;gap:10px">
+        <div class="gauge-wrap">
+          <canvas id="chartMhpssSat"></canvas>
+          <div class="gauge-center"><div class="val" style="color:var(--ok-green)">100%</div><div class="lbl">Satisfied</div></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px">
+          <span class="pill green" style="margin-right:4px">Very Satisfied: 44%</span><br><br>
+          <span class="pill blue">Satisfied: 56%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Service type by LGA grouped bar + Quality indicator table -->
+  <div class="row">
+    <div class="card" style="flex:1.3">
+      <div class="card-title"><span class="dot" style="background:var(--un-dark)"></span>Service Type by LGA</div>
+      <div class="chart-box"><canvas id="chartMhpssLGA"></canvas></div>
+    </div>
+
+    <div class="card" style="flex:1.5">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>Session Quality Indicators — Full Detail</div>
+      <table class="ind-table">
+        <thead>
+          <tr><th>Indicator</th><th>Yes</th><th>No</th><th>% Yes</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Staff clearly explained purpose of session</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Beneficiary felt emotionally safe</td><td>63</td><td>5</td><td>93%</td><td><span class="pill amber">Monitor</span></td></tr>
+          <tr><td>Enough time given to express self</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Staff showed empathy &amp; non-judgment</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Privacy ensured during session</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+        </tbody>
+      </table>
+      <div class="alert-box amber" style="margin-top:12px">
+        <span class="alert-icon">⚑</span>
+        <span>5 respondents reported not feeling emotionally safe — distributed across PFA (2), Psychoeducation (2), and Counselling (1). Targeted supervisor debrief recommended for Magumeri and Kaga LGA facilitators.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3: Access bars + Satisfaction by service type + LGA coverage -->
+  <div class="row">
+    <div class="card" style="flex:1">
+      <div class="card-title"><span class="dot" style="background:var(--who-teal)"></span>Access — Distance &amp; Wait Time</div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Distance to Facility</div>
+        <div class="bar-row"><div class="bar-label">Less than 30 min</div><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--ok-green)"></div></div><div class="bar-pct">78%</div></div>
+        <div class="bar-row"><div class="bar-label">30 – 60 minutes</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--alert-amber)"></div></div><div class="bar-pct">22%</div></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Wait Time Before Attended</div>
+        <div class="bar-row"><div class="bar-label">Less than 30 min</div><div class="bar-track"><div class="bar-fill" style="width:81%;background:var(--ok-green)"></div></div><div class="bar-pct">81%</div></div>
+        <div class="bar-row"><div class="bar-label">30 – 60 minutes</div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--alert-amber)"></div></div><div class="bar-pct">19%</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="flex:1.5">
+      <div class="card-title"><span class="dot" style="background:var(--who-green)"></span>Satisfaction by Service Type</div>
+      <div class="chart-box"><canvas id="chartMhpssSatType"></canvas></div>
+    </div>
+
+    <div class="card" style="flex:.9">
+      <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>LGA Coverage</div>
+      <div style="padding-top:4px">
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Magumeri</span></div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--un-blue)"></div></div><div class="bar-pct">34</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Kaga</span></div><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--who-green)"></div></div><div class="bar-pct">21</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Mobbar</span></div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--who-teal)"></div></div><div class="bar-pct">13</div></div>
+        <div style="margin-top:12px">
+          <div class="alert-box green">
+            <span class="alert-icon">✓</span>
+            <span>All 3 LGAs report 100% satisfaction. Peer Support exclusively delivered in Mobbar.</span>
+          </div>
+          <div class="alert-box green">
+            <span class="alert-icon">✓</span>
+            <span>Zero unofficial fees or exploitation reported across all MHPSS sessions.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end sec-mhpss -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Third Party Monitoring (TPM) · Action Against Hunger (ACF) Nigeria · Borno State · March 2026</span>
+  <span>Implementing Partner: Better Aid Foundation (BAF) · Confidential — For donor reporting use only</span>
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const UN_BLUE = '#009EDB', UN_DARK = '#1A3C5E', WHO_GREEN = '#008B61',
+      WHO_TEAL = '#00A087', RED = '#C0392B', AMBER = '#E67E22', OK = '#27AE60';
+
+const dflOpts = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { labels: { font: { family: 'Segoe UI, Arial', size: 11 }, boxWidth: 12 } } }
+};
+
+// Sector donut
+new Chart(document.getElementById('chartSector'), {
+  type: 'doughnut',
+  data: {
+    labels: ['WASH (21)', 'MHPSS (68)', 'Nutrition (16)', 'Health (7)', 'Others (1)'],
+    datasets: [{ data: [21,68,16,7,1], backgroundColor: [UN_BLUE, '#7B2FBE', WHO_GREEN, WHO_TEAL, AMBER], borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { ...dflOpts, plugins: { ...dflOpts.plugins, legend: { position: 'right', labels: { font: {size:11}, boxWidth:12 } } } }
+});
+
+// LGA donut
+new Chart(document.getElementById('chartLGA'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Magumeri (37)', 'Gubio (8)'],
+    datasets: [{ data: [37,8], backgroundColor: [UN_DARK, UN_BLUE], borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { ...dflOpts, plugins: { ...dflOpts.plugins, legend: { position: 'right', labels: { font:{size:11}, boxWidth:12 } } } }
+});
+
+// Date bar
+new Chart(document.getElementById('chartDate'), {
+  type: 'bar',
+  data: {
+    labels: ['24 Mar','25 Mar','26 Mar','27 Mar','28 Mar','30 Mar','31 Mar'],
+    datasets: [{ label: 'Surveys completed', data: [6,4,9,7,5,5,9], backgroundColor: UN_BLUE, borderRadius: 3 }]
+  },
+  options: { ...dflOpts, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize:2, font:{size:10} } }, x: { ticks: { font:{size:10} } } } }
+});
+
+// Protection radar
+new Chart(document.getElementById('chartProtection'), {
+  type: 'radar',
+  data: {
+    labels: ['Safety (P1)','Dignity (P2)','No Abuse (P3)','Disability\nAccess (P4)','Gender\nEquality (P5)','Complaint\nAware (P8)'],
+    datasets: [{
+      label: '% Positive response',
+      data: [80, 89, 80, 82, 82, 64],
+      backgroundColor: 'rgba(0,158,219,0.15)',
+      borderColor: UN_BLUE, pointBackgroundColor: UN_BLUE, borderWidth: 2
+    }, {
+      label: 'Target (90%)',
+      data: [90,90,90,90,90,90],
+      backgroundColor: 'rgba(39,174,96,0.05)',
+      borderColor: 'rgba(39,174,96,.4)', borderDash: [5,5], borderWidth: 1.5, pointRadius: 0
+    }]
+  },
+  options: { ...dflOpts, scales: { r: { min:0, max:100, ticks: { stepSize:25, font:{size:9} }, pointLabels: { font:{size:10} } } } }
+});
+
+// AAP channels bar
+new Chart(document.getElementById('chartAAP'), {
+  type: 'bar',
+  data: {
+    labels: ['Toll-free line','Complaint box','Community\nleaders','Staff member','Email','Unknown'],
+    datasets: [{ label: 'Respondents aware', data: [8,7,7,5,2,16], backgroundColor: [UN_BLUE,UN_BLUE,UN_BLUE,UN_BLUE,UN_BLUE,RED], borderRadius: 3 }]
+  },
+  options: { ...dflOpts, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,ticks:{font:{size:10}}},x:{ticks:{font:{size:10}}}} }
+});
+
+// Nutrition radar
+new Chart(document.getElementById('chartNutrition'), {
+  type: 'radar',
+  data: {
+    labels: ['Appetite Test','Routine Meds','Immuniz.\nAvailable','RUTF\nReceived','Register\nUpdated','Cold Chain\nOK'],
+    datasets: [{
+      label: '% Compliance',
+      data: [88,88,75,69,100,100],
+      backgroundColor:'rgba(0,139,97,0.15)', borderColor:WHO_GREEN, pointBackgroundColor:WHO_GREEN, borderWidth:2
+    }]
+  },
+  options:{...dflOpts, scales:{r:{min:0,max:100,ticks:{stepSize:25,font:{size:9}},pointLabels:{font:{size:10}}}}}
+});
+
+// Health bar
+new Chart(document.getElementById('chartHealth'), {
+  type:'bar',
+  data:{
+    labels:['Clean\nFacility','Gloves/\nPPE','Sterile\nInstruments','Hand\nHygiene','Waste\nDisposal','Electricity'],
+    datasets:[{
+      label:'% Compliant',
+      data:[86,86,100,100,100,43],
+      backgroundColor:[OK,OK,OK,OK,OK,RED], borderRadius:3
+    }]
+  },
+  options:{...dflOpts,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%',font:{size:10}}},x:{ticks:{font:{size:9}}}}}
+});
+
+// WASH radar
+new Chart(document.getElementById('chartWASH'), {
+  type:'radar',
+  data:{
+    labels:['Daily Water','Good Quality','Latrines\nClean','Privacy\nLocks','Sex-\nSegregated','Handwash\nStation','Safe for\nWomen','Hygiene\nMessages'],
+    datasets:[{
+      label:'% Positive',
+      data:[50,91,32,32,32,14,95,100],
+      backgroundColor:'rgba(0,158,219,0.12)', borderColor:UN_BLUE, pointBackgroundColor:UN_BLUE, borderWidth:2
+    },{
+      label:'Minimum standard (75%)',
+      data:[75,75,75,75,75,75,75,75],
+      backgroundColor:'rgba(192,57,43,0.04)', borderColor:'rgba(192,57,43,.35)',
+      borderDash:[5,5], borderWidth:1.5, pointRadius:0
+    }]
+  },
+  options:{...dflOpts,scales:{r:{min:0,max:100,ticks:{stepSize:25,font:{size:9}},pointLabels:{font:{size:10}}}}}
+});
+
+// WASH grouped bar
+new Chart(document.getElementById('chartWashBar'), {
+  type:'bar',
+  data:{
+    labels:['Daily Water\nAccess','Water\nQuality','Latrine\nCleanliness','Handwash\nStation','Safety\nfor Women','Hygiene\nPromotion'],
+    datasets:[
+      {label:'% Met', data:[50,91,32,14,95,100], backgroundColor:UN_BLUE, borderRadius:3},
+      {label:'% Not Met', data:[50,9,68,86,5,0], backgroundColor:'rgba(192,57,43,0.4)', borderRadius:3}
+    ]
+  },
+  options:{...dflOpts,scales:{x:{stacked:true,ticks:{font:{size:9}}},y:{stacked:true,max:100,ticks:{callback:v=>v+'%',font:{size:10}}}}}
+});
+
+// ── MHPSS CHARTS ──
+
+// Service type donut
+new Chart(document.getElementById('chartMhpssType'), {
+  type: 'doughnut',
+  data: {
+    labels: ['PFA — Psych. First Aid (25)', 'Psychoeducation (17)', 'Peer Support (14)', 'Counselling (11)', 'Not Sure (1)'],
+    datasets: [{ data: [25,17,14,11,1], backgroundColor: [UN_BLUE, WHO_GREEN, WHO_TEAL, AMBER, '#999'], borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { ...dflOpts, plugins: { ...dflOpts.plugins, legend: { position: 'right', labels: { font:{size:10}, boxWidth:12 } } } }
+});
+
+// Session quality horizontal bar
+new Chart(document.getElementById('chartMhpssQuality'), {
+  type: 'bar',
+  data: {
+    labels: ['Staff Explained\nPurpose','Privacy\nEnsured','Empathy\nShown','Time to\nExpress Self','Felt Emotionally\nSafe'],
+    datasets: [{
+      label: '% Yes',
+      data: [100, 100, 100, 100, 93],
+      backgroundColor: [OK, OK, OK, OK, AMBER],
+      borderRadius: 3
+    }]
+  },
+  options: {
+    ...dflOpts,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { beginAtZero: true, max: 100, ticks: { callback: v => v+'%', font:{size:10} } },
+      y: { ticks: { font:{size:10} } }
+    }
+  }
+});
+
+// Satisfaction gauge donut
+new Chart(document.getElementById('chartMhpssSat'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Very Satisfied', 'Satisfied'],
+    datasets: [{ data: [30, 38], backgroundColor: [OK, UN_BLUE], borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { ...dflOpts, cutout: '70%', plugins: { legend: { display: false } } }
+});
+
+// Service type by LGA grouped bar
+new Chart(document.getElementById('chartMhpssLGA'), {
+  type: 'bar',
+  data: {
+    labels: ['Magumeri', 'Kaga', 'Mobbar'],
+    datasets: [
+      { label: 'PFA', data: [14, 11, 0], backgroundColor: UN_BLUE, borderRadius: 2 },
+      { label: 'Psychoeducation', data: [14, 3, 0], backgroundColor: WHO_GREEN, borderRadius: 2 },
+      { label: 'Peer Support', data: [0, 2, 12], backgroundColor: WHO_TEAL, borderRadius: 2 },
+      { label: 'Counselling', data: [6, 5, 0], backgroundColor: AMBER, borderRadius: 2 },
+      { label: 'Not Sure', data: [0, 0, 1], backgroundColor: '#aaa', borderRadius: 2 }
+    ]
+  },
+  options: {
+    ...dflOpts,
+    scales: {
+      x: { stacked: false, ticks: { font:{size:11} } },
+      y: { beginAtZero: true, ticks: { stepSize: 5, font:{size:10} } }
+    },
+    plugins: { legend: { position: 'right', labels: { font:{size:10}, boxWidth:12 } } }
+  }
+});
+
+// Satisfaction by service type stacked bar
+new Chart(document.getElementById('chartMhpssSatType'), {
+  type: 'bar',
+  data: {
+    labels: ['PFA (25)', 'Psychoeducation (17)', 'Peer Support (14)', 'Counselling (11)'],
+    datasets: [
+      { label: 'Very Satisfied', data: [13, 6, 6, 5], backgroundColor: OK, borderRadius: 2 },
+      { label: 'Satisfied',      data: [12, 11, 8, 6], backgroundColor: UN_BLUE, borderRadius: 2 }
+    ]
+  },
+  options: {
+    ...dflOpts,
+    scales: {
+      x: { stacked: true, ticks: { font:{size:10} } },
+      y: { stacked: true, beginAtZero: true, ticks: { stepSize: 5, font:{size:10} } }
+    },
+    plugins: { legend: { position: 'top', labels: { font:{size:10}, boxWidth:12 } } }
+  }
+});
+</script>
+</body>
+</html>
