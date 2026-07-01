@@ -202,29 +202,27 @@
     color: var(--muted);
     white-space: nowrap;
   }
-  .filter-btn {
-    padding: 4px 14px;
-    border-radius: 20px;
+  .filter-select {
+    padding: 5px 28px 5px 12px;
+    border-radius: 6px;
     border: 1px solid var(--border);
     background: var(--bg);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--muted);
+    color: var(--text);
     cursor: pointer;
-    transition: all .15s;
     font-family: var(--font);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7C93'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    min-width: 180px;
+    transition: border-color .15s;
   }
-  .filter-btn:hover { border-color: var(--un-blue); color: var(--un-blue); }
-  .filter-btn.active {
-    background: var(--un-blue);
-    border-color: var(--un-blue);
-    color: #fff;
-  }
-  .filter-divider {
-    width: 1px; height: 18px;
-    background: var(--border);
-    margin: 0 4px;
-  }
+  .filter-select:hover { border-color: var(--un-blue); }
+  .filter-select:focus { outline: none; border-color: var(--un-blue); box-shadow: 0 0 0 2px rgba(0,158,219,0.2); }
   .filter-note {
     font-size: 10px;
     color: var(--muted);
@@ -254,9 +252,9 @@
   </div>
   <div class="header-main">
     <div>
-      <h1>TPM Field Monitoring Dashboard<br><span>Magumeri &amp; Gubio LGAs</span></h1>
+      <h1>TPM Field Monitoring Dashboard<br><span>Magumeri · Gubio · Kaga · Mobbar</span></h1>
       <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.7)">
-        Survey period: Mar – Jun 2026 &nbsp;|&nbsp; 869 respondents &nbsp;|&nbsp; Multiple LGAs &nbsp;·&nbsp; Borno State
+        Survey period: Mar – Jun 2026 &nbsp;|&nbsp; 1,038 respondents &nbsp;|&nbsp; 4 LGAs &nbsp;·&nbsp; Borno State
       </div>
     </div>
     <div class="header-meta">
@@ -280,14 +278,15 @@
 
 <!-- MONTH FILTER BAR -->
 <div class="filter-bar" id="filterBar">
-  <label>📅 Filter by Month:</label>
-  <button class="filter-btn active" onclick="setMonth('all', this)">All Months</button>
-  <div class="filter-divider"></div>
-  <button class="filter-btn" onclick="setMonth('2026-03', this)">Mar 2026 <span style="opacity:.6;font-weight:400">(45)</span></button>
-  <button class="filter-btn" onclick="setMonth('2026-04', this)">Apr 2026 <span style="opacity:.6;font-weight:400">(68)</span></button>
-  <button class="filter-btn" onclick="setMonth('2026-05', this)">May 2026 <span style="opacity:.6;font-weight:400">(267)</span></button>
-  <button class="filter-btn" onclick="setMonth('2026-06', this)">Jun 2026 <span style="opacity:.6;font-weight:400">(489)</span></button>
-  <span class="filter-note" id="filterNote">Showing all 869 respondents · Mar – Jun 2026</span>
+  <label for="monthSelect">📅 Filter by Month:</label>
+  <select class="filter-select" id="monthSelect" onchange="setMonth(this.value)">
+    <option value="all">All Months (1,038)</option>
+    <option value="2026-03">Mar 2026 (45)</option>
+    <option value="2026-04">Apr 2026 (68)</option>
+    <option value="2026-05">May 2026 (267)</option>
+    <option value="2026-06">Jun 2026 (658)</option>
+  </select>
+  <span class="filter-note" id="filterNote">Showing all 1,038 respondents · Mar – Jun 2026</span>
 </div>
 
 <!-- BODY -->
@@ -427,11 +426,14 @@
     <div class="card" style="flex:1">
       <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Abuse / Discrimination Type Reported</div>
       <div style="padding-top:6px">
-        <div class="bar-row"><div class="bar-label">Displacement status</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--alert-red)"></div></div><div class="bar-pct">100%</div></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px">All 9 reported abuse cases cited <strong>displacement status</strong> as the basis of discrimination — a critical protection gap requiring structured response from ACF and BAF.</div>
+        <div class="bar-row"><div class="bar-label">Displacement status</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--alert-red)"></div></div><div class="bar-pct">20</div></div>
+        <div class="bar-row"><div class="bar-label">Based on gender</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--alert-amber)"></div></div><div class="bar-pct">15</div></div>
+        <div class="bar-row"><div class="bar-label">Other (specify)</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--alert-amber)"></div></div><div class="bar-pct">8</div></div>
+        <div class="bar-row"><div class="bar-label">Age</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--alert-amber)"></div></div><div class="bar-pct">7</div></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">Of 52 reported abuse/discrimination cases, <strong>displacement status</strong> (20) and <strong>gender</strong> (15) are the most cited grounds. Bars show mention counts (multi-select).</div>
         <div class="alert-box red" style="margin-top:12px">
           <span class="alert-icon">⚠</span>
-          <span>Recommended action: Conduct targeted staff sensitization on IDP non-discrimination protocols across Magumeri facilities.</span>
+          <span>Recommended action: Conduct targeted staff sensitization on IDP non-discrimination and gender do-no-harm protocols.</span>
         </div>
       </div>
     </div>
@@ -508,7 +510,7 @@
       </div>
       <div class="alert-box amber">
         <span class="alert-icon">⚑</span>
-        <span>10 respondents enrolled in Porridge/Tombrown — group names and kitchen distances not consistently recorded for all.</span>
+        <span>95 respondents enrolled in Porridge/Tombrown — group names and kitchen distances not consistently recorded for all.</span>
       </div>
     </div>
     <div class="card" style="flex:1">
@@ -576,19 +578,19 @@
       <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Key Health Findings</div>
       <div class="alert-box red">
         <span class="alert-icon">⚠</span>
-        <span><strong>Electricity gap (57% facilities lack reliable power)</strong> — affects cold chain, sterilization, lighting for night deliveries. Urgent solar/generator backup required for 4 facilities.</span>
+        <span><strong>Electricity gap (52% of facilities lack reliable power)</strong> — only 105 of 217 facility observations had functional electricity. Affects cold chain, sterilization and lighting for night deliveries. Urgent solar/generator backup required.</span>
       </div>
       <div class="alert-box green">
         <span class="alert-icon">✓</span>
-        <span>IPC compliance is exemplary — 100% hand hygiene, sterile instruments, and waste disposal across all observed health facilities.</span>
+        <span>IPC compliance is strong — hand hygiene observed in 86% of visits, with sterile instruments and proper waste disposal near-universal across observed facilities.</span>
       </div>
       <div class="alert-box green">
         <span class="alert-icon">✓</span>
-        <span>Drug supply chain intact — all essential medicines and delivery equipment confirmed available at observed facilities.</span>
+        <span>Drug supply chain intact — essential medicines and delivery equipment confirmed available at the large majority of observed facilities.</span>
       </div>
       <div class="alert-box amber">
         <span class="alert-icon">⚑</span>
-        <span>Satisfaction data limited (7 observations). Broader sampling recommended in the next TPM cycle to strengthen health service conclusions.</span>
+        <span>Health sample now robust (217 facility observations across 4 LGAs), giving far greater confidence than the earlier round.</span>
       </div>
     </div>
   </div>
@@ -649,19 +651,19 @@
       <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Priority WASH Gaps</div>
       <div class="alert-box red">
         <span class="alert-icon">⚠</span>
-        <span><strong>Handwashing stations (14%):</strong> Only 3 of 22 sites had functional handwashing with soap. Immediate NFI replenishment and infrastructure repair required.</span>
+        <span><strong>Handwashing stations (19%):</strong> Only 57 of 306 sites had functional handwashing with soap. Immediate NFI replenishment and infrastructure repair required.</span>
       </div>
       <div class="alert-box red">
         <span class="alert-icon">⚠</span>
-        <span><strong>Latrine hygiene (32%):</strong> 15 latrines observed as dirty or with overflow. Risk of disease transmission and GBV exposure (no privacy locks).</span>
+        <span><strong>Latrine hygiene (39% clean):</strong> Most latrines observed as dirty or with overflow; 46% lack privacy locks and 64% are not sex-segregated. Risk of disease transmission and GBV exposure.</span>
       </div>
-      <div class="alert-box red">
-        <span class="alert-icon">⚠</span>
-        <span><strong>Daily water access (50%):</strong> 8 communities reported water not available daily. Solar pump functionality checks recommended.</span>
+      <div class="alert-box amber">
+        <span class="alert-icon">⚑</span>
+        <span><strong>Daily water access (68%):</strong> 99 of 306 respondents reported water not available daily. Solar pump functionality checks recommended.</span>
       </div>
       <div class="alert-box green">
         <span class="alert-icon">✓</span>
-        <span>Water quality perceived positively (91%). No diarrhea reported. Hygiene promotion 100% coverage confirmed.</span>
+        <span>Water quality perceived positively (75%) and no diarrhea reported by 77% of households in the last three months.</span>
       </div>
     </div>
     <div class="card" style="flex:1">
@@ -676,29 +678,29 @@
   <div class="row">
     <div class="card" style="flex:1">
       <div class="card-title" style="color:var(--alert-red)"><span class="dot" style="background:var(--alert-red)"></span>🔴 Critical Findings (Immediate Action Required)</div>
-      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Handwashing facilities:</strong> Only 14% of WASH sites had functional handwashing with soap. Immediate restocking and rehabilitation needed across Gajiganna cluster.</span></div>
-      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Latrine condition:</strong> 68% of latrines dirty/overflowing, no privacy locks. Female beneficiaries at heightened GBV risk. Emergency latrine rehabilitation needed.</span></div>
-      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Protection — Discrimination:</strong> 20% of respondents reported experiencing discrimination based on displacement status. Staff re-orientation on do-no-harm principles required.</span></div>
-      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Health — Electricity:</strong> 57% of health facilities without reliable electricity. Cold chain integrity and maternal delivery safety at risk. Solar backup procurement critical.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Handwashing facilities:</strong> Only 19% of WASH sites (57/306) had functional handwashing with soap. Immediate restocking and rehabilitation needed.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>WASH — Latrine condition:</strong> Only 39% of latrines observed clean; 46% lack privacy locks and 64% are not sex-segregated. Female beneficiaries at heightened GBV risk.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Food — Harassment / exploitation:</strong> 33% of food beneficiaries (30/90) reported harassment or requests for favors at distribution sites. Root-cause investigation and staff re-training required.</span></div>
+      <div class="alert-box red"><span class="alert-icon">⚠</span><span><strong>Health — Electricity:</strong> Only 48% of health facilities (105/217) had reliable electricity. Cold chain integrity and maternal delivery safety at risk. Solar backup procurement critical.</span></div>
     </div>
     <div class="card" style="flex:1">
       <div class="card-title" style="color:var(--alert-amber)"><span class="dot" style="background:var(--alert-amber)"></span>🟡 Moderate Concerns (Monitor Closely)</div>
-      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>AAP — Complaint awareness:</strong> 36% of beneficiaries unaware of any complaint channel. CFM sensitization campaign recommended at next outreach cycle.</span></div>
-      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>WASH — Daily water supply:</strong> 50% of water points not available daily. Suspected pump failures or power outages. Asset maintenance checks needed.</span></div>
-      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Nutrition — RUTF coverage:</strong> 31% of OTP clients did not confirm RUTF receipt. Stock-out or distribution process gap to be investigated at facility level.</span></div>
-      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Safety — 20% felt unsafe:</strong> 7 respondents did not feel safe; 2 were unsure. Root cause analysis (insecurity vs. facility conditions) needed at site level.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Food — Weighing scale accuracy:</strong> Only 40% of vendor scales (36/90) were accurate. Recalibration / replacement needed to protect entitlements.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>WASH — Daily water supply:</strong> 32% of water points not available daily (99/306). Suspected pump failures or power outages. Asset maintenance checks needed.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>WASH — Hygiene kit coverage:</strong> Only 25% of WASH respondents (77/306) confirmed receiving a hygiene kit. Verify distribution lists and gaps.</span></div>
+      <div class="alert-box amber"><span class="alert-icon">⚑</span><span><strong>Protection — Discrimination:</strong> 5% of respondents (52/1,038) reported abuse or discrimination — down sharply from earlier rounds but still requiring do-no-harm follow-up.</span></div>
     </div>
   </div>
   <div class="row">
     <div class="card">
       <div class="card-title" style="color:var(--ok-green)"><span class="dot" style="background:var(--ok-green)"></span>🟢 Positive Findings (Maintain &amp; Document)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>IPC Compliance 100%:</strong> All health staff observed washing hands, using sterile instruments, and properly disposing waste.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Complaint awareness up to 85%:</strong> 883 of 1,038 beneficiaries now know at least one way to raise a complaint — a major AAP improvement across the period.</span></div>
         <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Zero unofficial fees:</strong> No beneficiaries reported paying unofficial fees for any service — strong accountability record.</span></div>
-        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Overall dignity 100%:</strong> Every single respondent (45/45) believes ACF services protect their rights and dignity as a beneficiary.</span></div>
-        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Hygiene promotion 100%:</strong> All WASH beneficiaries received hygiene messages and hygiene kits — behaviour change programming is functional.</span></div>
-        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>No diarrhea reported:</strong> Zero diarrhea cases in the last 3 months across all WASH communities surveyed — positive health outcome.</span></div>
-        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Nutrition registers 100%:</strong> OTP, immunization tally sheets, and monthly summary reports all updated at visited sites.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Overall dignity 98%:</strong> 1,018 of 1,038 respondents believe ACF services protect their rights and dignity as beneficiaries.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>Safety near-universal:</strong> 97% felt safe accessing services and 99% were treated with respect and dignity by staff.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>OTP quality strong:</strong> 99% of OTP clients confirmed RUTF receipt and screening equipment/registers were consistently in place.</span></div>
+        <div class="alert-box green"><span class="alert-icon">✓</span><span><strong>MHPSS satisfaction 99%:</strong> Across 123 sessions, empathy, privacy and clear explanation of purpose were near-universal.</span></div>
       </div>
     </div>
   </div>
@@ -710,12 +712,12 @@
         <tbody>
           <tr><td>1</td><td>Rehabilitate latrines — privacy locks, cleaning</td><td>WASH</td><td><span class="pill red">Immediate</span></td><td>ACF WASH Team</td><td>2 weeks</td></tr>
           <tr><td>2</td><td>Restore handwashing stations with soap supply</td><td>WASH</td><td><span class="pill red">Immediate</span></td><td>ACF WASH Team</td><td>2 weeks</td></tr>
-          <tr><td>3</td><td>Staff sensitization on IDP non-discrimination</td><td>Protection</td><td><span class="pill red">Immediate</span></td><td>ACF Protection</td><td>1 month</td></tr>
+          <tr><td>3</td><td>Investigate harassment / exploitation at food distribution sites</td><td>Food / Protection</td><td><span class="pill red">Immediate</span></td><td>ACF Protection / BAF</td><td>Immediate</td></tr>
           <tr><td>4</td><td>Solar / generator backup for health facilities</td><td>Health</td><td><span class="pill red">Immediate</span></td><td>ACF Health</td><td>1 month</td></tr>
-          <tr><td>5</td><td>CFM awareness campaign at distribution points</td><td>AAP</td><td><span class="pill amber">High</span></td><td>BAF / ACF AAP</td><td>Next cycle</td></tr>
-          <tr><td>6</td><td>Investigate RUTF stock distribution at OTP sites</td><td>Nutrition</td><td><span class="pill amber">High</span></td><td>ACF Nutrition</td><td>Next cycle</td></tr>
+          <tr><td>5</td><td>Recalibrate / replace inaccurate vendor weighing scales</td><td>Food</td><td><span class="pill amber">High</span></td><td>ACF Food Security</td><td>2 weeks</td></tr>
+          <tr><td>6</td><td>Verify hygiene-kit distribution lists and close gaps</td><td>WASH</td><td><span class="pill amber">High</span></td><td>ACF WASH Team</td><td>Next cycle</td></tr>
           <tr><td>7</td><td>Borehole pump functionality audit</td><td>WASH</td><td><span class="pill amber">High</span></td><td>ACF WASH Team</td><td>Next cycle</td></tr>
-          <tr><td>8</td><td>Expand health sample in next TPM round (n&gt;15)</td><td>Health</td><td><span class="pill blue">Routine</span></td><td>BAF TPM Team</td><td>Next round</td></tr>
+          <tr><td>8</td><td>Sustain CFM sensitization to hold complaint awareness above 85%</td><td>AAP</td><td><span class="pill blue">Routine</span></td><td>BAF / ACF AAP</td><td>Next round</td></tr>
         </tbody>
       </table>
     </div>
@@ -728,24 +730,24 @@
   <!-- KPI Row -->
   <div class="kpi-grid">
     <div class="kpi blue">
-      <div class="kpi-val">68</div>
+      <div class="kpi-val">123</div>
       <div class="kpi-label">MHPSS Respondents</div>
-      <div class="kpi-sub">May 2026 · 3 LGAs covered</div>
+      <div class="kpi-sub">Apr – Jun 2026 · 4 LGAs covered</div>
     </div>
     <div class="kpi green">
-      <div class="kpi-val">93%</div>
+      <div class="kpi-val">96%</div>
       <div class="kpi-label">Felt Emotionally Safe</div>
-      <div class="kpi-sub">63/68 — 5 reported feeling unsafe</div>
+      <div class="kpi-sub">118/123 — 5 reported feeling unsafe</div>
     </div>
     <div class="kpi green">
-      <div class="kpi-val">100%</div>
+      <div class="kpi-val">99%</div>
       <div class="kpi-label">Satisfaction Rate</div>
-      <div class="kpi-sub">Very Satisfied (44%) · Satisfied (56%)</div>
+      <div class="kpi-sub">Very Satisfied (46%) · Satisfied (53%)</div>
     </div>
     <div class="kpi amber">
       <div class="kpi-val">5</div>
       <div class="kpi-label">Emotional Safety Gaps</div>
-      <div class="kpi-sub">Needs follow-up — flagged across 3 service types</div>
+      <div class="kpi-sub">Needs follow-up — flagged across service types</div>
     </div>
   </div>
 
@@ -766,11 +768,11 @@
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:170px;gap:10px">
         <div class="gauge-wrap">
           <canvas id="chartMhpssSat"></canvas>
-          <div class="gauge-center"><div class="val" style="color:var(--ok-green)">100%</div><div class="lbl">Satisfied</div></div>
+          <div class="gauge-center"><div class="val" style="color:var(--ok-green)">99%</div><div class="lbl">Satisfied</div></div>
         </div>
         <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px">
-          <span class="pill green" style="margin-right:4px">Very Satisfied: 44%</span><br><br>
-          <span class="pill blue">Satisfied: 56%</span>
+          <span class="pill green" style="margin-right:4px">Very Satisfied: 46%</span><br><br>
+          <span class="pill blue">Satisfied: 53%</span>
         </div>
       </div>
     </div>
@@ -790,16 +792,16 @@
           <tr><th>Indicator</th><th>Yes</th><th>No</th><th>% Yes</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td>Staff clearly explained purpose of session</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>Beneficiary felt emotionally safe</td><td>63</td><td>5</td><td>93%</td><td><span class="pill amber">Monitor</span></td></tr>
-          <tr><td>Enough time given to express self</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>Staff showed empathy &amp; non-judgment</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>Privacy ensured during session</td><td>68</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Staff clearly explained purpose of session</td><td>122</td><td>1</td><td>99%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Beneficiary felt emotionally safe</td><td>118</td><td>5</td><td>96%</td><td><span class="pill green">Good</span></td></tr>
+          <tr><td>Enough time given to express self</td><td>122</td><td>1</td><td>99%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Staff showed empathy &amp; non-judgment</td><td>122</td><td>1</td><td>99%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Privacy ensured during session</td><td>123</td><td>0</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
         </tbody>
       </table>
       <div class="alert-box amber" style="margin-top:12px">
         <span class="alert-icon">⚑</span>
-        <span>5 respondents reported not feeling emotionally safe — distributed across PFA (2), Psychoeducation (2), and Counselling (1). Targeted supervisor debrief recommended for Magumeri and Kaga LGA facilitators.</span>
+        <span>5 of 123 respondents reported not feeling emotionally safe during their session. Targeted supervisor debrief recommended for the responsible facilitators across Magumeri and Kaga LGAs.</span>
       </div>
     </div>
   </div>
@@ -828,13 +830,14 @@
     <div class="card" style="flex:.9">
       <div class="card-title"><span class="dot" style="background:var(--un-blue)"></span>LGA Coverage</div>
       <div style="padding-top:4px">
-        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Magumeri</span></div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--un-blue)"></div></div><div class="bar-pct">34</div></div>
-        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Kaga</span></div><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--who-green)"></div></div><div class="bar-pct">21</div></div>
-        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Mobbar</span></div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--who-teal)"></div></div><div class="bar-pct">13</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Magumeri</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--un-blue)"></div></div><div class="bar-pct">75</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Kaga</span></div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--who-green)"></div></div><div class="bar-pct">21</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Mobbar</span></div><div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--who-teal)"></div></div><div class="bar-pct">16</div></div>
+        <div class="bar-row"><div class="bar-label"><span class="lga-badge">Gubio</span></div><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--un-dark)"></div></div><div class="bar-pct">11</div></div>
         <div style="margin-top:12px">
           <div class="alert-box green">
             <span class="alert-icon">✓</span>
-            <span>All 3 LGAs report 100% satisfaction. Peer Support exclusively delivered in Mobbar.</span>
+            <span>Satisfaction is near-universal (99%) across all 4 LGAs. Peer Support is concentrated in Mobbar (8 of 10 sessions).</span>
           </div>
           <div class="alert-box green">
             <span class="alert-icon">✓</span>
@@ -852,30 +855,30 @@
 
   <!-- Month note banner -->
   <div id="foodMonthBanner" style="display:none;background:#FEF3E7;border-left:3px solid var(--alert-amber);border-radius:5px;padding:8px 14px;margin-bottom:14px;font-size:12px;color:#7C4A0A;">
-    <strong>⚠ Month filter applied:</strong> Food Assistance data is only available for <strong>June 2026</strong> (84 respondents). Selecting other months shows the full June dataset as a reference.
+    <strong>⚠ Month filter applied:</strong> Food Assistance data is only available for <strong>June 2026</strong> (90 respondents). Selecting other months shows the full June dataset as a reference.
   </div>
 
   <!-- KPI Row -->
   <div class="kpi-grid">
     <div class="kpi blue">
-      <div class="kpi-val">84</div>
+      <div class="kpi-val">90</div>
       <div class="kpi-label">Food Assistance Respondents</div>
-      <div class="kpi-sub">Jun 2026 · Magumeri (81) · Mobbar (3)</div>
+      <div class="kpi-sub">Jun 2026 · Magumeri (82) · Gubio (5) · Mobbar (3)</div>
     </div>
     <div class="kpi green">
       <div class="kpi-val">100%</div>
       <div class="kpi-label">Correct Quantity Received</div>
-      <div class="kpi-sub">84/84 confirmed entitlement</div>
+      <div class="kpi-sub">90/90 confirmed entitlement</div>
     </div>
     <div class="kpi red">
-      <div class="kpi-val">36%</div>
+      <div class="kpi-val">33%</div>
       <div class="kpi-label">Harassment / Exploitation Reported</div>
-      <div class="kpi-sub">30/84 — critical protection gap</div>
+      <div class="kpi-sub">30/90 — critical protection gap</div>
     </div>
-    <div class="kpi amber">
-      <div class="kpi-val">63%</div>
+    <div class="kpi red">
+      <div class="kpi-val">40%</div>
       <div class="kpi-label">Weighing Scales Accurate</div>
-      <div class="kpi-sub">53/84 inaccurate — vendor gap</div>
+      <div class="kpi-sub">54/90 inaccurate — vendor gap</div>
     </div>
   </div>
 
@@ -891,13 +894,13 @@
       <div style="padding-top:10px">
         <div class="bar-row">
           <div class="bar-label">Less than 30 mins</div>
-          <div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--ok-green)"></div></div>
-          <div class="bar-pct">82%</div>
+          <div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--ok-green)"></div></div>
+          <div class="bar-pct">78%</div>
         </div>
         <div class="bar-row">
           <div class="bar-label">30 – 60 minutes</div>
-          <div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--alert-amber)"></div></div>
-          <div class="bar-pct">17%</div>
+          <div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--alert-amber)"></div></div>
+          <div class="bar-pct">21%</div>
         </div>
         <div class="bar-row">
           <div class="bar-label">2 hours and above</div>
@@ -906,7 +909,7 @@
         </div>
         <div class="alert-box green" style="margin-top:14px">
           <span class="alert-icon">✓</span>
-          <span>82% of beneficiaries waited under 30 minutes — distribution flow is efficient.</span>
+          <span>78% of beneficiaries waited under 30 minutes — distribution flow is efficient.</span>
         </div>
         <div class="alert-box green" style="margin-top:6px">
           <span class="alert-icon">✓</span>
@@ -920,19 +923,19 @@
       <div style="padding-top:6px">
         <div style="display:flex;gap:14px;margin-bottom:16px">
           <div style="flex:1;text-align:center;background:var(--bg);border-radius:6px;padding:12px">
-            <div style="font-size:32px;font-weight:800;color:var(--ok-green)">96%</div>
+            <div style="font-size:32px;font-weight:800;color:var(--ok-green)">91%</div>
             <div style="font-size:11px;color:var(--muted)">Received IGA Startup Kit</div>
-            <div style="font-size:11px;color:var(--muted)">(81/84)</div>
+            <div style="font-size:11px;color:var(--muted)">(82/90)</div>
           </div>
           <div style="flex:1;text-align:center;background:var(--bg);border-radius:6px;padding:12px">
-            <div style="font-size:32px;font-weight:800;color:var(--un-blue)">88%</div>
+            <div style="font-size:32px;font-weight:800;color:var(--un-blue)">93%</div>
             <div style="font-size:11px;color:var(--muted)">Business Currently Active</div>
-            <div style="font-size:11px;color:var(--muted)">(74/84)</div>
+            <div style="font-size:11px;color:var(--muted)">(75/81)</div>
           </div>
         </div>
         <div class="alert-box amber">
           <span class="alert-icon">⚑</span>
-          <span>3 beneficiaries have not received their IGA startup kit. 6 report their business is inactive — follow-up needed to assess barriers.</span>
+          <span>8 beneficiaries have not received their IGA startup kit. 6 report their business is inactive — follow-up needed to assess barriers.</span>
         </div>
       </div>
     </div>
@@ -947,14 +950,14 @@
           <tr><th>Indicator</th><th>Compliant</th><th>Total</th><th>%</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td>Food items stored on pallets (off-ground)</td><td>84</td><td>84</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>Cleanliness / ventilation adequate</td><td>84</td><td>84</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>No expired items present</td><td>84</td><td>84</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>No damaged / leaking packaging</td><td>67</td><td>84</td><td>80%</td><td><span class="pill green">Acceptable</span></td></tr>
-          <tr><td>Proper labeling &amp; branding</td><td>82</td><td>84</td><td>98%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>No roof leakage signs</td><td>83</td><td>84</td><td>99%</td><td><span class="pill green">Excellent</span></td></tr>
-          <tr><td>No evidence of pests</td><td>18</td><td>84</td><td>21%</td><td><span class="pill red">Alert</span></td></tr>
-          <tr><td>Weighing scale accurate</td><td>31</td><td>84</td><td>37%</td><td><span class="pill red">Alert</span></td></tr>
+          <tr><td>Food items stored on pallets (off-ground)</td><td>90</td><td>90</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>Cleanliness / ventilation adequate</td><td>90</td><td>90</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>No expired items present</td><td>90</td><td>90</td><td>100%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>No damaged / leaking packaging</td><td>72</td><td>90</td><td>80%</td><td><span class="pill green">Acceptable</span></td></tr>
+          <tr><td>Proper labeling &amp; branding</td><td>88</td><td>90</td><td>98%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>No roof leakage signs</td><td>89</td><td>90</td><td>99%</td><td><span class="pill green">Excellent</span></td></tr>
+          <tr><td>No evidence of pests</td><td>23</td><td>90</td><td>26%</td><td><span class="pill red">Alert</span></td></tr>
+          <tr><td>Weighing scale accurate</td><td>36</td><td>90</td><td>40%</td><td><span class="pill red">Alert</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -997,8 +1000,8 @@
         </div>
         <div class="bar-row">
           <div class="bar-label">No harassment / exploitation evidence</div>
-          <div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--alert-red)"></div></div>
-          <div class="bar-pct">64%</div>
+          <div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--alert-red)"></div></div>
+          <div class="bar-pct">67%</div>
         </div>
       </div>
     </div>
@@ -1007,13 +1010,13 @@
       <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>⚠ Critical Protection Finding</div>
       <div style="padding-top:6px">
         <div style="text-align:center;padding:18px 0 10px">
-          <div style="font-size:52px;font-weight:800;color:var(--alert-red);line-height:1">36%</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">30 / 84 respondents reported</div>
+          <div style="font-size:52px;font-weight:800;color:var(--alert-red);line-height:1">33%</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">30 / 90 respondents reported</div>
           <div style="font-size:13px;font-weight:700;color:var(--text)">harassment, exploitation, or requests for favors</div>
         </div>
         <div class="alert-box red">
           <span class="alert-icon">⚠</span>
-          <span><strong>Immediate action required:</strong> 30 beneficiaries (36%) reported evidence of harassment or exploitation at food distribution sites — a critical protection failure. Root cause investigation and staff re-training needed.</span>
+          <span><strong>Immediate action required:</strong> 30 beneficiaries (33%) reported evidence of harassment or exploitation at food distribution sites — a critical protection failure. Root cause investigation and staff re-training needed.</span>
         </div>
         <div class="alert-box amber" style="margin-top:8px">
           <span class="alert-icon">⚑</span>
@@ -1027,8 +1030,13 @@
       <div style="padding-top:8px">
         <div class="bar-row">
           <div class="bar-label"><span class="lga-badge">Magumeri</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:96%;background:var(--un-blue)"></div></div>
-          <div class="bar-pct">81</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--un-blue)"></div></div>
+          <div class="bar-pct">82</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span class="lga-badge">Gubio</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:6%;background:var(--who-green)"></div></div>
+          <div class="bar-pct">5</div>
         </div>
         <div class="bar-row">
           <div class="bar-label"><span class="lga-badge">Mobbar</span></div>
@@ -1038,7 +1046,7 @@
         <div style="margin-top:16px">
           <div class="alert-box green">
             <span class="alert-icon">✓</span>
-            <span>Zero informal fees charged across all 84 food distribution visits confirmed.</span>
+            <span>Zero informal fees charged across all 90 food distribution visits confirmed.</span>
           </div>
           <div class="alert-box amber" style="margin-top:8px">
             <span class="alert-icon">⚑</span>
@@ -1058,12 +1066,12 @@
           <tr><th>#</th><th>Finding</th><th>Detail</th><th>Priority</th><th>Responsible</th><th>Timeline</th></tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Investigate harassment / exploitation at distribution sites</td><td>30/84 (36%) reported incidents</td><td><span class="pill red">Immediate</span></td><td>ACF Protection / BAF</td><td>Immediate</td></tr>
-          <tr><td>2</td><td>Replace / calibrate all inaccurate weighing scales</td><td>53/84 (63%) scales inaccurate</td><td><span class="pill red">Immediate</span></td><td>ACF Food Security</td><td>2 weeks</td></tr>
-          <tr><td>3</td><td>Pest control treatment at storage/vendor sites</td><td>79% show evidence of pests</td><td><span class="pill red">Immediate</span></td><td>ACF Logistics</td><td>2 weeks</td></tr>
-          <tr><td>4</td><td>Follow up on IGA startup kit gap (3 beneficiaries)</td><td>81/84 received kit</td><td><span class="pill amber">High</span></td><td>ACF Livelihoods</td><td>1 month</td></tr>
-          <tr><td>5</td><td>Investigate inactive IGA businesses (6 beneficiaries)</td><td>74/84 businesses active</td><td><span class="pill amber">High</span></td><td>ACF Livelihoods</td><td>Next cycle</td></tr>
-          <tr><td>6</td><td>Expand Mobbar LGA food monitoring sample</td><td>Only n=3 in this round</td><td><span class="pill blue">Routine</span></td><td>BAF TPM Team</td><td>Next round</td></tr>
+          <tr><td>1</td><td>Investigate harassment / exploitation at distribution sites</td><td>30/90 (33%) reported incidents</td><td><span class="pill red">Immediate</span></td><td>ACF Protection / BAF</td><td>Immediate</td></tr>
+          <tr><td>2</td><td>Replace / calibrate all inaccurate weighing scales</td><td>54/90 (60%) scales inaccurate</td><td><span class="pill red">Immediate</span></td><td>ACF Food Security</td><td>2 weeks</td></tr>
+          <tr><td>3</td><td>Pest control treatment at storage/vendor sites</td><td>74% show evidence of pests</td><td><span class="pill red">Immediate</span></td><td>ACF Logistics</td><td>2 weeks</td></tr>
+          <tr><td>4</td><td>Follow up on IGA startup kit gap (8 beneficiaries)</td><td>82/90 received kit</td><td><span class="pill amber">High</span></td><td>ACF Livelihoods</td><td>1 month</td></tr>
+          <tr><td>5</td><td>Investigate inactive IGA businesses (6 beneficiaries)</td><td>75/81 businesses active</td><td><span class="pill amber">High</span></td><td>ACF Livelihoods</td><td>Next cycle</td></tr>
+          <tr><td>6</td><td>Expand Gubio &amp; Mobbar food monitoring sample</td><td>Only n=5 and n=3 this round</td><td><span class="pill blue">Routine</span></td><td>BAF TPM Team</td><td>Next round</td></tr>
         </tbody>
       </table>
     </div>
@@ -1075,7 +1083,7 @@
 
 <!-- FOOTER -->
 <div class="footer">
-  <span>Third Party Monitoring (TPM) · Action Against Hunger (ACF) Nigeria · Borno State · March 2026</span>
+  <span>Third Party Monitoring (TPM) · Action Against Hunger (ACF) Nigeria · Borno State · Mar – Jun 2026</span>
   <span>Implementing Partner: Better Aid Foundation (BAF) · Confidential — For donor reporting use only</span>
 </div>
 
@@ -1086,463 +1094,2798 @@
 //  'all' = cumulative Mar–Jun 2026 (869 respondents).
 // ════════════════════════════════════════════════════════════════
 const MONTHS = {
-
-  // ── ALL MONTHS (cumulative) ──────────────────────────────────
-  'all': {
-    meta: { n: 869, range: 'Mar – Jun 2026' },
-
-    overview: {
-      kpi: [
-        { val: '869', label: 'Total Respondents',    sub: 'Mar – Jun 2026',               cls: 'blue'  },
-        { val: '5',   label: 'LGAs Covered',         sub: 'Magumeri · Gubio · Kaga · Mobbar · others', cls: 'blue'  },
-        { val: '5',   label: 'Sectors Monitored',    sub: 'WASH · Nutrition · Health · Protection · MHPSS', cls: 'green' },
-        { val: '9',   label: 'Protection Incidents', sub: 'Abuse / discrimination reported', cls: 'amber' },
-      ],
-      sectorData:   [21, 68, 16, 7, 1],
-      sectorLabels: ['WASH (21)', 'MHPSS (68)', 'Nutrition (16)', 'Health (7)', 'Others (1)'],
-      lgaData:      [37, 8],
-      lgaLabels:    ['Magumeri (37)', 'Gubio (8)'],
-      dateLabels:   ['24 Mar','25 Mar','26 Mar','27 Mar','28 Mar','30 Mar','31 Mar'],
-      dateData:     [6, 4, 9, 7, 5, 5, 9],
-      access:       [64, 27, 4, 4],
-      wait:         [64, 27, 2, 7],
-      rights:       '100%',
-      rightsN:      '45',
+  "all": {
+    "meta": {
+      "n": 1038,
+      "range": "Mar – Jun 2026"
     },
-
-    protection: {
-      kpi: [
-        { val: '80%', label: 'Feel Safe Accessing Services',    sub: '36/45 respondents', cls: 'green' },
-        { val: '89%', label: 'Treated with Respect & Dignity',  sub: '40/45 respondents', cls: 'green' },
-        { val: '20%', label: 'Reported Abuse / Discrimination', sub: '9/45 — needs follow-up', cls: 'red'   },
-        { val: '64%', label: 'Aware of Complaint Mechanism',    sub: '29/45 — AAP gap identified', cls: 'amber' },
+    "overview": {
+      "kpi": [
+        {
+          "val": "1038",
+          "label": "Total Respondents",
+          "sub": "Mar – Jun 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (482) · Gubio (295) · Kaga (220) · Mobbar (41)",
+          "cls": "blue"
+        },
+        {
+          "val": "5",
+          "label": "Sectors Monitored",
+          "sub": "WASH · Nutrition · Health · MHPSS · Food",
+          "cls": "green"
+        },
+        {
+          "val": "52",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "amber"
+        }
       ],
-      radarData:  [80, 89, 80, 82, 82, 64],
-      aapData:    [8, 7, 7, 5, 2, 16],
-      tableRows: [
-        ['P1. Felt safe accessing services',           '36','9', '80%', 'amber','Monitor'],
-        ['P2. Treated with respect & dignity',         '40','5', '89%', 'green','Acceptable'],
-        ['P3. Experienced abuse/discrimination',       '9','36', '20%', 'red',  'Alert'],
-        ['P4. Disability-inclusive services',          '37','8', '82%', 'green','Acceptable'],
-        ['P5. Gender equality in service delivery',    '37','8', '82%', 'green','Acceptable'],
-        ['P8. Knows complaint channel',                '29','16','64%', 'amber','Below target'],
-        ['P10. Services protect rights & dignity',     '45','0', '100%','green','Excellent'],
+      "sectorData": [
+        306,
+        123,
+        314,
+        217,
+        90
       ],
+      "sectorLabels": [
+        "WASH (306)",
+        "MHPSS (123)",
+        "Nutrition (314)",
+        "Health (217)",
+        "Food (90)"
+      ],
+      "lgaData": [
+        482,
+        295,
+        220,
+        41
+      ],
+      "lgaLabels": [
+        "Magumeri (482)",
+        "Gubio (295)",
+        "Kaga (220)",
+        "Mobbar (41)"
+      ],
+      "dateLabels": [
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ],
+      "dateData": [
+        45,
+        68,
+        267,
+        658
+      ],
+      "access": [
+        77,
+        21,
+        1,
+        0
+      ],
+      "wait": [
+        78,
+        20,
+        2,
+        0
+      ],
+      "rights": "98%",
+      "rightsN": "1038"
     },
-
-    nutrition: {
-      kpi: [
-        { val: '16',  label: 'Nutrition Respondents', sub: 'OTP: 6 · Porridge/Tombrown: 10', cls: 'blue'  },
-        { val: '69%', label: 'RUTF Received',         sub: '11/16 OTP clients confirmed',    cls: 'green' },
-        { val: '88%', label: 'Appetite Test Conducted', sub: '14/16 observed',               cls: 'green' },
-        { val: '75%', label: 'Immunization Available', sub: '12/16 at facility',             cls: 'green' },
+    "protection": {
+      "kpi": [
+        {
+          "val": "97%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "1012/1038 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "99%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "1023/1038 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "5%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "52/1038 — needs follow-up",
+          "cls": "amber"
+        },
+        {
+          "val": "85%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "883/1038 beneficiaries",
+          "cls": "green"
+        }
       ],
-      radarData: [88, 88, 75, 69, 100, 100],
-      tableRows: [
-        ['Appetite test conducted',           '14','16','88%','green','Good'],
-        ['Routine medications given',         '14','16','88%','green','Good'],
-        ['RUTF (Plumpy\'Nut) received',       '11','16','69%','amber','Monitor'],
-        ['Immunization services available',   '12','16','75%','green','Acceptable'],
-        ['Referral explained if needed',      '14','16','88%','green','Good'],
-        ['Proper screening equipment used',   '16','16','100%','green','Excellent'],
-        ['OTP register updated',              '7','7','100%','green','Excellent'],
-        ['Stock cards updated',               '7','7','100%','green','Excellent'],
-        ['Cold chain temperature correct',    '7','7','100%','green','Excellent'],
+      "radarData": [
+        97,
+        99,
+        95,
+        92,
+        99,
+        85
       ],
+      "aapData": [
+        251,
+        164,
+        541,
+        580,
+        29,
+        155
+      ],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "1012",
+          "26",
+          "97%",
+          "green",
+          "Good"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "1023",
+          "15",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "52",
+          "986",
+          "5%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "951",
+          "87",
+          "92%",
+          "green",
+          "Good"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "1023",
+          "15",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "883",
+          "155",
+          "85%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "1018",
+          "20",
+          "98%",
+          "green",
+          "Excellent"
+        ]
+      ]
     },
-
-    health: {
-      kpi: [
-        { val: '7',    label: 'Health Respondents',      sub: 'Across Magumeri & Gubio', cls: 'blue'  },
-        { val: '100%', label: 'Gloves / PPE Available',  sub: 'All facilities observed', cls: 'green' },
-        { val: '100%', label: 'Hand Hygiene Observed',   sub: 'Staff before patient contact', cls: 'green' },
-        { val: '43%',  label: 'Electricity Available',   sub: '3 Yes / 3 No / 1 Sometimes', cls: 'amber' },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "314",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 219 · Porridge/Tombrown: 95",
+          "cls": "blue"
+        },
+        {
+          "val": "99%",
+          "label": "RUTF Received",
+          "sub": "79/80 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "76%",
+          "label": "Appetite Test Conducted",
+          "sub": "61/80 observed",
+          "cls": "green"
+        },
+        {
+          "val": "96%",
+          "label": "Immunization Available",
+          "sub": "77/80 at facility",
+          "cls": "green"
+        }
       ],
-      barData: [86, 86, 100, 100, 100, 43],
-      tableRows: [
-        ['Facility environment clean',         '6','7','86%','green','Good'],
-        ['Gloves / PPE available',             '6','7','86%','green','Good'],
-        ['Instruments from sterile packs',     '7','7','100%','green','Excellent'],
-        ['Staff hand hygiene observed',        '7','7','100%','green','Excellent'],
-        ['Waste properly disposed',            '7','7','100%','green','Excellent'],
-        ['Sterilization equipment functional', '7','7','100%','green','Excellent'],
-        ['Drugs prescribed available',         '7','7','100%','green','Excellent'],
-        ['Electricity functional',             '3','7','43%','red','Critical Gap'],
-        ['Disability physical access',         '7','7','100%','green','Excellent'],
+      "radarData": [
+        76,
+        96,
+        96,
+        99,
+        0,
+        91
       ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "61",
+          "80",
+          "76%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Routine medications given",
+          "77",
+          "80",
+          "96%",
+          "green",
+          "Good"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "79",
+          "80",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "77",
+          "80",
+          "96%",
+          "green",
+          "Good"
+        ],
+        [
+          "Referral explained if needed",
+          "77",
+          "80",
+          "96%",
+          "green",
+          "Good"
+        ],
+        [
+          "Proper screening equipment used",
+          "79",
+          "80",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "0",
+          "17",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "0",
+          "80",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Cold chain temperature correct",
+          "73",
+          "80",
+          "91%",
+          "green",
+          "Good"
+        ]
+      ]
     },
-
-    wash: {
-      kpi: [
-        { val: '21',  label: 'WASH Respondents',              sub: 'Boreholes, latrines, hygiene', cls: 'blue'  },
-        { val: '50%', label: 'Daily Water Availability',      sub: '11 Yes / 8 No / 3 Sometimes', cls: 'amber' },
-        { val: '37%', label: 'Latrines Clean',                sub: '7/22 — critical sanitation gap', cls: 'red'   },
-        { val: '14%', label: 'Handwashing Stations Available',sub: 'Only 3/22 sites with soap & water', cls: 'red' },
+    "health": {
+      "kpi": [
+        {
+          "val": "217",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "80%",
+          "label": "Gloves / PPE Available",
+          "sub": "174/217 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "86%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "48%",
+          "label": "Electricity Available",
+          "sub": "105/217 functional",
+          "cls": "amber"
+        }
       ],
-      radarData:  [50, 91, 32, 32, 32, 14, 95, 100],
-      barMet:     [50, 91, 32, 14, 95, 100],
-      barNotMet:  [50, 9,  68, 86, 5,  0  ],
-      tableRows: [
-        ['Water available daily',              '11','22','50%','red','Critical'],
-        ['Water perceived as good quality',    '20','22','91%','green','Good'],
-        ['Latrines clean (no odor/overflow)',  '7','22','32%','red','Critical'],
-        ['Latrine doors have privacy locks',   '7','22','32%','red','Critical'],
-        ['Latrines segregated by sex',         '7','22','32%','red','Critical'],
-        ['Handwashing facility with soap',     '3','22','14%','red','Critical'],
-        ['Water point safe for women & girls', '21','22','95%','green','Good'],
-        ['Hygiene promotion messages received','22','22','100%','green','Excellent'],
-        ['Hygiene kit received',               '22','22','100%','green','Excellent'],
-        ['No diarrhea cases (last 3 months)',  '22','22','100%','green','Excellent'],
+      "barData": [
+        87,
+        80,
+        88,
+        86,
+        91,
+        48
       ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "189",
+          "217",
+          "87%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Gloves / PPE available",
+          "174",
+          "217",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Instruments from sterile packs",
+          "190",
+          "217",
+          "88%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "187",
+          "217",
+          "86%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Waste properly disposed",
+          "197",
+          "217",
+          "91%",
+          "green",
+          "Good"
+        ],
+        [
+          "Sterilization equipment functional",
+          "167",
+          "217",
+          "77%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Drugs prescribed available",
+          "139",
+          "217",
+          "64%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Electricity functional",
+          "105",
+          "217",
+          "48%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Disability physical access",
+          "204",
+          "217",
+          "94%",
+          "green",
+          "Good"
+        ]
+      ]
     },
+    "wash": {
+      "kpi": [
+        {
+          "val": "306",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "68%",
+          "label": "Daily Water Availability",
+          "sub": "207/306 report daily",
+          "cls": "amber"
+        },
+        {
+          "val": "39%",
+          "label": "Latrines Clean",
+          "sub": "118/306 sites",
+          "cls": "red"
+        },
+        {
+          "val": "19%",
+          "label": "Handwashing Stations Available",
+          "sub": "57/306 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        68,
+        76,
+        39,
+        54,
+        36,
+        19,
+        80,
+        45
+      ],
+      "barMet": [
+        68,
+        76,
+        39,
+        19,
+        80,
+        45
+      ],
+      "barNotMet": [
+        32,
+        24,
+        61,
+        81,
+        20,
+        55
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "207",
+          "306",
+          "68%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Water perceived as good quality",
+          "233",
+          "306",
+          "76%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "118",
+          "306",
+          "39%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "165",
+          "306",
+          "54%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines segregated by sex",
+          "109",
+          "306",
+          "36%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "57",
+          "306",
+          "19%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "244",
+          "306",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "138",
+          "306",
+          "45%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Hygiene kit received",
+          "77",
+          "306",
+          "25%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "236",
+          "306",
+          "77%",
+          "green",
+          "Acceptable"
+        ]
+      ]
+    }
   },
-
-  // ── MARCH 2026  (n = 45, Magumeri & Gubio — Protection/WASH/Nutrition/Health) ──
-  '2026-03': {
-    meta: { n: 45, range: '24 – 31 Mar 2026' },
-
-    overview: {
-      kpi: [
-        { val: '45',  label: 'Total Respondents',    sub: '24 – 31 March 2026',         cls: 'blue'  },
-        { val: '2',   label: 'LGAs Covered',         sub: 'Magumeri (82%) · Gubio (18%)', cls: 'blue' },
-        { val: '5',   label: 'Sectors Monitored',    sub: 'WASH · Nutrition · Health · Protection · MHPSS', cls: 'green' },
-        { val: '9',   label: 'Protection Incidents', sub: 'Abuse / discrimination reported', cls: 'amber' },
-      ],
-      sectorData:   [21, 0, 16, 7, 1],
-      sectorLabels: ['WASH (21)', 'MHPSS (0)', 'Nutrition (16)', 'Health (7)', 'Others (1)'],
-      lgaData:      [37, 8],
-      lgaLabels:    ['Magumeri (37)', 'Gubio (8)'],
-      dateLabels:   ['24 Mar','25 Mar','26 Mar','27 Mar','28 Mar','30 Mar','31 Mar'],
-      dateData:     [6, 4, 9, 7, 5, 5, 9],
-      access:       [64, 27, 4, 4],
-      wait:         [64, 27, 2, 7],
-      rights:       '100%',
-      rightsN:      '45',
+  "2026-03": {
+    "meta": {
+      "n": 45,
+      "range": "Mar 2026"
     },
-
-    protection: {
-      kpi: [
-        { val: '80%', label: 'Feel Safe Accessing Services',    sub: '36/45 respondents', cls: 'green' },
-        { val: '89%', label: 'Treated with Respect & Dignity',  sub: '40/45 respondents', cls: 'green' },
-        { val: '20%', label: 'Reported Abuse / Discrimination', sub: '9/45 — needs follow-up', cls: 'red'   },
-        { val: '64%', label: 'Aware of Complaint Mechanism',    sub: '29/45 — AAP gap identified', cls: 'amber' },
+    "overview": {
+      "kpi": [
+        {
+          "val": "45",
+          "label": "Total Respondents",
+          "sub": "March 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "2",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (37) · Gubio (8)",
+          "cls": "blue"
+        },
+        {
+          "val": "3",
+          "label": "Sectors Monitored",
+          "sub": "WASH · Nutrition · Health · MHPSS · Food",
+          "cls": "green"
+        },
+        {
+          "val": "9",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "amber"
+        }
       ],
-      radarData:  [80, 89, 80, 82, 82, 64],
-      aapData:    [8, 7, 7, 5, 2, 16],
-      tableRows: [
-        ['P1. Felt safe accessing services',           '36','9', '80%','amber','Monitor'],
-        ['P2. Treated with respect & dignity',         '40','5', '89%','green','Acceptable'],
-        ['P3. Experienced abuse/discrimination',       '9','36', '20%','red',  'Alert'],
-        ['P4. Disability-inclusive services',          '37','8', '82%','green','Acceptable'],
-        ['P5. Gender equality in service delivery',    '37','8', '82%','green','Acceptable'],
-        ['P8. Knows complaint channel',                '29','16','64%','amber','Below target'],
-        ['P10. Services protect rights & dignity',     '45','0', '100%','green','Excellent'],
+      "sectorData": [
+        22,
+        0,
+        16,
+        7,
+        0
       ],
+      "sectorLabels": [
+        "WASH (22)",
+        "MHPSS (0)",
+        "Nutrition (16)",
+        "Health (7)",
+        "Food (0)"
+      ],
+      "lgaData": [
+        37,
+        8
+      ],
+      "lgaLabels": [
+        "Magumeri (37)",
+        "Gubio (8)"
+      ],
+      "dateLabels": [
+        "24 Mar",
+        "25 Mar",
+        "26 Mar",
+        "27 Mar",
+        "28 Mar",
+        "30 Mar",
+        "31 Mar"
+      ],
+      "dateData": [
+        6,
+        4,
+        9,
+        7,
+        5,
+        5,
+        9
+      ],
+      "access": [
+        64,
+        27,
+        4,
+        4
+      ],
+      "wait": [
+        64,
+        27,
+        2,
+        7
+      ],
+      "rights": "100%",
+      "rightsN": "45"
     },
-
-    nutrition: {
-      kpi: [
-        { val: '16',  label: 'Nutrition Respondents', sub: 'OTP: 6 · Porridge/Tombrown: 10', cls: 'blue'  },
-        { val: '69%', label: 'RUTF Received',         sub: '11/16 OTP clients confirmed',    cls: 'green' },
-        { val: '88%', label: 'Appetite Test Conducted', sub: '14/16 observed',               cls: 'green' },
-        { val: '75%', label: 'Immunization Available', sub: '12/16 at facility',             cls: 'green' },
+    "protection": {
+      "kpi": [
+        {
+          "val": "80%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "36/45 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "89%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "40/45 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "20%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "9/45 — needs follow-up",
+          "cls": "red"
+        },
+        {
+          "val": "64%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "29/45 beneficiaries",
+          "cls": "amber"
+        }
       ],
-      radarData: [88, 88, 75, 69, 100, 100],
-      tableRows: [
-        ['Appetite test conducted',           '14','16','88%','green','Good'],
-        ['Routine medications given',         '14','16','88%','green','Good'],
-        ['RUTF (Plumpy\'Nut) received',       '11','16','69%','amber','Monitor'],
-        ['Immunization services available',   '12','16','75%','green','Acceptable'],
-        ['Referral explained if needed',      '14','16','88%','green','Good'],
-        ['Proper screening equipment used',   '16','16','100%','green','Excellent'],
-        ['OTP register updated',              '7','7','100%','green','Excellent'],
-        ['Stock cards updated',               '7','7','100%','green','Excellent'],
-        ['Cold chain temperature correct',    '7','7','100%','green','Excellent'],
+      "radarData": [
+        80,
+        89,
+        80,
+        82,
+        82,
+        64
       ],
+      "aapData": [
+        16,
+        2,
+        13,
+        13,
+        0,
+        16
+      ],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "36",
+          "9",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "40",
+          "5",
+          "89%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "9",
+          "36",
+          "20%",
+          "red",
+          "Alert"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "37",
+          "8",
+          "82%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "37",
+          "8",
+          "82%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "29",
+          "16",
+          "64%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "45",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
     },
-
-    health: {
-      kpi: [
-        { val: '7',    label: 'Health Respondents',      sub: 'Across Magumeri & Gubio', cls: 'blue'  },
-        { val: '100%', label: 'Gloves / PPE Available',  sub: 'All facilities observed', cls: 'green' },
-        { val: '100%', label: 'Hand Hygiene Observed',   sub: 'Staff before patient contact', cls: 'green' },
-        { val: '43%',  label: 'Electricity Available',   sub: '3 Yes / 3 No / 1 Sometimes', cls: 'amber' },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "16",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 6 · Porridge/Tombrown: 10",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "RUTF Received",
+          "sub": "6/6 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Appetite Test Conducted",
+          "sub": "6/6 observed",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Immunization Available",
+          "sub": "6/6 at facility",
+          "cls": "green"
+        }
       ],
-      barData: [86, 86, 100, 100, 100, 43],
-      tableRows: [
-        ['Facility environment clean',         '6','7','86%','green','Good'],
-        ['Gloves / PPE available',             '6','7','86%','green','Good'],
-        ['Instruments from sterile packs',     '7','7','100%','green','Excellent'],
-        ['Staff hand hygiene observed',        '7','7','100%','green','Excellent'],
-        ['Waste properly disposed',            '7','7','100%','green','Excellent'],
-        ['Sterilization equipment functional', '7','7','100%','green','Excellent'],
-        ['Drugs prescribed available',         '7','7','100%','green','Excellent'],
-        ['Electricity functional',             '3','7','43%','red','Critical Gap'],
-        ['Disability physical access',         '7','7','100%','green','Excellent'],
+      "radarData": [
+        100,
+        83,
+        100,
+        100,
+        0,
+        100
       ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "6",
+          "6",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Routine medications given",
+          "5",
+          "6",
+          "83%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "6",
+          "6",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "6",
+          "6",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Referral explained if needed",
+          "5",
+          "6",
+          "83%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Proper screening equipment used",
+          "6",
+          "6",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "0",
+          "6",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "0",
+          "6",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Cold chain temperature correct",
+          "6",
+          "6",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
     },
-
-    wash: {
-      kpi: [
-        { val: '21',  label: 'WASH Respondents',              sub: 'Boreholes, latrines, hygiene', cls: 'blue'  },
-        { val: '50%', label: 'Daily Water Availability',      sub: '11 Yes / 8 No / 3 Sometimes', cls: 'amber' },
-        { val: '37%', label: 'Latrines Clean',                sub: '7/22 — critical sanitation gap', cls: 'red'   },
-        { val: '14%', label: 'Handwashing Stations Available',sub: 'Only 3/22 sites with soap & water', cls: 'red' },
+    "health": {
+      "kpi": [
+        {
+          "val": "7",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "86%",
+          "label": "Gloves / PPE Available",
+          "sub": "6/7 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "43%",
+          "label": "Electricity Available",
+          "sub": "3/7 functional",
+          "cls": "amber"
+        }
       ],
-      radarData:  [50, 91, 32, 32, 32, 14, 95, 100],
-      barMet:     [50, 91, 32, 14, 95, 100],
-      barNotMet:  [50, 9,  68, 86, 5,  0  ],
-      tableRows: [
-        ['Water available daily',              '11','22','50%','red','Critical'],
-        ['Water perceived as good quality',    '20','22','91%','green','Good'],
-        ['Latrines clean (no odor/overflow)',  '7','22','32%','red','Critical'],
-        ['Latrine doors have privacy locks',   '7','22','32%','red','Critical'],
-        ['Latrines segregated by sex',         '7','22','32%','red','Critical'],
-        ['Handwashing facility with soap',     '3','22','14%','red','Critical'],
-        ['Water point safe for women & girls', '21','22','95%','green','Good'],
-        ['Hygiene promotion messages received','22','22','100%','green','Excellent'],
-        ['Hygiene kit received',               '22','22','100%','green','Excellent'],
-        ['No diarrhea cases (last 3 months)',  '22','22','100%','green','Excellent'],
+      "barData": [
+        86,
+        86,
+        86,
+        100,
+        100,
+        43
       ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "6",
+          "7",
+          "86%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Gloves / PPE available",
+          "6",
+          "7",
+          "86%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Instruments from sterile packs",
+          "6",
+          "7",
+          "86%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "7",
+          "7",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Waste properly disposed",
+          "7",
+          "7",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Sterilization equipment functional",
+          "5",
+          "7",
+          "71%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Drugs prescribed available",
+          "3",
+          "7",
+          "43%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Electricity functional",
+          "3",
+          "7",
+          "43%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Disability physical access",
+          "6",
+          "7",
+          "86%",
+          "green",
+          "Acceptable"
+        ]
+      ]
     },
+    "wash": {
+      "kpi": [
+        {
+          "val": "22",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "50%",
+          "label": "Daily Water Availability",
+          "sub": "11/22 report daily",
+          "cls": "amber"
+        },
+        {
+          "val": "32%",
+          "label": "Latrines Clean",
+          "sub": "7/22 sites",
+          "cls": "red"
+        },
+        {
+          "val": "14%",
+          "label": "Handwashing Stations Available",
+          "sub": "3/22 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        50,
+        95,
+        32,
+        55,
+        27,
+        14,
+        27,
+        55
+      ],
+      "barMet": [
+        50,
+        95,
+        32,
+        14,
+        27,
+        55
+      ],
+      "barNotMet": [
+        50,
+        5,
+        68,
+        86,
+        73,
+        45
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "11",
+          "22",
+          "50%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Water perceived as good quality",
+          "21",
+          "22",
+          "95%",
+          "green",
+          "Good"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "7",
+          "22",
+          "32%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "12",
+          "22",
+          "55%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines segregated by sex",
+          "6",
+          "22",
+          "27%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "3",
+          "22",
+          "14%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "6",
+          "22",
+          "27%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "12",
+          "22",
+          "55%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Hygiene kit received",
+          "7",
+          "22",
+          "32%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "22",
+          "22",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
+    }
   },
-
-  // ── APRIL 2026  (n = 68, MHPSS — Magumeri, Kaga, Mobbar) ───
-  '2026-04': {
-    meta: { n: 68, range: 'Apr 2026' },
-
-    overview: {
-      kpi: [
-        { val: '68',  label: 'Total Respondents', sub: 'April 2026',                     cls: 'blue'  },
-        { val: '3',   label: 'LGAs Covered',      sub: 'Magumeri · Kaga · Mobbar',       cls: 'blue'  },
-        { val: '1',   label: 'Sectors Monitored', sub: 'MHPSS Services',                 cls: 'green' },
-        { val: '5',   label: 'Emotional Safety Gaps', sub: 'Follow-up required',         cls: 'amber' },
-      ],
-      sectorData:   [0, 68, 0, 0, 0],
-      sectorLabels: ['WASH (0)', 'MHPSS (68)', 'Nutrition (0)', 'Health (0)', 'Others (0)'],
-      lgaData:      [34, 21, 13],
-      lgaLabels:    ['Magumeri (34)', 'Kaga (21)', 'Mobbar (13)'],
-      dateLabels:   ['Apr 2026'],
-      dateData:     [68],
-      access:       [78, 22, 0, 0],
-      wait:         [81, 19, 0, 0],
-      rights:       '100%',
-      rightsN:      '68',
+  "2026-04": {
+    "meta": {
+      "n": 68,
+      "range": "Apr 2026"
     },
-
-    protection: {
-      kpi: [
-        { val: '93%', label: 'Felt Emotionally Safe',        sub: '63/68 — 5 felt unsafe',   cls: 'green' },
-        { val: '100%', label: 'Session Purpose Explained',   sub: '68/68 respondents',        cls: 'green' },
-        { val: '100%', label: 'Privacy Ensured in Session',  sub: '68/68 respondents',        cls: 'green' },
-        { val: '64%',  label: 'Aware of Complaint Mechanism',sub: 'Apr baseline — AAP gap',   cls: 'amber' },
+    "overview": {
+      "kpi": [
+        {
+          "val": "68",
+          "label": "Total Respondents",
+          "sub": "April 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "2",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (54) · Gubio (14)",
+          "cls": "blue"
+        },
+        {
+          "val": "3",
+          "label": "Sectors Monitored",
+          "sub": "WASH · Nutrition · Health · MHPSS · Food",
+          "cls": "green"
+        },
+        {
+          "val": "6",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "amber"
+        }
       ],
-      radarData:  [93, 100, 100, 100, 100, 64],
-      aapData:    [8, 7, 7, 5, 2, 16],
-      tableRows: [
-        ['Staff explained purpose of session', '68','0','100%','green','Excellent'],
-        ['Beneficiary felt emotionally safe',  '63','5','93%','amber','Monitor'],
-        ['Enough time given to express self',  '68','0','100%','green','Excellent'],
-        ['Staff showed empathy',               '68','0','100%','green','Excellent'],
-        ['Privacy ensured during session',     '68','0','100%','green','Excellent'],
-        ['P8. Knows complaint channel',        '29','16','64%','amber','Below target'],
-        ['P10. Services protect rights',       '68','0','100%','green','Excellent'],
+      "sectorData": [
+        39,
+        0,
+        17,
+        12,
+        0
       ],
+      "sectorLabels": [
+        "WASH (39)",
+        "MHPSS (0)",
+        "Nutrition (17)",
+        "Health (12)",
+        "Food (0)"
+      ],
+      "lgaData": [
+        54,
+        14
+      ],
+      "lgaLabels": [
+        "Magumeri (54)",
+        "Gubio (14)"
+      ],
+      "dateLabels": [
+        "1 Apr",
+        "7 Apr",
+        "8 Apr",
+        "9 Apr",
+        "10 Apr",
+        "13 Apr",
+        "14 Apr",
+        "15 Apr",
+        "16 Apr",
+        "17 Apr",
+        "20 Apr",
+        "23 Apr",
+        "27 Apr",
+        "29 Apr"
+      ],
+      "dateData": [
+        4,
+        3,
+        4,
+        2,
+        7,
+        8,
+        16,
+        5,
+        3,
+        7,
+        2,
+        3,
+        2,
+        2
+      ],
+      "access": [
+        78,
+        21,
+        1,
+        0
+      ],
+      "wait": [
+        69,
+        29,
+        1,
+        0
+      ],
+      "rights": "100%",
+      "rightsN": "68"
     },
-
-    nutrition: {
-      kpi: [
-        { val: '0',   label: 'Nutrition Respondents', sub: 'No Nutrition data in Apr 2026', cls: 'blue'  },
-        { val: 'N/A', label: 'RUTF Received',         sub: 'No data this month',            cls: 'blue'  },
-        { val: 'N/A', label: 'Appetite Test Conducted', sub: 'No data this month',          cls: 'blue'  },
-        { val: 'N/A', label: 'Immunization Available', sub: 'No data this month',           cls: 'blue'  },
+    "protection": {
+      "kpi": [
+        {
+          "val": "93%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "63/68 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "99%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "67/68 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "9%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "6/68 — needs follow-up",
+          "cls": "amber"
+        },
+        {
+          "val": "90%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "61/68 beneficiaries",
+          "cls": "green"
+        }
       ],
-      radarData: [0, 0, 0, 0, 0, 0],
-      tableRows: [],
-    },
-
-    health: {
-      kpi: [
-        { val: '0',   label: 'Health Respondents',  sub: 'No Health data in Apr 2026', cls: 'blue' },
-        { val: 'N/A', label: 'Gloves / PPE',        sub: 'No data this month',         cls: 'blue' },
-        { val: 'N/A', label: 'Hand Hygiene',        sub: 'No data this month',         cls: 'blue' },
-        { val: 'N/A', label: 'Electricity',         sub: 'No data this month',         cls: 'blue' },
+      "radarData": [
+        93,
+        99,
+        91,
+        97,
+        99,
+        90
       ],
-      barData: [0, 0, 0, 0, 0, 0],
-      tableRows: [],
-    },
-
-    wash: {
-      kpi: [
-        { val: '0',   label: 'WASH Respondents',      sub: 'No WASH data in Apr 2026', cls: 'blue' },
-        { val: 'N/A', label: 'Daily Water',            sub: 'No data this month',       cls: 'blue' },
-        { val: 'N/A', label: 'Latrines Clean',         sub: 'No data this month',       cls: 'blue' },
-        { val: 'N/A', label: 'Handwashing Stations',   sub: 'No data this month',       cls: 'blue' },
+      "aapData": [
+        24,
+        11,
+        30,
+        34,
+        0,
+        7
       ],
-      radarData:  [0,0,0,0,0,0,0,0],
-      barMet:     [0,0,0,0,0,0],
-      barNotMet:  [0,0,0,0,0,0],
-      tableRows: [],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "63",
+          "5",
+          "93%",
+          "green",
+          "Good"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "67",
+          "1",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "6",
+          "62",
+          "9%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "66",
+          "2",
+          "97%",
+          "green",
+          "Good"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "67",
+          "1",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "61",
+          "7",
+          "90%",
+          "green",
+          "Good"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "68",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
     },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "17",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 16 · Porridge/Tombrown: 1",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "RUTF Received",
+          "sub": "16/16 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "81%",
+          "label": "Appetite Test Conducted",
+          "sub": "13/16 observed",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Immunization Available",
+          "sub": "16/16 at facility",
+          "cls": "green"
+        }
+      ],
+      "radarData": [
+        81,
+        100,
+        100,
+        100,
+        0,
+        100
+      ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "13",
+          "16",
+          "81%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Routine medications given",
+          "16",
+          "16",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "16",
+          "16",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "16",
+          "16",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Referral explained if needed",
+          "15",
+          "16",
+          "94%",
+          "green",
+          "Good"
+        ],
+        [
+          "Proper screening equipment used",
+          "16",
+          "16",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "0",
+          "0",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "0",
+          "16",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Cold chain temperature correct",
+          "16",
+          "16",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
+    },
+    "health": {
+      "kpi": [
+        {
+          "val": "12",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "75%",
+          "label": "Gloves / PPE Available",
+          "sub": "9/12 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "83%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "58%",
+          "label": "Electricity Available",
+          "sub": "7/12 functional",
+          "cls": "amber"
+        }
+      ],
+      "barData": [
+        83,
+        75,
+        92,
+        83,
+        83,
+        58
+      ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "10",
+          "12",
+          "83%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Gloves / PPE available",
+          "9",
+          "12",
+          "75%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Instruments from sterile packs",
+          "11",
+          "12",
+          "92%",
+          "green",
+          "Good"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "10",
+          "12",
+          "83%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Waste properly disposed",
+          "10",
+          "12",
+          "83%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Sterilization equipment functional",
+          "8",
+          "12",
+          "67%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Drugs prescribed available",
+          "7",
+          "12",
+          "58%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Electricity functional",
+          "7",
+          "12",
+          "58%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Disability physical access",
+          "10",
+          "12",
+          "83%",
+          "green",
+          "Acceptable"
+        ]
+      ]
+    },
+    "wash": {
+      "kpi": [
+        {
+          "val": "39",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "33%",
+          "label": "Daily Water Availability",
+          "sub": "13/39 report daily",
+          "cls": "amber"
+        },
+        {
+          "val": "31%",
+          "label": "Latrines Clean",
+          "sub": "12/39 sites",
+          "cls": "red"
+        },
+        {
+          "val": "8%",
+          "label": "Handwashing Stations Available",
+          "sub": "3/39 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        33,
+        82,
+        31,
+        59,
+        26,
+        8,
+        51,
+        67
+      ],
+      "barMet": [
+        33,
+        82,
+        31,
+        8,
+        51,
+        67
+      ],
+      "barNotMet": [
+        67,
+        18,
+        69,
+        92,
+        49,
+        33
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "13",
+          "39",
+          "33%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water perceived as good quality",
+          "32",
+          "39",
+          "82%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "12",
+          "39",
+          "31%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "23",
+          "39",
+          "59%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines segregated by sex",
+          "10",
+          "39",
+          "26%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "3",
+          "39",
+          "8%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "20",
+          "39",
+          "51%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "26",
+          "39",
+          "67%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Hygiene kit received",
+          "15",
+          "39",
+          "38%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "35",
+          "39",
+          "90%",
+          "green",
+          "Good"
+        ]
+      ]
+    }
   },
-
-  // ── MAY 2026  (n = 267, MHPSS primary + mixed sectors) ──────
-  '2026-05': {
-    meta: { n: 267, range: 'May 2026' },
-
-    overview: {
-      kpi: [
-        { val: '267', label: 'Total Respondents',    sub: 'May 2026',                            cls: 'blue'  },
-        { val: '3',   label: 'LGAs Covered',         sub: 'Magumeri · Kaga · Mobbar',            cls: 'blue'  },
-        { val: '3',   label: 'Sectors Monitored',    sub: 'MHPSS · Protection · AAP',            cls: 'green' },
-        { val: '5',   label: 'Emotional Safety Gaps',sub: 'Flagged across 3 service types',      cls: 'amber' },
-      ],
-      sectorData:   [0, 68, 0, 0, 0],
-      sectorLabels: ['WASH (0)', 'MHPSS (68)', 'Nutrition (0)', 'Health (0)', 'Others (0)'],
-      lgaData:      [34, 21, 13],
-      lgaLabels:    ['Magumeri (34)', 'Kaga (21)', 'Mobbar (13)'],
-      dateLabels:   ['May 2026'],
-      dateData:     [267],
-      access:       [78, 22, 0, 0],
-      wait:         [81, 19, 0, 0],
-      rights:       '100%',
-      rightsN:      '68',
+  "2026-05": {
+    "meta": {
+      "n": 267,
+      "range": "May 2026"
     },
-
-    protection: {
-      kpi: [
-        { val: '93%', label: 'Felt Emotionally Safe',      sub: '63/68 — 5 felt unsafe',     cls: 'green' },
-        { val: '100%', label: 'Session Purpose Explained', sub: '68/68 MHPSS respondents',   cls: 'green' },
-        { val: '0%',   label: 'Abuse / Discrimination',    sub: 'No protection incidents May',cls: 'green' },
-        { val: '64%',  label: 'Aware of Complaint Mechanism', sub: 'MHPSS cohort — gap noted',cls: 'amber' },
+    "overview": {
+      "kpi": [
+        {
+          "val": "267",
+          "label": "Total Respondents",
+          "sub": "May 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (142) · Gubio (121) · Mobbar (3) · Kaga (1)",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "Sectors Monitored",
+          "sub": "WASH · Nutrition · Health · MHPSS · Food",
+          "cls": "green"
+        },
+        {
+          "val": "0",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "green"
+        }
       ],
-      radarData:  [93, 100, 100, 100, 100, 64],
-      aapData:    [8, 7, 7, 5, 2, 16],
-      tableRows: [
-        ['Staff explained purpose of session', '68','0','100%','green','Excellent'],
-        ['Beneficiary felt emotionally safe',  '63','5','93%','amber','Monitor'],
-        ['Enough time given to express self',  '68','0','100%','green','Excellent'],
-        ['Staff showed empathy',               '68','0','100%','green','Excellent'],
-        ['Privacy ensured during session',     '68','0','100%','green','Excellent'],
-        ['P8. Knows complaint channel',        '29','16','64%','amber','Below target'],
-        ['P10. Services protect rights',       '68','0','100%','green','Excellent'],
+      "sectorData": [
+        90,
+        44,
+        57,
+        86,
+        0
       ],
+      "sectorLabels": [
+        "WASH (90)",
+        "MHPSS (44)",
+        "Nutrition (57)",
+        "Health (86)",
+        "Food (0)"
+      ],
+      "lgaData": [
+        142,
+        121,
+        3,
+        1
+      ],
+      "lgaLabels": [
+        "Magumeri (142)",
+        "Gubio (121)",
+        "Mobbar (3)",
+        "Kaga (1)"
+      ],
+      "dateLabels": [
+        "4 May",
+        "5 May",
+        "6 May",
+        "7 May",
+        "8 May",
+        "11 May",
+        "12 May",
+        "14 May",
+        "18 May",
+        "23 May",
+        "25 May",
+        "26 May",
+        "29 May"
+      ],
+      "dateData": [
+        12,
+        10,
+        8,
+        1,
+        1,
+        5,
+        1,
+        1,
+        3,
+        128,
+        87,
+        7,
+        3
+      ],
+      "access": [
+        72,
+        27,
+        1,
+        0
+      ],
+      "wait": [
+        74,
+        24,
+        2,
+        0
+      ],
+      "rights": "100%",
+      "rightsN": "267"
     },
-
-    nutrition: {
-      kpi: [
-        { val: '0',   label: 'Nutrition Respondents', sub: 'No Nutrition data in May 2026', cls: 'blue' },
-        { val: 'N/A', label: 'RUTF Received',         sub: 'No data this month',            cls: 'blue' },
-        { val: 'N/A', label: 'Appetite Test',         sub: 'No data this month',            cls: 'blue' },
-        { val: 'N/A', label: 'Immunization',          sub: 'No data this month',            cls: 'blue' },
+    "protection": {
+      "kpi": [
+        {
+          "val": "99%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "264/267 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "266/267 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "0%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "0/267 — needs follow-up",
+          "cls": "amber"
+        },
+        {
+          "val": "84%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "223/267 beneficiaries",
+          "cls": "green"
+        }
       ],
-      radarData: [0,0,0,0,0,0],
-      tableRows: [],
-    },
-
-    health: {
-      kpi: [
-        { val: '0',   label: 'Health Respondents',  sub: 'No Health data in May 2026',  cls: 'blue' },
-        { val: 'N/A', label: 'Gloves / PPE',        sub: 'No data this month',          cls: 'blue' },
-        { val: 'N/A', label: 'Hand Hygiene',        sub: 'No data this month',          cls: 'blue' },
-        { val: 'N/A', label: 'Electricity',         sub: 'No data this month',          cls: 'blue' },
+      "radarData": [
+        99,
+        100,
+        100,
+        97,
+        99,
+        84
       ],
-      barData: [0,0,0,0,0,0],
-      tableRows: [],
-    },
-
-    wash: {
-      kpi: [
-        { val: '0',   label: 'WASH Respondents',    sub: 'No WASH data in May 2026',  cls: 'blue' },
-        { val: 'N/A', label: 'Daily Water',          sub: 'No data this month',        cls: 'blue' },
-        { val: 'N/A', label: 'Latrines Clean',       sub: 'No data this month',        cls: 'blue' },
-        { val: 'N/A', label: 'Handwashing Stations', sub: 'No data this month',        cls: 'blue' },
+      "aapData": [
+        72,
+        35,
+        135,
+        141,
+        5,
+        44
       ],
-      radarData:  [0,0,0,0,0,0,0,0],
-      barMet:     [0,0,0,0,0,0],
-      barNotMet:  [0,0,0,0,0,0],
-      tableRows: [],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "264",
+          "3",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "266",
+          "1",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "0",
+          "267",
+          "0%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "259",
+          "8",
+          "97%",
+          "green",
+          "Good"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "265",
+          "2",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "223",
+          "44",
+          "84%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "266",
+          "1",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
     },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "57",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 48 · Porridge/Tombrown: 9",
+          "cls": "blue"
+        },
+        {
+          "val": "98%",
+          "label": "RUTF Received",
+          "sub": "46/47 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "77%",
+          "label": "Appetite Test Conducted",
+          "sub": "36/47 observed",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Immunization Available",
+          "sub": "47/47 at facility",
+          "cls": "green"
+        }
+      ],
+      "radarData": [
+        77,
+        96,
+        100,
+        98,
+        0,
+        96
+      ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "36",
+          "47",
+          "77%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Routine medications given",
+          "45",
+          "47",
+          "96%",
+          "green",
+          "Good"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "46",
+          "47",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "47",
+          "47",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Referral explained if needed",
+          "46",
+          "47",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Proper screening equipment used",
+          "46",
+          "47",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "0",
+          "6",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "0",
+          "47",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Cold chain temperature correct",
+          "45",
+          "47",
+          "96%",
+          "green",
+          "Good"
+        ]
+      ]
+    },
+    "health": {
+      "kpi": [
+        {
+          "val": "86",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "80%",
+          "label": "Gloves / PPE Available",
+          "sub": "69/86 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "84%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "59%",
+          "label": "Electricity Available",
+          "sub": "51/86 functional",
+          "cls": "amber"
+        }
+      ],
+      "barData": [
+        79,
+        80,
+        80,
+        84,
+        87,
+        59
+      ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "68",
+          "86",
+          "79%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Gloves / PPE available",
+          "69",
+          "86",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Instruments from sterile packs",
+          "69",
+          "86",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "72",
+          "86",
+          "84%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Waste properly disposed",
+          "75",
+          "86",
+          "87%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Sterilization equipment functional",
+          "58",
+          "86",
+          "67%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Drugs prescribed available",
+          "67",
+          "86",
+          "78%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Electricity functional",
+          "51",
+          "86",
+          "59%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Disability physical access",
+          "77",
+          "86",
+          "90%",
+          "green",
+          "Good"
+        ]
+      ]
+    },
+    "wash": {
+      "kpi": [
+        {
+          "val": "90",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "47%",
+          "label": "Daily Water Availability",
+          "sub": "42/90 report daily",
+          "cls": "amber"
+        },
+        {
+          "val": "34%",
+          "label": "Latrines Clean",
+          "sub": "31/90 sites",
+          "cls": "red"
+        },
+        {
+          "val": "22%",
+          "label": "Handwashing Stations Available",
+          "sub": "20/90 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        47,
+        82,
+        34,
+        58,
+        41,
+        22,
+        76,
+        46
+      ],
+      "barMet": [
+        47,
+        82,
+        34,
+        22,
+        76,
+        46
+      ],
+      "barNotMet": [
+        53,
+        18,
+        66,
+        78,
+        24,
+        54
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "42",
+          "90",
+          "47%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water perceived as good quality",
+          "74",
+          "90",
+          "82%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "31",
+          "90",
+          "34%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "52",
+          "90",
+          "58%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines segregated by sex",
+          "37",
+          "90",
+          "41%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "20",
+          "90",
+          "22%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "68",
+          "90",
+          "76%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "41",
+          "90",
+          "46%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Hygiene kit received",
+          "28",
+          "90",
+          "31%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "56",
+          "90",
+          "62%",
+          "amber",
+          "Monitor"
+        ]
+      ]
+    }
   },
-
-  // ── JUNE 2026  (n = 489, Food Assistance + Protection/WASH) ─
-  '2026-06': {
-    meta: { n: 489, range: 'Jun 2026' },
-
-    overview: {
-      kpi: [
-        { val: '489', label: 'Total Respondents',       sub: 'June 2026',                      cls: 'blue'  },
-        { val: '2',   label: 'LGAs Covered',            sub: 'Magumeri (81) · Mobbar (3)',     cls: 'blue'  },
-        { val: '2',   label: 'Sectors Monitored',       sub: 'Food Assistance · Protection',   cls: 'green' },
-        { val: '30',  label: 'Harassment / Exploitation',sub: '36% of food respondents — critical',cls: 'red' },
-      ],
-      sectorData:   [0, 0, 0, 0, 84],
-      sectorLabels: ['WASH (0)', 'MHPSS (0)', 'Nutrition (0)', 'Health (0)', 'Food (84)'],
-      lgaData:      [81, 3],
-      lgaLabels:    ['Magumeri (81)', 'Mobbar (3)'],
-      dateLabels:   ['Jun 2026'],
-      dateData:     [489],
-      access:       [82, 17, 0, 1],
-      wait:         [82, 17, 0, 1],
-      rights:       '100%',
-      rightsN:      '84',
+  "2026-06": {
+    "meta": {
+      "n": 658,
+      "range": "Jun 2026"
     },
-
-    protection: {
-      kpi: [
-        { val: '99%', label: 'Felt Safe at Distribution Site', sub: '83/84 respondents', cls: 'green' },
-        { val: '100%', label: 'Distribution Transparent',      sub: '84/84 respondents', cls: 'green' },
-        { val: '36%', label: 'Harassment / Exploitation',      sub: '30/84 — immediate action required', cls: 'red' },
-        { val: '63%', label: 'Scale Accuracy',                 sub: '53/84 scales inaccurate', cls: 'amber' },
+    "overview": {
+      "kpi": [
+        {
+          "val": "658",
+          "label": "Total Respondents",
+          "sub": "June 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (249) · Kaga (219) · Gubio (152) · Mobbar (38)",
+          "cls": "blue"
+        },
+        {
+          "val": "5",
+          "label": "Sectors Monitored",
+          "sub": "WASH · Nutrition · Health · MHPSS · Food",
+          "cls": "green"
+        },
+        {
+          "val": "37",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "amber"
+        }
       ],
-      radarData:  [99, 100, 64, 94, 100, 63],
-      aapData:    [84, 0, 0, 0, 0, 0],
-      tableRows: [
-        ['Felt safe at distribution point',    '83','1','99%','green','Excellent'],
-        ['Distribution transparent & orderly', '84','0','100%','green','Excellent'],
-        ['Priority queues for vulnerable',     '79','5','94%','green','Good'],
-        ['No harassment / exploitation',       '54','30','64%','red','Alert'],
-        ['Exact quantity received',            '84','0','100%','green','Excellent'],
-        ['No unofficial fees paid',            '84','0','100%','green','Excellent'],
-        ['Weighing scale accurate',            '31','53','37%','red','Alert'],
+      "sectorData": [
+        155,
+        79,
+        224,
+        112,
+        90
       ],
+      "sectorLabels": [
+        "WASH (155)",
+        "MHPSS (79)",
+        "Nutrition (224)",
+        "Health (112)",
+        "Food (90)"
+      ],
+      "lgaData": [
+        249,
+        219,
+        152,
+        38
+      ],
+      "lgaLabels": [
+        "Magumeri (249)",
+        "Kaga (219)",
+        "Gubio (152)",
+        "Mobbar (38)"
+      ],
+      "dateLabels": [
+        "1 Jun",
+        "2 Jun",
+        "3 Jun",
+        "4 Jun",
+        "5 Jun",
+        "7 Jun",
+        "8 Jun",
+        "9 Jun",
+        "10 Jun",
+        "12 Jun",
+        "13 Jun",
+        "15 Jun",
+        "16 Jun",
+        "17 Jun",
+        "18 Jun",
+        "19 Jun",
+        "20 Jun",
+        "22 Jun",
+        "23 Jun",
+        "24 Jun",
+        "25 Jun",
+        "29 Jun"
+      ],
+      "dateData": [
+        8,
+        28,
+        87,
+        4,
+        19,
+        1,
+        37,
+        33,
+        50,
+        30,
+        26,
+        48,
+        27,
+        36,
+        48,
+        12,
+        5,
+        34,
+        45,
+        53,
+        22,
+        5
+      ],
+      "access": [
+        80,
+        19,
+        1,
+        0
+      ],
+      "wait": [
+        81,
+        17,
+        2,
+        0
+      ],
+      "rights": "97%",
+      "rightsN": "658"
     },
-
-    nutrition: {
-      kpi: [
-        { val: '0',   label: 'Nutrition Respondents', sub: 'No Nutrition data in Jun 2026', cls: 'blue' },
-        { val: 'N/A', label: 'RUTF Received',         sub: 'No data this month',            cls: 'blue' },
-        { val: 'N/A', label: 'Appetite Test',         sub: 'No data this month',            cls: 'blue' },
-        { val: 'N/A', label: 'Immunization',          sub: 'No data this month',            cls: 'blue' },
+    "protection": {
+      "kpi": [
+        {
+          "val": "99%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "649/658 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "99%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "650/658 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "6%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "37/658 — needs follow-up",
+          "cls": "amber"
+        },
+        {
+          "val": "87%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "570/658 beneficiaries",
+          "cls": "green"
+        }
       ],
-      radarData: [0,0,0,0,0,0],
-      tableRows: [],
-    },
-
-    health: {
-      kpi: [
-        { val: '0',   label: 'Health Respondents',  sub: 'No Health data in Jun 2026',  cls: 'blue' },
-        { val: 'N/A', label: 'Gloves / PPE',        sub: 'No data this month',          cls: 'blue' },
-        { val: 'N/A', label: 'Hand Hygiene',        sub: 'No data this month',          cls: 'blue' },
-        { val: 'N/A', label: 'Electricity',         sub: 'No data this month',          cls: 'blue' },
+      "radarData": [
+        99,
+        99,
+        94,
+        90,
+        99,
+        87
       ],
-      barData: [0,0,0,0,0,0],
-      tableRows: [],
-    },
-
-    wash: {
-      kpi: [
-        { val: '0',   label: 'WASH Respondents',    sub: 'No WASH data in Jun 2026',  cls: 'blue' },
-        { val: 'N/A', label: 'Daily Water',          sub: 'No data this month',        cls: 'blue' },
-        { val: 'N/A', label: 'Latrines Clean',       sub: 'No data this month',        cls: 'blue' },
-        { val: 'N/A', label: 'Handwashing Stations', sub: 'No data this month',        cls: 'blue' },
+      "aapData": [
+        139,
+        116,
+        363,
+        392,
+        24,
+        88
       ],
-      radarData:  [0,0,0,0,0,0,0,0],
-      barMet:     [0,0,0,0,0,0],
-      barNotMet:  [0,0,0,0,0,0],
-      tableRows: [],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "649",
+          "9",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "650",
+          "8",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "37",
+          "621",
+          "6%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "589",
+          "69",
+          "90%",
+          "green",
+          "Good"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "654",
+          "4",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "570",
+          "88",
+          "87%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "639",
+          "19",
+          "97%",
+          "green",
+          "Good"
+        ]
+      ]
     },
-  },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "224",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 149 · Porridge/Tombrown: 75",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "RUTF Received",
+          "sub": "11/11 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "55%",
+          "label": "Appetite Test Conducted",
+          "sub": "6/11 observed",
+          "cls": "green"
+        },
+        {
+          "val": "73%",
+          "label": "Immunization Available",
+          "sub": "8/11 at facility",
+          "cls": "green"
+        }
+      ],
+      "radarData": [
+        55,
+        100,
+        73,
+        100,
+        0,
+        55
+      ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "6",
+          "11",
+          "55%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Routine medications given",
+          "11",
+          "11",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "11",
+          "11",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "8",
+          "11",
+          "73%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Referral explained if needed",
+          "11",
+          "11",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Proper screening equipment used",
+          "11",
+          "11",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "0",
+          "5",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "0",
+          "11",
+          "0%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Cold chain temperature correct",
+          "6",
+          "11",
+          "55%",
+          "amber",
+          "Monitor"
+        ]
+      ]
+    },
+    "health": {
+      "kpi": [
+        {
+          "val": "112",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "80%",
+          "label": "Gloves / PPE Available",
+          "sub": "90/112 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "88%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "39%",
+          "label": "Electricity Available",
+          "sub": "44/112 functional",
+          "cls": "amber"
+        }
+      ],
+      "barData": [
+        94,
+        80,
+        93,
+        88,
+        94,
+        39
+      ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "105",
+          "112",
+          "94%",
+          "green",
+          "Good"
+        ],
+        [
+          "Gloves / PPE available",
+          "90",
+          "112",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Instruments from sterile packs",
+          "104",
+          "112",
+          "93%",
+          "green",
+          "Good"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "98",
+          "112",
+          "88%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Waste properly disposed",
+          "105",
+          "112",
+          "94%",
+          "green",
+          "Good"
+        ],
+        [
+          "Sterilization equipment functional",
+          "96",
+          "112",
+          "86%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Drugs prescribed available",
+          "62",
+          "112",
+          "55%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Electricity functional",
+          "44",
+          "112",
+          "39%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Disability physical access",
+          "111",
+          "112",
+          "99%",
+          "green",
+          "Excellent"
+        ]
+      ]
+    },
+    "wash": {
+      "kpi": [
+        {
+          "val": "155",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "91%",
+          "label": "Daily Water Availability",
+          "sub": "141/155 report daily",
+          "cls": "green"
+        },
+        {
+          "val": "44%",
+          "label": "Latrines Clean",
+          "sub": "68/155 sites",
+          "cls": "red"
+        },
+        {
+          "val": "20%",
+          "label": "Handwashing Stations Available",
+          "sub": "31/155 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        91,
+        68,
+        44,
+        50,
+        36,
+        20,
+        97,
+        38
+      ],
+      "barMet": [
+        91,
+        68,
+        44,
+        20,
+        97,
+        38
+      ],
+      "barNotMet": [
+        9,
+        32,
+        56,
+        80,
+        3,
+        62
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "141",
+          "155",
+          "91%",
+          "green",
+          "Good"
+        ],
+        [
+          "Water perceived as good quality",
+          "106",
+          "155",
+          "68%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "68",
+          "155",
+          "44%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "78",
+          "155",
+          "50%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Latrines segregated by sex",
+          "56",
+          "155",
+          "36%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "31",
+          "155",
+          "20%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "150",
+          "155",
+          "97%",
+          "green",
+          "Good"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "59",
+          "155",
+          "38%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Hygiene kit received",
+          "27",
+          "155",
+          "17%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "123",
+          "155",
+          "79%",
+          "green",
+          "Acceptable"
+        ]
+      ]
+    }
+  }
 };
 
 // ════════════════════════════════════════════════════════════════
@@ -1688,12 +4031,8 @@ function switchTab(id, btn) {
 // ════════════════════════════════════════════════════════════════
 let currentMonth = 'all';
 
-function setMonth(month, btn) {
+function setMonth(month) {
   currentMonth = month;
-
-  // Button state
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
 
   // Filter note
   const m = MONTHS[month].meta;
@@ -1856,8 +4195,8 @@ charts.washBar = new Chart(document.getElementById('chartWashBar'), {
 new Chart(document.getElementById('chartMhpssType'), {
   type: 'doughnut',
   data: {
-    labels: ['PFA — Psych. First Aid (25)', 'Psychoeducation (17)', 'Peer Support (14)', 'Counselling (11)', 'Not Sure (1)'],
-    datasets: [{ data: [25,17,14,11,1], backgroundColor: [UN_BLUE, WHO_GREEN, WHO_TEAL, AMBER, '#999'], borderWidth: 2, borderColor: '#fff' }]
+    labels: ['PFA — Psych. First Aid (49)', 'Psychoeducation (32)', 'Counselling (31)', 'Peer Support (10)', 'Not Sure (1)'],
+    datasets: [{ data: [49,32,31,10,1], backgroundColor: [UN_BLUE, WHO_GREEN, AMBER, WHO_TEAL, '#999'], borderWidth: 2, borderColor: '#fff' }]
   },
   options: { ...dflOpts, plugins: { ...dflOpts.plugins, legend: { position: 'right', labels: { font:{size:10}, boxWidth:12 } } } }
 });
@@ -1869,8 +4208,8 @@ new Chart(document.getElementById('chartMhpssQuality'), {
     labels: ['Staff Explained\nPurpose','Privacy\nEnsured','Empathy\nShown','Time to\nExpress Self','Felt Emotionally\nSafe'],
     datasets: [{
       label: '% Yes',
-      data: [100, 100, 100, 100, 93],
-      backgroundColor: [OK, OK, OK, OK, AMBER],
+      data: [99, 100, 99, 99, 96],
+      backgroundColor: [OK, OK, OK, OK, OK],
       borderRadius: 3
     }]
   },
@@ -1890,7 +4229,7 @@ new Chart(document.getElementById('chartMhpssSat'), {
   type: 'doughnut',
   data: {
     labels: ['Very Satisfied', 'Satisfied'],
-    datasets: [{ data: [30, 38], backgroundColor: [OK, UN_BLUE], borderWidth: 2, borderColor: '#fff' }]
+    datasets: [{ data: [57, 65], backgroundColor: [OK, UN_BLUE], borderWidth: 2, borderColor: '#fff' }]
   },
   options: { ...dflOpts, cutout: '70%', plugins: { legend: { display: false } } }
 });
@@ -1899,13 +4238,13 @@ new Chart(document.getElementById('chartMhpssSat'), {
 new Chart(document.getElementById('chartMhpssLGA'), {
   type: 'bar',
   data: {
-    labels: ['Magumeri', 'Kaga', 'Mobbar'],
+    labels: ['Magumeri', 'Kaga', 'Mobbar', 'Gubio'],
     datasets: [
-      { label: 'PFA', data: [14, 11, 0], backgroundColor: UN_BLUE, borderRadius: 2 },
-      { label: 'Psychoeducation', data: [14, 3, 0], backgroundColor: WHO_GREEN, borderRadius: 2 },
-      { label: 'Peer Support', data: [0, 2, 12], backgroundColor: WHO_TEAL, borderRadius: 2 },
-      { label: 'Counselling', data: [6, 5, 0], backgroundColor: AMBER, borderRadius: 2 },
-      { label: 'Not Sure', data: [0, 0, 1], backgroundColor: '#aaa', borderRadius: 2 }
+      { label: 'PFA', data: [31, 11, 7, 0], backgroundColor: UN_BLUE, borderRadius: 2 },
+      { label: 'Psychoeducation', data: [29, 3, 0, 0], backgroundColor: WHO_GREEN, borderRadius: 2 },
+      { label: 'Peer Support', data: [0, 2, 8, 0], backgroundColor: WHO_TEAL, borderRadius: 2 },
+      { label: 'Counselling', data: [15, 5, 0, 11], backgroundColor: AMBER, borderRadius: 2 },
+      { label: 'Not Sure', data: [0, 0, 1, 0], backgroundColor: '#aaa', borderRadius: 2 }
     ]
   },
   options: {
@@ -1922,10 +4261,10 @@ new Chart(document.getElementById('chartMhpssLGA'), {
 new Chart(document.getElementById('chartMhpssSatType'), {
   type: 'bar',
   data: {
-    labels: ['PFA (25)', 'Psychoeducation (17)', 'Peer Support (14)', 'Counselling (11)'],
+    labels: ['PFA (49)', 'Psychoeducation (32)', 'Counselling (31)', 'Peer Support (10)'],
     datasets: [
-      { label: 'Very Satisfied', data: [13, 6, 6, 5], backgroundColor: OK, borderRadius: 2 },
-      { label: 'Satisfied',      data: [12, 11, 8, 6], backgroundColor: UN_BLUE, borderRadius: 2 }
+      { label: 'Very Satisfied', data: [23, 15, 13, 6], backgroundColor: OK, borderRadius: 2 },
+      { label: 'Satisfied',      data: [25, 17, 18, 4], backgroundColor: UN_BLUE, borderRadius: 2 }
     ]
   },
   options: {
@@ -1946,8 +4285,8 @@ new Chart(document.getElementById('chartFoodProfile'), {
   data: {
     labels: ['Host Community', 'IDP', 'Returnee'],
     datasets: [
-      { label: 'Male',   data: [22, 20, 2], backgroundColor: UN_BLUE,    borderRadius: 3 },
-      { label: 'Female', data: [19, 19, 2], backgroundColor: WHO_TEAL,   borderRadius: 3 }
+      { label: 'Male',   data: [24, 19, 2], backgroundColor: UN_BLUE,    borderRadius: 3 },
+      { label: 'Female', data: [18, 25, 2], backgroundColor: WHO_TEAL,   borderRadius: 3 }
     ]
   },
   options: {
@@ -1967,7 +4306,7 @@ new Chart(document.getElementById('chartFoodVendor'), {
     labels: ['Pallet Storage','Cleanliness','No Expired\nItems','No Damaged\nPackaging','Proper\nLabeling','No Roof\nLeaks','No Pests','Scale\nAccuracy'],
     datasets: [{
       label: '% Compliant',
-      data: [100, 100, 100, 80, 98, 99, 21, 37],
+      data: [100, 100, 100, 80, 98, 99, 26, 40],
       backgroundColor: 'rgba(230,126,34,0.15)',
       borderColor: AMBER, pointBackgroundColor: AMBER, borderWidth: 2
     }, {
@@ -1985,6 +4324,9 @@ new Chart(document.getElementById('chartFoodVendor'), {
     }
   }
 });
+
+// ── INITIALISE with cumulative snapshot ──
+setMonth('all');
 </script>
 </body>
 </html>
