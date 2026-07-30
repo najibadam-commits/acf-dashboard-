@@ -855,11 +855,6 @@
 <!-- ══════════════════════ FOOD ASSISTANCE ══════════════════════ -->
 <div class="section" id="sec-food">
 
-  <!-- Month note banner -->
-  <div id="foodMonthBanner" style="display:none;background:#FEF3E7;border-left:3px solid var(--alert-amber);border-radius:5px;padding:8px 14px;margin-bottom:14px;font-size:12px;color:#7C4A0A;">
-    <strong>⚠ Month filter applied:</strong> Food Assistance data shown here is always the <strong>full cumulative dataset</strong> (390 respondents, Mar–Jul 2026), regardless of the month filter selected above.
-  </div>
-
   <!-- KPI Row -->
   <div class="kpi-grid">
     <div class="kpi blue">
@@ -1640,6 +1635,286 @@ const MONTHS = {
           "Acceptable"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 161,
+      "kpi": [
+        {
+          "val": "161",
+          "label": "MHPSS Respondents",
+          "sub": "Mar – Jul 2026 · 4 LGAs covered",
+          "cls": "blue"
+        },
+        {
+          "val": "97%",
+          "label": "Felt Emotionally Safe",
+          "sub": "156/161 — 5 reported feeling unsafe",
+          "cls": "green"
+        },
+        {
+          "val": "99%",
+          "label": "Satisfaction Rate",
+          "sub": "Very Satisfied (43%) · Satisfied (57%)",
+          "cls": "green"
+        },
+        {
+          "val": "5",
+          "label": "Emotional Safety Gaps",
+          "sub": "Needs follow-up — flagged across service types",
+          "cls": "amber"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (45)",
+        "Psychoeducation (51)",
+        "Counselling (34)",
+        "Peer Support (30)",
+        "Not Sure (1)"
+      ],
+      "typeData": [
+        45,
+        51,
+        34,
+        30,
+        1
+      ],
+      "qualityData": [
+        99,
+        100,
+        99,
+        99,
+        97
+      ],
+      "satData": [
+        69,
+        91
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          26,
+          12,
+          7,
+          0
+        ],
+        "Psychoeducation": [
+          29,
+          7,
+          0,
+          15
+        ],
+        "Peer Support": [
+          0,
+          4,
+          26,
+          0
+        ],
+        "Counselling": [
+          13,
+          10,
+          0,
+          11
+        ],
+        "Not sure": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (45)",
+        "Psychoeducation (51)",
+        "Counselling (34)",
+        "Peer Support (30)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          19,
+          20,
+          12,
+          18
+        ],
+        "satisfied": [
+          25,
+          31,
+          22,
+          12
+        ]
+      },
+      "tableRows": [
+        [
+          "Staff clearly explained purpose of session",
+          "160",
+          "1",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Beneficiary felt emotionally safe",
+          "156",
+          "5",
+          "97%",
+          "green",
+          "Good"
+        ],
+        [
+          "Enough time given to express self",
+          "159",
+          "2",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Staff showed empathy & non-judgment",
+          "160",
+          "1",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Privacy ensured during session",
+          "161",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 68,
+        "Kaga": 33,
+        "Mobbar": 34,
+        "Gubio": 26
+      },
+      "unofficialFees": 7
+    },
+    "food": {
+      "n": 390,
+      "kpi": [
+        {
+          "val": "390",
+          "label": "Food Assistance Respondents",
+          "sub": "Mar – Jul 2026 · Magumeri (301) · Gubio (86) · Mobbar (3)",
+          "cls": "blue"
+        },
+        {
+          "val": "98%",
+          "label": "Correct Quantity Received",
+          "sub": "381/390 confirmed entitlement",
+          "cls": "green"
+        },
+        {
+          "val": "23%",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "89/390 — critical protection gap",
+          "cls": "red"
+        },
+        {
+          "val": "73%",
+          "label": "Weighing Scales Accurate",
+          "sub": "104/390 inaccurate — vendor gap",
+          "cls": "amber"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        77,
+        77,
+        5
+      ],
+      "profileFemale": [
+        123,
+        93,
+        14
+      ],
+      "vendorRadarData": [
+        99,
+        98,
+        100,
+        36,
+        99,
+        100,
+        32,
+        73
+      ],
+      "tableRows": [
+        [
+          "Food items stored on pallets (off-ground)",
+          "387",
+          "390",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Cleanliness / ventilation adequate",
+          "383",
+          "390",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No expired items present",
+          "390",
+          "390",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No damaged / leaking packaging",
+          "141",
+          "390",
+          "36%",
+          "red",
+          "Alert"
+        ],
+        [
+          "Proper labeling & branding",
+          "387",
+          "390",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No roof leakage signs",
+          "389",
+          "390",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No evidence of pests",
+          "125",
+          "390",
+          "32%",
+          "red",
+          "Alert"
+        ],
+        [
+          "Weighing scale accurate",
+          "286",
+          "390",
+          "73%",
+          "amber",
+          "Monitor"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 301,
+        "Gubio": 86,
+        "Mobbar": 3
+      }
     }
   },
   "2026-03": {
@@ -2186,6 +2461,171 @@ const MONTHS = {
           "Excellent"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 0,
+      "kpi": [
+        {
+          "val": "0",
+          "label": "MHPSS Respondents",
+          "sub": "No MHPSS submissions this month",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Felt Emotionally Safe",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Satisfaction Rate",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "0",
+          "label": "Emotional Safety Gaps",
+          "sub": "No data available",
+          "cls": "blue"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (0)",
+        "Psychoeducation (0)",
+        "Counselling (0)",
+        "Peer Support (0)",
+        "Not Sure (0)"
+      ],
+      "typeData": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "qualityData": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "satData": [
+        0,
+        0
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Psychoeducation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Peer Support": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Counselling": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Not sure": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (0)",
+        "Psychoeducation (0)",
+        "Counselling (0)",
+        "Peer Support (0)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "satisfied": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "tableRows": [],
+      "lgaCoverage": {},
+      "unofficialFees": 0
+    },
+    "food": {
+      "n": 0,
+      "kpi": [
+        {
+          "val": "0",
+          "label": "Food Assistance Respondents",
+          "sub": "No Food Assistance submissions this month",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Correct Quantity Received",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Weighing Scales Accurate",
+          "sub": "No data available",
+          "cls": "blue"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        0,
+        0,
+        0
+      ],
+      "profileFemale": [
+        0,
+        0,
+        0
+      ],
+      "vendorRadarData": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "tableRows": [],
+      "lgaCoverage": {}
     }
   },
   "2026-04": {
@@ -2746,6 +3186,171 @@ const MONTHS = {
           "Acceptable"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 0,
+      "kpi": [
+        {
+          "val": "0",
+          "label": "MHPSS Respondents",
+          "sub": "No MHPSS submissions this month",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Felt Emotionally Safe",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Satisfaction Rate",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "0",
+          "label": "Emotional Safety Gaps",
+          "sub": "No data available",
+          "cls": "blue"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (0)",
+        "Psychoeducation (0)",
+        "Counselling (0)",
+        "Peer Support (0)",
+        "Not Sure (0)"
+      ],
+      "typeData": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "qualityData": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "satData": [
+        0,
+        0
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Psychoeducation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Peer Support": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Counselling": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Not sure": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (0)",
+        "Psychoeducation (0)",
+        "Counselling (0)",
+        "Peer Support (0)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "satisfied": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "tableRows": [],
+      "lgaCoverage": {},
+      "unofficialFees": 0
+    },
+    "food": {
+      "n": 0,
+      "kpi": [
+        {
+          "val": "0",
+          "label": "Food Assistance Respondents",
+          "sub": "No Food Assistance submissions this month",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Correct Quantity Received",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "—",
+          "label": "Weighing Scales Accurate",
+          "sub": "No data available",
+          "cls": "blue"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        0,
+        0,
+        0
+      ],
+      "profileFemale": [
+        0,
+        0,
+        0
+      ],
+      "vendorRadarData": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "tableRows": [],
+      "lgaCoverage": {}
     }
   },
   "2026-05": {
@@ -3318,6 +3923,284 @@ const MONTHS = {
           "Monitor"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 68,
+      "kpi": [
+        {
+          "val": "68",
+          "label": "MHPSS Respondents",
+          "sub": "May 2026 · 3 LGAs covered",
+          "cls": "blue"
+        },
+        {
+          "val": "93%",
+          "label": "Felt Emotionally Safe",
+          "sub": "63/68 — 5 reported feeling unsafe",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Satisfaction Rate",
+          "sub": "Very Satisfied (44%) · Satisfied (56%)",
+          "cls": "green"
+        },
+        {
+          "val": "5",
+          "label": "Emotional Safety Gaps",
+          "sub": "Needs follow-up — flagged across service types",
+          "cls": "amber"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (25)",
+        "Psychoeducation (17)",
+        "Counselling (11)",
+        "Peer Support (14)",
+        "Not Sure (1)"
+      ],
+      "typeData": [
+        25,
+        17,
+        11,
+        14,
+        1
+      ],
+      "qualityData": [
+        100,
+        100,
+        100,
+        100,
+        93
+      ],
+      "satData": [
+        30,
+        38
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          14,
+          11,
+          0,
+          0
+        ],
+        "Psychoeducation": [
+          14,
+          3,
+          0,
+          0
+        ],
+        "Peer Support": [
+          0,
+          2,
+          12,
+          0
+        ],
+        "Counselling": [
+          6,
+          5,
+          0,
+          0
+        ],
+        "Not sure": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (25)",
+        "Psychoeducation (17)",
+        "Counselling (11)",
+        "Peer Support (14)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          13,
+          6,
+          5,
+          6
+        ],
+        "satisfied": [
+          12,
+          11,
+          6,
+          8
+        ]
+      },
+      "tableRows": [
+        [
+          "Staff clearly explained purpose of session",
+          "68",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Beneficiary felt emotionally safe",
+          "63",
+          "5",
+          "93%",
+          "green",
+          "Good"
+        ],
+        [
+          "Enough time given to express self",
+          "68",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Staff showed empathy & non-judgment",
+          "68",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Privacy ensured during session",
+          "68",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 34,
+        "Kaga": 21,
+        "Mobbar": 13,
+        "Gubio": 0
+      },
+      "unofficialFees": 6
+    },
+    "food": {
+      "n": 3,
+      "kpi": [
+        {
+          "val": "3",
+          "label": "Food Assistance Respondents",
+          "sub": "May 2026 · Mobbar (3)",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "Correct Quantity Received",
+          "sub": "3/3 confirmed entitlement",
+          "cls": "green"
+        },
+        {
+          "val": "0%",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "0/3 — critical protection gap",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Weighing Scales Accurate",
+          "sub": "0/3 inaccurate — vendor gap",
+          "cls": "green"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        0,
+        0,
+        1
+      ],
+      "profileFemale": [
+        0,
+        1,
+        1
+      ],
+      "vendorRadarData": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "tableRows": [
+        [
+          "Food items stored on pallets (off-ground)",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Cleanliness / ventilation adequate",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No expired items present",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No damaged / leaking packaging",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Proper labeling & branding",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No roof leakage signs",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No evidence of pests",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Weighing scale accurate",
+          "3",
+          "3",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Mobbar": 3
+      }
     }
   },
   "2026-06": {
@@ -3892,6 +4775,284 @@ const MONTHS = {
           "Acceptable"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 49,
+      "kpi": [
+        {
+          "val": "49",
+          "label": "MHPSS Respondents",
+          "sub": "Jun 2026 · 3 LGAs covered",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "Felt Emotionally Safe",
+          "sub": "49/49 — 0 reported feeling unsafe",
+          "cls": "green"
+        },
+        {
+          "val": "98%",
+          "label": "Satisfaction Rate",
+          "sub": "Very Satisfied (39%) · Satisfied (59%)",
+          "cls": "green"
+        },
+        {
+          "val": "0",
+          "label": "Emotional Safety Gaps",
+          "sub": "Needs follow-up — flagged across service types",
+          "cls": "green"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (19)",
+        "Psychoeducation (12)",
+        "Counselling (18)",
+        "Peer Support (0)",
+        "Not Sure (0)"
+      ],
+      "typeData": [
+        19,
+        12,
+        18,
+        0,
+        0
+      ],
+      "qualityData": [
+        98,
+        100,
+        98,
+        98,
+        100
+      ],
+      "satData": [
+        19,
+        29
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          12,
+          0,
+          7,
+          0
+        ],
+        "Psychoeducation": [
+          12,
+          0,
+          0,
+          0
+        ],
+        "Peer Support": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Counselling": [
+          7,
+          0,
+          0,
+          11
+        ],
+        "Not sure": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (19)",
+        "Psychoeducation (12)",
+        "Counselling (18)",
+        "Peer Support (0)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          6,
+          7,
+          6,
+          0
+        ],
+        "satisfied": [
+          12,
+          5,
+          12,
+          0
+        ]
+      },
+      "tableRows": [
+        [
+          "Staff clearly explained purpose of session",
+          "48",
+          "1",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Beneficiary felt emotionally safe",
+          "49",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Enough time given to express self",
+          "48",
+          "1",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Staff showed empathy & non-judgment",
+          "48",
+          "1",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Privacy ensured during session",
+          "49",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 31,
+        "Kaga": 0,
+        "Mobbar": 7,
+        "Gubio": 11
+      },
+      "unofficialFees": 0
+    },
+    "food": {
+      "n": 82,
+      "kpi": [
+        {
+          "val": "82",
+          "label": "Food Assistance Respondents",
+          "sub": "Jun 2026 · Magumeri (82)",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "Correct Quantity Received",
+          "sub": "82/82 confirmed entitlement",
+          "cls": "green"
+        },
+        {
+          "val": "37%",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "30/82 — critical protection gap",
+          "cls": "red"
+        },
+        {
+          "val": "34%",
+          "label": "Weighing Scales Accurate",
+          "sub": "54/82 inaccurate — vendor gap",
+          "cls": "amber"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        24,
+        19,
+        1
+      ],
+      "profileFemale": [
+        18,
+        19,
+        1
+      ],
+      "vendorRadarData": [
+        100,
+        100,
+        100,
+        78,
+        98,
+        99,
+        18,
+        34
+      ],
+      "tableRows": [
+        [
+          "Food items stored on pallets (off-ground)",
+          "82",
+          "82",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Cleanliness / ventilation adequate",
+          "82",
+          "82",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No expired items present",
+          "82",
+          "82",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No damaged / leaking packaging",
+          "64",
+          "82",
+          "78%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Proper labeling & branding",
+          "80",
+          "82",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No roof leakage signs",
+          "81",
+          "82",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No evidence of pests",
+          "15",
+          "82",
+          "18%",
+          "red",
+          "Alert"
+        ],
+        [
+          "Weighing scale accurate",
+          "28",
+          "82",
+          "34%",
+          "red",
+          "Alert"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 82
+      }
     }
   },
   "2026-07": {
@@ -4399,6 +5560,285 @@ const MONTHS = {
           "Acceptable"
         ]
       ]
+    },
+    "mhpss": {
+      "n": 44,
+      "kpi": [
+        {
+          "val": "44",
+          "label": "MHPSS Respondents",
+          "sub": "Jul 2026 · 4 LGAs covered",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "Felt Emotionally Safe",
+          "sub": "44/44 — 0 reported feeling unsafe",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Satisfaction Rate",
+          "sub": "Very Satisfied (45%) · Satisfied (55%)",
+          "cls": "green"
+        },
+        {
+          "val": "0",
+          "label": "Emotional Safety Gaps",
+          "sub": "Needs follow-up — flagged across service types",
+          "cls": "green"
+        }
+      ],
+      "typeLabels": [
+        "PFA — Psych. First Aid (1)",
+        "Psychoeducation (22)",
+        "Counselling (5)",
+        "Peer Support (16)",
+        "Not Sure (0)"
+      ],
+      "typeData": [
+        1,
+        22,
+        5,
+        16,
+        0
+      ],
+      "qualityData": [
+        100,
+        100,
+        100,
+        98,
+        100
+      ],
+      "satData": [
+        20,
+        24
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "Psychoeducation": [
+          3,
+          4,
+          0,
+          15
+        ],
+        "Peer Support": [
+          0,
+          2,
+          14,
+          0
+        ],
+        "Counselling": [
+          0,
+          5,
+          0,
+          0
+        ],
+        "Not sure": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (1)",
+        "Psychoeducation (22)",
+        "Counselling (5)",
+        "Peer Support (16)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          0,
+          7,
+          1,
+          12
+        ],
+        "satisfied": [
+          1,
+          15,
+          4,
+          4
+        ]
+      },
+      "tableRows": [
+        [
+          "Staff clearly explained purpose of session",
+          "44",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Beneficiary felt emotionally safe",
+          "44",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Enough time given to express self",
+          "43",
+          "1",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Staff showed empathy & non-judgment",
+          "44",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Privacy ensured during session",
+          "44",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 3,
+        "Kaga": 12,
+        "Mobbar": 14,
+        "Gubio": 15
+      },
+      "unofficialFees": 1
+    },
+    "food": {
+      "n": 305,
+      "kpi": [
+        {
+          "val": "305",
+          "label": "Food Assistance Respondents",
+          "sub": "Jul 2026 · Magumeri (219) · Gubio (86)",
+          "cls": "blue"
+        },
+        {
+          "val": "97%",
+          "label": "Correct Quantity Received",
+          "sub": "296/305 confirmed entitlement",
+          "cls": "green"
+        },
+        {
+          "val": "19%",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "59/305 — critical protection gap",
+          "cls": "red"
+        },
+        {
+          "val": "84%",
+          "label": "Weighing Scales Accurate",
+          "sub": "50/305 inaccurate — vendor gap",
+          "cls": "amber"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        53,
+        58,
+        3
+      ],
+      "profileFemale": [
+        105,
+        73,
+        12
+      ],
+      "vendorRadarData": [
+        99,
+        98,
+        100,
+        24,
+        100,
+        100,
+        35,
+        84
+      ],
+      "tableRows": [
+        [
+          "Food items stored on pallets (off-ground)",
+          "302",
+          "305",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Cleanliness / ventilation adequate",
+          "298",
+          "305",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No expired items present",
+          "305",
+          "305",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No damaged / leaking packaging",
+          "74",
+          "305",
+          "24%",
+          "red",
+          "Alert"
+        ],
+        [
+          "Proper labeling & branding",
+          "304",
+          "305",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No roof leakage signs",
+          "305",
+          "305",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "No evidence of pests",
+          "107",
+          "305",
+          "35%",
+          "red",
+          "Alert"
+        ],
+        [
+          "Weighing scale accurate",
+          "255",
+          "305",
+          "84%",
+          "green",
+          "Good"
+        ]
+      ],
+      "lgaCoverage": {
+        "Magumeri": 219,
+        "Gubio": 86
+      }
     }
   }
 };
@@ -4524,6 +5964,57 @@ function applyWash(d) {
   updateTable(sec, '.ind-table', d.tableRows);
 }
 
+function applyMhpss(d) {
+  const sec = document.getElementById('sec-mhpss');
+  updateKpiGrid(sec, d.kpi);
+
+  replaceChartData(charts.mhpssType, d.typeLabels, [{ data: d.typeData }]);
+  replaceChartData(charts.mhpssQuality, null, [{ data: d.qualityData }]);
+  replaceChartData(charts.mhpssSat, null, [{ data: d.satData }]);
+  replaceChartData(charts.mhpssLGA, null, [
+    { data: d.lgaTypeData['PFA (Psychological First Aid)'] },
+    { data: d.lgaTypeData['Psychoeducation'] },
+    { data: d.lgaTypeData['Peer Support'] },
+    { data: d.lgaTypeData['Counselling'] },
+    { data: d.lgaTypeData['Not sure'] }
+  ]);
+  replaceChartData(charts.mhpssSatType, d.satTypeLabels, [
+    { data: d.satTypeData.verySatisfied },
+    { data: d.satTypeData.satisfied }
+  ]);
+
+  updateTable(sec, '.ind-table', d.tableRows);
+
+  // Satisfaction gauge center label + Very Satisfied/Satisfied pills
+  const n = parseInt(d.kpi[0].val, 10) || 0;
+  const veryN = d.satData[0] || 0, satN = d.satData[1] || 0;
+  const ratePct = n > 0 ? Math.round((veryN + satN) / n * 100) : 0;
+  const veryPct = n > 0 ? Math.round(veryN / n * 100) : 0;
+  const satPct  = n > 0 ? Math.round(satN / n * 100) : 0;
+  const satCard = sec.querySelectorAll('.row')[0] && sec.querySelectorAll('.row')[0].querySelectorAll('.card')[2];
+  if (satCard) {
+    const gaugeVal = satCard.querySelector('.gauge-center .val');
+    if (gaugeVal) gaugeVal.textContent = n > 0 ? ratePct + '%' : '—';
+    const veryPill = satCard.querySelector('.pill.green');
+    const satPill  = satCard.querySelector('.pill.blue');
+    if (veryPill) veryPill.textContent = 'Very Satisfied: ' + (n > 0 ? veryPct + '%' : '—');
+    if (satPill)  satPill.textContent  = 'Satisfied: ' + (n > 0 ? satPct + '%' : '—');
+  }
+}
+
+function applyFood(d) {
+  const sec = document.getElementById('sec-food');
+  updateKpiGrid(sec, d.kpi);
+
+  replaceChartData(charts.foodProfile, null, [
+    { data: d.profileMale },
+    { data: d.profileFemale }
+  ]);
+  replaceChartData(charts.foodVendor, null, [{ data: d.vendorRadarData }]);
+
+  updateTable(sec, '.ind-table', d.tableRows);
+}
+
 // ════════════════════════════════════════════════════════════════
 //  TAB SWITCHING
 // ════════════════════════════════════════════════════════════════
@@ -4532,13 +6023,6 @@ function switchTab(id, btn) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
   btn.classList.add('active');
-
-  const banner = document.getElementById('foodMonthBanner');
-  if (id === 'food' && currentMonth !== 'all') {
-    banner.style.display = 'block';
-  } else {
-    banner.style.display = 'none';
-  }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -4561,15 +6045,8 @@ function setMonth(month) {
   applyNutrition(D.nutrition);
   applyHealth(D.health);
   applyWash(D.wash);
-
-  // Food banner
-  const activeSection = document.querySelector('.section.active');
-  const banner = document.getElementById('foodMonthBanner');
-  if (activeSection && activeSection.id === 'sec-food' && month !== 'all') {
-    banner.style.display = 'block';
-  } else {
-    banner.style.display = 'none';
-  }
+  applyMhpss(D.mhpss);
+  applyFood(D.food);
 
   // Update header subtitle
   document.querySelector('.header-meta div:last-of-type').textContent =
@@ -4716,7 +6193,7 @@ charts.washBar = new Chart(document.getElementById('chartWashBar'), {
 // ── MHPSS CHARTS ──
 
 // Service type donut
-new Chart(document.getElementById('chartMhpssType'), {
+charts.mhpssType = new Chart(document.getElementById('chartMhpssType'), {
   type: 'doughnut',
   data: {
     labels: ['PFA — Psych. First Aid (45)', 'Psychoeducation (51)', 'Counselling (34)', 'Peer Support (30)', 'Not Sure (1)'],
@@ -4726,7 +6203,7 @@ new Chart(document.getElementById('chartMhpssType'), {
 });
 
 // Session quality horizontal bar
-new Chart(document.getElementById('chartMhpssQuality'), {
+charts.mhpssQuality = new Chart(document.getElementById('chartMhpssQuality'), {
   type: 'bar',
   data: {
     labels: ['Staff Explained\nPurpose','Privacy\nEnsured','Empathy\nShown','Time to\nExpress Self','Felt Emotionally\nSafe'],
@@ -4749,7 +6226,7 @@ new Chart(document.getElementById('chartMhpssQuality'), {
 });
 
 // Satisfaction gauge donut
-new Chart(document.getElementById('chartMhpssSat'), {
+charts.mhpssSat = new Chart(document.getElementById('chartMhpssSat'), {
   type: 'doughnut',
   data: {
     labels: ['Very Satisfied', 'Satisfied'],
@@ -4759,7 +6236,7 @@ new Chart(document.getElementById('chartMhpssSat'), {
 });
 
 // Service type by LGA grouped bar
-new Chart(document.getElementById('chartMhpssLGA'), {
+charts.mhpssLGA = new Chart(document.getElementById('chartMhpssLGA'), {
   type: 'bar',
   data: {
     labels: ['Magumeri', 'Kaga', 'Mobbar', 'Gubio'],
@@ -4782,7 +6259,7 @@ new Chart(document.getElementById('chartMhpssLGA'), {
 });
 
 // Satisfaction by service type stacked bar
-new Chart(document.getElementById('chartMhpssSatType'), {
+charts.mhpssSatType = new Chart(document.getElementById('chartMhpssSatType'), {
   type: 'bar',
   data: {
     labels: ['PFA (45)', 'Psychoeducation (51)', 'Counselling (34)', 'Peer Support (30)'],
@@ -4804,7 +6281,7 @@ new Chart(document.getElementById('chartMhpssSatType'), {
 // ── FOOD ASSISTANCE CHARTS ──
 
 // Beneficiary profile grouped bar (Status + Sex)
-new Chart(document.getElementById('chartFoodProfile'), {
+charts.foodProfile = new Chart(document.getElementById('chartFoodProfile'), {
   type: 'bar',
   data: {
     labels: ['Host Community', 'IDP', 'Returnee'],
@@ -4824,7 +6301,7 @@ new Chart(document.getElementById('chartFoodProfile'), {
 });
 
 // Vendor compliance radar
-new Chart(document.getElementById('chartFoodVendor'), {
+charts.foodVendor = new Chart(document.getElementById('chartFoodVendor'), {
   type: 'radar',
   data: {
     labels: ['Pallet Storage','Cleanliness','No Expired\nItems','No Damaged\nPackaging','Proper\nLabeling','No Roof\nLeaks','No Pests','Scale\nAccuracy'],
