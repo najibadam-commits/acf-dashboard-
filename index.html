@@ -427,15 +427,15 @@
     </div>
     <div class="card" style="flex:1">
       <div class="card-title"><span class="dot" style="background:var(--alert-red)"></span>Abuse / Discrimination Type Reported</div>
-      <div style="padding-top:6px">
-        <div class="bar-row"><div class="bar-label">Based on gender</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--alert-red)"></div></div><div class="bar-pct">50</div></div>
-        <div class="bar-row"><div class="bar-label">Displacement status</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--alert-amber)"></div></div><div class="bar-pct">20</div></div>
-        <div class="bar-row"><div class="bar-label">Age</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--alert-amber)"></div></div><div class="bar-pct">14</div></div>
-        <div class="bar-row"><div class="bar-label">Other (specify)</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--alert-amber)"></div></div><div class="bar-pct">9</div></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px">Of 91 reported abuse/discrimination cases, <strong>gender</strong> (50) and <strong>displacement status</strong> (20) are the most cited grounds. Bars show mention counts (multi-select).</div>
-        <div class="alert-box red" style="margin-top:12px">
+      <div style="padding-top:6px" id="abuseTypeBody">
+        <div class="bar-row"><div class="bar-label" id="atLabel0">Based on gender</div><div class="bar-track"><div class="bar-fill" id="atFill0" style="width:100%;background:var(--alert-red)"></div></div><div class="bar-pct" id="atPct0">50</div></div>
+        <div class="bar-row"><div class="bar-label" id="atLabel1">Displacement status</div><div class="bar-track"><div class="bar-fill" id="atFill1" style="width:40%;background:var(--alert-amber)"></div></div><div class="bar-pct" id="atPct1">20</div></div>
+        <div class="bar-row"><div class="bar-label" id="atLabel2">Age</div><div class="bar-track"><div class="bar-fill" id="atFill2" style="width:28%;background:var(--alert-amber)"></div></div><div class="bar-pct" id="atPct2">14</div></div>
+        <div class="bar-row"><div class="bar-label" id="atLabel3">Other (specify)</div><div class="bar-track"><div class="bar-fill" id="atFill3" style="width:18%;background:var(--alert-amber)"></div></div><div class="bar-pct" id="atPct3">9</div></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px" id="abuseTypeNote">Of 91 reported abuse/discrimination cases, <strong>gender</strong> (50) and <strong>displacement status</strong> (20) are the most cited grounds. Bars show mention counts (multi-select).</div>
+        <div class="alert-box red" style="margin-top:12px" id="abuseTypeRecBox">
           <span class="alert-icon">⚠</span>
-          <span>Recommended action: Conduct targeted staff sensitization on IDP non-discrimination and gender do-no-harm protocols.</span>
+          <span id="abuseTypeRec">Recommended action: Conduct targeted staff sensitization on IDP non-discrimination and gender do-no-harm protocols.</span>
         </div>
       </div>
     </div>
@@ -1179,6 +1179,10 @@ const MONTHS = {
       "rightsN": "1677"
     },
     "protection": {
+      "abuseType": {
+        "available": false,
+        "n": 53
+      },
       "kpi": [
         {
           "val": "98%",
@@ -2005,6 +2009,10 @@ const MONTHS = {
       "rightsN": "45"
     },
     "protection": {
+      "abuseType": {
+        "available": false,
+        "n": 9
+      },
       "kpi": [
         {
           "val": "80%",
@@ -2730,6 +2738,10 @@ const MONTHS = {
       "rightsN": "64"
     },
     "protection": {
+      "abuseType": {
+        "available": false,
+        "n": 6
+      },
       "kpi": [
         {
           "val": "92%",
@@ -3467,6 +3479,10 @@ const MONTHS = {
       "rightsN": "392"
     },
     "protection": {
+      "abuseType": {
+        "available": false,
+        "n": 21
+      },
       "kpi": [
         {
           "val": "98%",
@@ -4319,6 +4335,10 @@ const MONTHS = {
       "rightsN": "532"
     },
     "protection": {
+      "abuseType": {
+        "available": false,
+        "n": 16
+      },
       "kpi": [
         {
           "val": "99%",
@@ -5177,6 +5197,16 @@ const MONTHS = {
       "rightsN": "644"
     },
     "protection": {
+      "abuseType": {
+        "available": true,
+        "n": 1,
+        "categories": [
+          { "label": "Based on gender", "count": 0 },
+          { "label": "Displacement status", "count": 0 },
+          { "label": "Age", "count": 0 },
+          { "label": "Other (specify)", "count": 1 }
+        ]
+      },
       "kpi": [
         {
           "val": "100%",
@@ -6008,6 +6038,63 @@ function applyProtection(d) {
   replaceChartData(charts.protection, null, [{ data: d.radarData }]);
   replaceChartData(charts.aap, null, [{ data: d.aapData }]);
   updateTable(sec, '.ind-table', d.tableRows);
+  applyAbuseType(d.abuseType);
+}
+
+function applyAbuseType(at) {
+  const recBox = document.getElementById('abuseTypeRecBox');
+  const rec = document.getElementById('abuseTypeRec');
+  const note = document.getElementById('abuseTypeNote');
+
+  if (!at || !at.available) {
+    // No case-level breakdown captured for this period — show totals only, no fabricated split.
+    const n = at ? at.n : 0;
+    for (let i = 0; i < 4; i++) {
+      document.getElementById('atLabel' + i).textContent = '—';
+      document.getElementById('atFill' + i).style.width = '0%';
+      document.getElementById('atPct' + i).textContent = '–';
+    }
+    note.innerHTML = n > 0
+      ? `Category-level breakdown not available for this period — <strong>${n}</strong> abuse/discrimination case${n === 1 ? '' : 's'} reported in total (see Protection Indicators table above).`
+      : `No abuse/discrimination cases reported in this period.`;
+    recBox.className = 'alert-box amber';
+    recBox.querySelector('.alert-icon').textContent = '⚑';
+    rec.textContent = 'Source ODK export for this period does not include category-level detail — request the raw submissions to populate this breakdown.';
+    return;
+  }
+
+  const cats = at.categories.slice(0, 4);
+  const max = Math.max(1, ...cats.map(c => c.count));
+  cats.forEach((c, i) => {
+    document.getElementById('atLabel' + i).textContent = c.label;
+    document.getElementById('atFill' + i).style.width = Math.round(c.count / max * 100) + '%';
+    document.getElementById('atFill' + i).style.background = i === 0 ? 'var(--alert-red)' : 'var(--alert-amber)';
+    document.getElementById('atPct' + i).textContent = c.count;
+  });
+
+  if (at.n === 0) {
+    note.textContent = 'No abuse/discrimination cases reported in this period.';
+    recBox.className = 'alert-box green';
+    recBox.querySelector('.alert-icon').textContent = '✓';
+    rec.textContent = 'No follow-up action required for this period — continue routine protection monitoring.';
+  } else {
+    const cited = cats.filter(c => c.count > 0).sort((a, b) => b.count - a.count);
+    const plural = at.n === 1 ? 'case' : 'cases';
+    let citedText;
+    if (cited.length === 0) {
+      citedText = 'no category detail was recorded';
+    } else if (cited.length === 1) {
+      citedText = `<strong>${cited[0].label.toLowerCase()}</strong> (${cited[0].count}) was the only ground cited`;
+    } else {
+      citedText = `<strong>${cited[0].label.toLowerCase()}</strong> (${cited[0].count}) and <strong>${cited[1].label.toLowerCase()}</strong> (${cited[1].count}) are the most cited grounds`;
+    }
+    note.innerHTML = `Of ${at.n} reported abuse/discrimination ${plural}, ${citedText}. Bars show mention counts (multi-select).`;
+    recBox.className = 'alert-box red';
+    recBox.querySelector('.alert-icon').textContent = '⚠';
+    rec.textContent = cited.length
+      ? `Recommended action: Follow up on the ${cited[0].label.toLowerCase()} case(s) reported and reinforce staff sensitization on do-no-harm protocols.`
+      : `Recommended action: Follow up directly with reporting enumerators to capture category detail for reported cases.`;
+  }
 }
 
 function applyNutrition(d) {
