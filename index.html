@@ -255,14 +255,14 @@
     <div>
       <h1>TPM Field Monitoring Dashboard<br><span>Magumeri · Gubio · Kaga · Mobbar</span></h1>
       <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.7)">
-        Survey period: Mar – Jul 2026 &nbsp;|&nbsp; 1,677 respondents &nbsp;|&nbsp; 4 LGAs &nbsp;·&nbsp; Borno State
+        Survey period: Mar – Aug 2026 &nbsp;|&nbsp; 2,023 respondents &nbsp;|&nbsp; 4 LGAs &nbsp;·&nbsp; Borno State
       </div>
     </div>
     <div class="header-meta">
       <div><strong>SECTORS COVERED</strong></div>
       <div>Nutrition &nbsp;·&nbsp; Health &nbsp;·&nbsp; WASH &nbsp;·&nbsp; MHPSS &nbsp;·&nbsp; Food Assistance</div>
       <div style="margin-top:4px"><strong>DATA SOURCE</strong></div>
-      <div>KoBoCollect / ODK &nbsp;·&nbsp; July 2026</div>
+      <div>KoBoCollect / ODK &nbsp;·&nbsp; August 2026</div>
     </div>
   </div>
   <div class="tabs">
@@ -281,14 +281,15 @@
 <div class="filter-bar" id="filterBar">
   <label for="monthSelect">📅 Filter by Month:</label>
   <select class="filter-select" id="monthSelect" onchange="setMonth(this.value)">
-    <option value="all">All Months (1,677)</option>
+    <option value="all">All Months (2,023)</option>
     <option value="2026-03">Mar 2026 (45)</option>
     <option value="2026-04">Apr 2026 (64)</option>
     <option value="2026-05">May 2026 (392)</option>
     <option value="2026-06">Jun 2026 (532)</option>
     <option value="2026-07">Jul 2026 (644)</option>
+    <option value="2026-08">Aug 2026 (346)</option>
   </select>
-  <span class="filter-note" id="filterNote">Showing all 1,677 respondents · Mar – Jul 2026</span>
+  <span class="filter-note" id="filterNote">Showing all 2,023 respondents · Mar – Aug 2026</span>
 </div>
 
 <!-- BODY -->
@@ -1080,7 +1081,7 @@
 
 <!-- FOOTER -->
 <div class="footer">
-  <span>Third Party Monitoring (TPM) · Action Against Hunger (ACF) Nigeria · Borno State · Mar – Jun 2026</span>
+  <span>Third Party Monitoring (TPM) · Action Against Hunger (ACF) Nigeria · Borno State · Mar – Aug 2026</span>
   <span>Implementing Partner: Better Aid Foundation (BAF) · Confidential — For donor reporting use only</span>
 </div>
 
@@ -1093,21 +1094,21 @@
 const MONTHS = {
   "all": {
     "meta": {
-      "n": 1677,
-      "range": "Mar \u2013 Jul 2026"
+      "n": 2023,
+      "range": "Mar \u2013 Aug 2026"
     },
     "overview": {
       "kpi": [
         {
-          "val": "1677",
+          "val": "2023",
           "label": "Total Respondents",
-          "sub": "Mar \u2013 Jul 2026",
+          "sub": "Mar \u2013 Aug 2026",
           "cls": "blue"
         },
         {
           "val": "4",
           "label": "LGAs Covered",
-          "sub": "Magumeri (780) \u00b7 Gubio (479) \u00b7 Kaga (351) \u00b7 Mobbar (67)",
+          "sub": "Magumeri (902) \u00b7 Gubio (575) \u00b7 Kaga (465) \u00b7 Mobbar (81)",
           "cls": "blue"
         },
         {
@@ -1124,48 +1125,50 @@ const MONTHS = {
         }
       ],
       "sectorData": [
-        398,
-        161,
-        401,
-        327,
+        468,
+        180,
+        555,
+        430,
         390
       ],
       "sectorLabels": [
-        "WASH (398)",
-        "MHPSS (161)",
-        "Nutrition (401)",
-        "Health (327)",
+        "WASH (468)",
+        "MHPSS (180)",
+        "Nutrition (555)",
+        "Health (430)",
         "Food (390)"
       ],
       "lgaData": [
-        780,
-        479,
-        351,
-        67
+        902,
+        575,
+        465,
+        81
       ],
       "lgaLabels": [
-        "Magumeri (780)",
-        "Gubio (479)",
-        "Kaga (351)",
-        "Mobbar (67)"
+        "Magumeri (902)",
+        "Gubio (575)",
+        "Kaga (465)",
+        "Mobbar (81)"
       ],
       "dateLabels": [
         "Mar",
         "Apr",
         "May",
         "Jun",
-        "Jul"
+        "Jul",
+        "Aug"
       ],
       "dateData": [
         45,
         64,
         392,
         532,
-        644
+        644,
+        346
       ],
       "access": [
-        80,
-        19,
+        79,
+        20,
         1,
         0
       ],
@@ -1176,7 +1179,7 @@ const MONTHS = {
         0
       ],
       "rights": "99%",
-      "rightsN": "1677"
+      "rightsN": "2023"
     },
     "protection": {
       "abuseType": {
@@ -1185,58 +1188,58 @@ const MONTHS = {
       },
       "kpi": [
         {
-          "val": "98%",
+          "val": "99%",
           "label": "Feel Safe Accessing Services",
-          "sub": "1651/1677 respondents",
+          "sub": "1997/2023 respondents",
           "cls": "green"
         },
         {
           "val": "99%",
           "label": "Treated with Respect & Dignity",
-          "sub": "1662/1677 respondents",
+          "sub": "2008/2023 respondents",
           "cls": "green"
         },
         {
           "val": "3%",
           "label": "Reported Abuse / Discrimination",
-          "sub": "53/1677 \u2014 needs follow-up",
+          "sub": "53/2023 \u2014 needs follow-up",
           "cls": "amber"
         },
         {
-          "val": "88%",
+          "val": "89%",
           "label": "Aware of Complaint Mechanism",
-          "sub": "1471/1677 beneficiaries",
+          "sub": "1809/2023 beneficiaries",
           "cls": "green"
         }
       ],
       "radarData": [
-        98,
+        99,
         99,
         97,
-        94,
+        95,
         99,
-        88
+        89
       ],
       "aapData": [
-        581,
-        406,
-        920,
-        890,
-        93,
-        206
+        748,
+        502,
+        1066,
+        1053,
+        139,
+        214
       ],
       "tableRows": [
         [
           "P1. Felt safe accessing services",
-          "1651",
+          "1997",
           "26",
-          "98%",
+          "99%",
           "green",
           "Excellent"
         ],
         [
           "P2. Treated with respect & dignity",
-          "1662",
+          "2008",
           "15",
           "99%",
           "green",
@@ -1245,22 +1248,22 @@ const MONTHS = {
         [
           "P3. Experienced abuse/discrimination",
           "53",
-          "1624",
+          "1970",
           "3%",
           "amber",
           "Monitor"
         ],
         [
           "P4. Disability-inclusive services",
-          "1580",
-          "97",
-          "94%",
+          "1924",
+          "99",
+          "95%",
           "green",
           "Good"
         ],
         [
           "P5. Gender equality in service delivery",
-          "1662",
+          "2008",
           "15",
           "99%",
           "green",
@@ -1268,15 +1271,15 @@ const MONTHS = {
         ],
         [
           "P8. Knows complaint channel",
-          "1471",
-          "206",
-          "88%",
+          "1809",
+          "214",
+          "89%",
           "green",
           "Acceptable"
         ],
         [
           "P10. Services protect rights & dignity",
-          "1654",
+          "2000",
           "23",
           "99%",
           "green",
@@ -1287,108 +1290,108 @@ const MONTHS = {
     "nutrition": {
       "kpi": [
         {
-          "val": "401",
+          "val": "555",
           "label": "Nutrition Respondents",
-          "sub": "OTP: 306 \u00b7 Porridge/Tombrown: 95",
+          "sub": "OTP: 455 \u00b7 Porridge/Tombrown: 100",
           "cls": "blue"
         },
         {
-          "val": "99%",
+          "val": "100%",
           "label": "RUTF Received",
-          "sub": "167/168 OTP clients confirmed",
+          "sub": "316/317 OTP clients confirmed",
           "cls": "green"
         },
         {
-          "val": "83%",
+          "val": "88%",
           "label": "Appetite Test Conducted",
-          "sub": "139/168 observed",
+          "sub": "280/317 observed",
           "cls": "green"
         },
         {
-          "val": "98%",
+          "val": "99%",
           "label": "Immunization Available",
-          "sub": "162/165 at facility",
+          "sub": "306/309 at facility",
           "cls": "green"
         }
       ],
       "radarData": [
-        83,
-        98,
+        88,
         98,
         99,
         100,
-        93
+        100,
+        95
       ],
       "tableRows": [
         [
           "Appetite test conducted",
-          "139",
-          "29",
-          "83%",
+          "280",
+          "37",
+          "88%",
           "green",
           "Acceptable"
         ],
         [
           "Routine medications given",
-          "165",
-          "3",
+          "312",
+          "5",
           "98%",
           "green",
           "Excellent"
         ],
         [
           "RUTF (Plumpy'Nut) received",
-          "167",
+          "316",
           "1",
-          "99%",
+          "100%",
           "green",
           "Excellent"
         ],
         [
           "Immunization services available",
-          "162",
+          "306",
           "3",
-          "98%",
-          "green",
-          "Excellent"
-        ],
-        [
-          "Referral explained if needed",
-          "165",
-          "3",
-          "98%",
-          "green",
-          "Excellent"
-        ],
-        [
-          "Proper screening equipment used",
-          "167",
-          "1",
           "99%",
           "green",
           "Excellent"
         ],
         [
+          "Referral explained if needed",
+          "314",
+          "3",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Proper screening equipment used",
+          "316",
+          "1",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
           "OTP register updated",
-          "95",
-          "0",
+          "240",
+          "1",
           "100%",
           "green",
           "Excellent"
         ],
         [
           "Immunization tally sheets updated",
-          "148",
-          "20",
-          "88%",
+          "293",
+          "23",
+          "93%",
           "green",
-          "Acceptable"
+          "Good"
         ],
         [
           "Cold chain temperature correct",
-          "156",
-          "12",
-          "93%",
+          "302",
+          "15",
+          "95%",
           "green",
           "Good"
         ]
@@ -1397,16 +1400,16 @@ const MONTHS = {
     "health": {
       "kpi": [
         {
-          "val": "327",
+          "val": "430",
           "label": "Health Respondents",
           "sub": "Facility observations",
           "cls": "blue"
         },
         {
-          "val": "82%",
+          "val": "85%",
           "label": "Gloves / PPE Available",
-          "sub": "268/327 facilities",
-          "cls": "amber"
+          "sub": "365/430 facilities",
+          "cls": "green"
         },
         {
           "val": "90%",
@@ -1415,90 +1418,90 @@ const MONTHS = {
           "cls": "green"
         },
         {
-          "val": "49%",
+          "val": "48%",
           "label": "Electricity Available",
-          "sub": "160/327 functional",
+          "sub": "208/430 functional",
           "cls": "red"
         }
       ],
       "barData": [
-        87,
-        82,
-        89,
+        84,
+        85,
         90,
-        89,
-        49
+        90,
+        87,
+        48
       ],
       "tableRows": [
         [
           "Facility environment clean",
-          "283",
-          "44",
-          "87%",
+          "362",
+          "68",
+          "84%",
           "green",
           "Acceptable"
         ],
         [
           "Gloves / PPE available",
-          "268",
-          "59",
-          "82%",
+          "365",
+          "65",
+          "85%",
           "green",
           "Acceptable"
         ],
         [
           "Instruments from sterile packs",
-          "291",
-          "36",
-          "89%",
+          "387",
+          "43",
+          "90%",
           "green",
-          "Acceptable"
+          "Good"
         ],
         [
           "Staff hand hygiene observed",
-          "294",
-          "33",
+          "386",
+          "44",
           "90%",
           "green",
           "Good"
         ],
         [
           "Waste properly disposed",
-          "292",
-          "35",
-          "89%",
+          "372",
+          "58",
+          "87%",
           "green",
           "Acceptable"
         ],
         [
           "Sterilization equipment functional",
-          "251",
-          "76",
-          "77%",
+          "345",
+          "85",
+          "80%",
           "green",
           "Acceptable"
         ],
         [
           "Drugs prescribed available",
-          "203",
-          "124",
-          "62%",
+          "273",
+          "157",
+          "63%",
           "amber",
           "Monitor"
         ],
         [
           "Electricity functional",
-          "160",
-          "167",
-          "49%",
+          "208",
+          "222",
+          "48%",
           "red",
           "Critical"
         ],
         [
           "Disability physical access",
-          "302",
-          "25",
-          "92%",
+          "388",
+          "42",
+          "90%",
           "green",
           "Good"
         ]
@@ -1507,179 +1510,179 @@ const MONTHS = {
     "wash": {
       "kpi": [
         {
-          "val": "398",
+          "val": "468",
           "label": "WASH Respondents",
           "sub": "Boreholes, latrines, hygiene",
           "cls": "blue"
         },
         {
-          "val": "72%",
+          "val": "68%",
           "label": "Daily Water Availability",
-          "sub": "286/398 report daily",
-          "cls": "amber"
-        },
-        {
-          "val": "43%",
-          "label": "Latrines Clean",
-          "sub": "170/398 sites",
+          "sub": "320/468 report daily",
           "cls": "red"
         },
         {
-          "val": "22%",
+          "val": "47%",
+          "label": "Latrines Clean",
+          "sub": "221/468 sites",
+          "cls": "red"
+        },
+        {
+          "val": "21%",
           "label": "Handwashing Stations Available",
-          "sub": "86/398 with soap & water",
+          "sub": "99/468 with soap & water",
           "cls": "red"
         }
       ],
       "radarData": [
-        72,
-        80,
-        43,
-        55,
+        68,
+        83,
+        47,
+        58,
         38,
-        22,
-        84,
-        50
+        21,
+        79,
+        56
       ],
       "barMet": [
-        72,
-        80,
-        43,
-        22,
-        84,
-        50
+        68,
+        83,
+        47,
+        21,
+        79,
+        56
       ],
       "barNotMet": [
-        28,
-        20,
-        57,
-        78,
-        16,
-        50
+        32,
+        17,
+        53,
+        79,
+        21,
+        44
       ],
       "tableRows": [
         [
           "Water available daily",
-          "286",
-          "112",
-          "72%",
-          "green",
-          "Acceptable"
+          "320",
+          "148",
+          "68%",
+          "amber",
+          "Monitor"
         ],
         [
           "Water perceived as good quality",
-          "319",
+          "389",
           "79",
-          "80%",
+          "83%",
           "green",
           "Acceptable"
         ],
         [
           "Latrines clean (no odor/overflow)",
-          "170",
-          "228",
-          "43%",
+          "221",
+          "247",
+          "47%",
           "red",
           "Critical"
         ],
         [
           "Latrine doors have privacy locks",
-          "217",
-          "181",
-          "55%",
+          "273",
+          "195",
+          "58%",
           "amber",
           "Monitor"
         ],
         [
           "Latrines segregated by sex",
-          "153",
-          "245",
+          "178",
+          "290",
           "38%",
           "red",
           "Critical"
         ],
         [
           "Handwashing facility with soap",
-          "86",
-          "312",
-          "22%",
+          "99",
+          "369",
+          "21%",
           "red",
           "Critical"
         ],
         [
           "Water point safe for women & girls",
-          "334",
-          "64",
-          "84%",
+          "371",
+          "97",
+          "79%",
           "green",
           "Acceptable"
         ],
         [
           "Hygiene promotion messages received",
-          "199",
-          "199",
-          "50%",
+          "261",
+          "207",
+          "56%",
           "amber",
           "Monitor"
         ],
         [
           "Hygiene kit received",
-          "110",
-          "288",
-          "28%",
+          "123",
+          "345",
+          "26%",
           "red",
           "Critical"
         ],
         [
           "No diarrhea cases (last 3 months)",
-          "307",
-          "91",
-          "77%",
+          "369",
+          "99",
+          "79%",
           "green",
           "Acceptable"
         ]
       ]
     },
     "mhpss": {
-      "n": 161,
+      "n": 180,
       "kpi": [
         {
-          "val": "161",
+          "val": "180",
           "label": "MHPSS Respondents",
-          "sub": "Mar – Jul 2026 · 4 LGAs covered",
+          "sub": "Mar \u2013 Aug 2026 \u00b7 4 LGAs covered",
           "cls": "blue"
         },
         {
           "val": "97%",
           "label": "Felt Emotionally Safe",
-          "sub": "156/161 — 5 reported feeling unsafe",
+          "sub": "175/180 \u2014 5 reported feeling unsafe",
           "cls": "green"
         },
         {
           "val": "99%",
           "label": "Satisfaction Rate",
-          "sub": "Very Satisfied (43%) · Satisfied (57%)",
+          "sub": "Very Satisfied (42%) \u00b7 Satisfied (58%)",
           "cls": "green"
         },
         {
           "val": "5",
           "label": "Emotional Safety Gaps",
-          "sub": "Needs follow-up — flagged across service types",
+          "sub": "Needs follow-up \u2014 flagged across service types",
           "cls": "amber"
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (45)",
-        "Psychoeducation (51)",
+        "PFA \u2014 Psych. First Aid (45)",
+        "Psychoeducation (62)",
         "Counselling (34)",
-        "Peer Support (30)",
+        "Peer Support (38)",
         "Not Sure (1)"
       ],
       "typeData": [
         45,
-        51,
+        62,
         34,
-        30,
+        38,
         1
       ],
       "qualityData": [
@@ -1690,8 +1693,8 @@ const MONTHS = {
         97
       ],
       "satData": [
-        69,
-        91
+        75,
+        104
       ],
       "lgaTypeData": {
         "PFA (Psychological First Aid)": [
@@ -1702,14 +1705,14 @@ const MONTHS = {
         ],
         "Psychoeducation": [
           29,
-          7,
+          8,
           0,
-          15
+          25
         ],
         "Peer Support": [
           0,
-          4,
-          26,
+          5,
+          33,
           0
         ],
         "Counselling": [
@@ -1727,28 +1730,28 @@ const MONTHS = {
       },
       "satTypeLabels": [
         "PFA (45)",
-        "Psychoeducation (51)",
+        "Psychoeducation (62)",
         "Counselling (34)",
-        "Peer Support (30)"
+        "Peer Support (38)"
       ],
       "satTypeData": {
         "verySatisfied": [
           19,
-          20,
+          22,
           12,
-          18
+          22
         ],
         "satisfied": [
           25,
-          31,
+          40,
           22,
-          12
+          16
         ]
       },
       "tableRows": [
         [
           "Staff clearly explained purpose of session",
-          "160",
+          "179",
           "1",
           "99%",
           "green",
@@ -1756,7 +1759,7 @@ const MONTHS = {
         ],
         [
           "Beneficiary felt emotionally safe",
-          "156",
+          "175",
           "5",
           "97%",
           "green",
@@ -1764,7 +1767,7 @@ const MONTHS = {
         ],
         [
           "Enough time given to express self",
-          "159",
+          "178",
           "2",
           "99%",
           "green",
@@ -1772,7 +1775,7 @@ const MONTHS = {
         ],
         [
           "Staff showed empathy & non-judgment",
-          "160",
+          "179",
           "1",
           "99%",
           "green",
@@ -1780,7 +1783,7 @@ const MONTHS = {
         ],
         [
           "Privacy ensured during session",
-          "161",
+          "180",
           "0",
           "100%",
           "green",
@@ -1789,11 +1792,11 @@ const MONTHS = {
       ],
       "lgaCoverage": {
         "Magumeri": 68,
-        "Kaga": 33,
-        "Mobbar": 34,
-        "Gubio": 26
+        "Kaga": 35,
+        "Mobbar": 41,
+        "Gubio": 36
       },
-      "unofficialFees": 7
+      "unofficialFees": 8
     },
     "food": {
       "n": 390,
@@ -1801,7 +1804,7 @@ const MONTHS = {
         {
           "val": "390",
           "label": "Food Assistance Respondents",
-          "sub": "Mar – Jul 2026 · Magumeri (301) · Gubio (86) · Mobbar (3)",
+          "sub": "Mar \u2013 Aug 2026 \u00b7 Magumeri (301) \u00b7 Gubio (86) \u00b7 Mobbar (3)",
           "cls": "blue"
         },
         {
@@ -1813,13 +1816,13 @@ const MONTHS = {
         {
           "val": "8%",
           "label": "Harassment / Exploitation Reported",
-          "sub": "31/390 — critical protection gap",
+          "sub": "31/390 \u2014 critical protection gap",
           "cls": "green"
         },
         {
           "val": "73%",
           "label": "Weighing Scales Accurate",
-          "sub": "104/390 inaccurate — vendor gap",
+          "sub": "104/390 inaccurate \u2014 vendor gap",
           "cls": "amber"
         }
       ],
@@ -2480,13 +2483,13 @@ const MONTHS = {
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Felt Emotionally Safe",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Satisfaction Rate",
           "sub": "No data available",
           "cls": "blue"
@@ -2499,7 +2502,7 @@ const MONTHS = {
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (0)",
+        "PFA \u2014 Psych. First Aid (0)",
         "Psychoeducation (0)",
         "Counselling (0)",
         "Peer Support (0)",
@@ -2589,19 +2592,19 @@ const MONTHS = {
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Correct Quantity Received",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Harassment / Exploitation Reported",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Weighing Scales Accurate",
           "sub": "No data available",
           "cls": "blue"
@@ -3209,13 +3212,13 @@ const MONTHS = {
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Felt Emotionally Safe",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Satisfaction Rate",
           "sub": "No data available",
           "cls": "blue"
@@ -3228,7 +3231,7 @@ const MONTHS = {
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (0)",
+        "PFA \u2014 Psych. First Aid (0)",
         "Psychoeducation (0)",
         "Counselling (0)",
         "Peer Support (0)",
@@ -3318,19 +3321,19 @@ const MONTHS = {
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Correct Quantity Received",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Harassment / Exploitation Reported",
           "sub": "No data available",
           "cls": "blue"
         },
         {
-          "val": "—",
+          "val": "\u2014",
           "label": "Weighing Scales Accurate",
           "sub": "No data available",
           "cls": "blue"
@@ -3946,30 +3949,30 @@ const MONTHS = {
         {
           "val": "68",
           "label": "MHPSS Respondents",
-          "sub": "May 2026 · 3 LGAs covered",
+          "sub": "May 2026 \u00b7 3 LGAs covered",
           "cls": "blue"
         },
         {
           "val": "93%",
           "label": "Felt Emotionally Safe",
-          "sub": "63/68 — 5 reported feeling unsafe",
+          "sub": "63/68 \u2014 5 reported feeling unsafe",
           "cls": "green"
         },
         {
           "val": "100%",
           "label": "Satisfaction Rate",
-          "sub": "Very Satisfied (44%) · Satisfied (56%)",
+          "sub": "Very Satisfied (44%) \u00b7 Satisfied (56%)",
           "cls": "green"
         },
         {
           "val": "5",
           "label": "Emotional Safety Gaps",
-          "sub": "Needs follow-up — flagged across service types",
+          "sub": "Needs follow-up \u2014 flagged across service types",
           "cls": "amber"
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (25)",
+        "PFA \u2014 Psych. First Aid (25)",
         "Psychoeducation (17)",
         "Counselling (11)",
         "Peer Support (14)",
@@ -4101,7 +4104,7 @@ const MONTHS = {
         {
           "val": "3",
           "label": "Food Assistance Respondents",
-          "sub": "May 2026 · Mobbar (3)",
+          "sub": "May 2026 \u00b7 Mobbar (3)",
           "cls": "blue"
         },
         {
@@ -4113,13 +4116,13 @@ const MONTHS = {
         {
           "val": "0%",
           "label": "Harassment / Exploitation Reported",
-          "sub": "0/3 — critical protection gap",
+          "sub": "0/3 \u2014 critical protection gap",
           "cls": "green"
         },
         {
           "val": "100%",
           "label": "Weighing Scales Accurate",
-          "sub": "0/3 inaccurate — vendor gap",
+          "sub": "0/3 inaccurate \u2014 vendor gap",
           "cls": "green"
         }
       ],
@@ -4802,30 +4805,30 @@ const MONTHS = {
         {
           "val": "49",
           "label": "MHPSS Respondents",
-          "sub": "Jun 2026 · 3 LGAs covered",
+          "sub": "Jun 2026 \u00b7 3 LGAs covered",
           "cls": "blue"
         },
         {
           "val": "100%",
           "label": "Felt Emotionally Safe",
-          "sub": "49/49 — 0 reported feeling unsafe",
+          "sub": "49/49 \u2014 0 reported feeling unsafe",
           "cls": "green"
         },
         {
           "val": "98%",
           "label": "Satisfaction Rate",
-          "sub": "Very Satisfied (39%) · Satisfied (59%)",
+          "sub": "Very Satisfied (39%) \u00b7 Satisfied (59%)",
           "cls": "green"
         },
         {
           "val": "0",
           "label": "Emotional Safety Gaps",
-          "sub": "Needs follow-up — flagged across service types",
+          "sub": "Needs follow-up \u2014 flagged across service types",
           "cls": "green"
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (19)",
+        "PFA \u2014 Psych. First Aid (19)",
         "Psychoeducation (12)",
         "Counselling (18)",
         "Peer Support (0)",
@@ -4957,7 +4960,7 @@ const MONTHS = {
         {
           "val": "82",
           "label": "Food Assistance Respondents",
-          "sub": "Jun 2026 · Magumeri (82)",
+          "sub": "Jun 2026 \u00b7 Magumeri (82)",
           "cls": "blue"
         },
         {
@@ -4969,13 +4972,13 @@ const MONTHS = {
         {
           "val": "37%",
           "label": "Harassment / Exploitation Reported",
-          "sub": "30/82 — critical protection gap",
+          "sub": "30/82 \u2014 critical protection gap",
           "cls": "red"
         },
         {
           "val": "34%",
           "label": "Weighing Scales Accurate",
-          "sub": "54/82 inaccurate — vendor gap",
+          "sub": "54/82 inaccurate \u2014 vendor gap",
           "cls": "amber"
         }
       ],
@@ -5201,10 +5204,22 @@ const MONTHS = {
         "available": true,
         "n": 1,
         "categories": [
-          { "label": "Based on gender", "count": 0 },
-          { "label": "Displacement status", "count": 0 },
-          { "label": "Age", "count": 0 },
-          { "label": "Other (specify)", "count": 1 }
+          {
+            "label": "Based on gender",
+            "count": 0
+          },
+          {
+            "label": "Displacement status",
+            "count": 0
+          },
+          {
+            "label": "Age",
+            "count": 0
+          },
+          {
+            "label": "Other (specify)",
+            "count": 1
+          }
         ]
       },
       "kpi": [
@@ -5670,30 +5685,30 @@ const MONTHS = {
         {
           "val": "44",
           "label": "MHPSS Respondents",
-          "sub": "Jul 2026 · 4 LGAs covered",
+          "sub": "Jul 2026 \u00b7 4 LGAs covered",
           "cls": "blue"
         },
         {
           "val": "100%",
           "label": "Felt Emotionally Safe",
-          "sub": "44/44 — 0 reported feeling unsafe",
+          "sub": "44/44 \u2014 0 reported feeling unsafe",
           "cls": "green"
         },
         {
           "val": "100%",
           "label": "Satisfaction Rate",
-          "sub": "Very Satisfied (45%) · Satisfied (55%)",
+          "sub": "Very Satisfied (45%) \u00b7 Satisfied (55%)",
           "cls": "green"
         },
         {
           "val": "0",
           "label": "Emotional Safety Gaps",
-          "sub": "Needs follow-up — flagged across service types",
+          "sub": "Needs follow-up \u2014 flagged across service types",
           "cls": "green"
         }
       ],
       "typeLabels": [
-        "PFA — Psych. First Aid (1)",
+        "PFA \u2014 Psych. First Aid (1)",
         "Psychoeducation (22)",
         "Counselling (5)",
         "Peer Support (16)",
@@ -5825,7 +5840,7 @@ const MONTHS = {
         {
           "val": "305",
           "label": "Food Assistance Respondents",
-          "sub": "Jul 2026 · Magumeri (219) · Gubio (86)",
+          "sub": "Jul 2026 \u00b7 Magumeri (219) \u00b7 Gubio (86)",
           "cls": "blue"
         },
         {
@@ -5837,13 +5852,13 @@ const MONTHS = {
         {
           "val": "0%",
           "label": "Harassment / Exploitation Reported",
-          "sub": "1/305 — critical protection gap",
+          "sub": "1/305 \u2014 critical protection gap",
           "cls": "green"
         },
         {
           "val": "84%",
           "label": "Weighing Scales Accurate",
-          "sub": "50/305 inaccurate — vendor gap",
+          "sub": "50/305 inaccurate \u2014 vendor gap",
           "cls": "amber"
         }
       ],
@@ -5942,6 +5957,796 @@ const MONTHS = {
         "Magumeri": 219,
         "Gubio": 86
       }
+    }
+  },
+  "2026-08": {
+    "meta": {
+      "n": 346,
+      "range": "Aug 2026"
+    },
+    "overview": {
+      "kpi": [
+        {
+          "val": "346",
+          "label": "Total Respondents",
+          "sub": "Aug 2026",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "LGAs Covered",
+          "sub": "Magumeri (122) \u00b7 Kaga (114) \u00b7 Gubio (96) \u00b7 Mobbar (14)",
+          "cls": "blue"
+        },
+        {
+          "val": "4",
+          "label": "Sectors Monitored",
+          "sub": "WASH \u00b7 Nutrition \u00b7 Health \u00b7 MHPSS \u00b7 Food",
+          "cls": "green"
+        },
+        {
+          "val": "0",
+          "label": "Protection Incidents",
+          "sub": "Abuse / discrimination reported",
+          "cls": "amber"
+        }
+      ],
+      "sectorData": [
+        70,
+        19,
+        154,
+        103,
+        0
+      ],
+      "sectorLabels": [
+        "WASH (70)",
+        "MHPSS (19)",
+        "Nutrition (154)",
+        "Health (103)",
+        "Food (0)"
+      ],
+      "lgaData": [
+        122,
+        114,
+        96,
+        14
+      ],
+      "lgaLabels": [
+        "Magumeri (122)",
+        "Kaga (114)",
+        "Gubio (96)",
+        "Mobbar (14)"
+      ],
+      "dateLabels": [
+        "3 Aug",
+        "4 Aug",
+        "5 Aug",
+        "6 Aug",
+        "10 Aug",
+        "11 Aug",
+        "12 Aug",
+        "13 Aug",
+        "17 Aug",
+        "18 Aug",
+        "19 Aug"
+      ],
+      "dateData": [
+        15,
+        23,
+        24,
+        19,
+        66,
+        23,
+        34,
+        40,
+        26,
+        52,
+        24
+      ],
+      "access": [
+        76,
+        24,
+        0,
+        0
+      ],
+      "wait": [
+        82,
+        18,
+        0,
+        0
+      ],
+      "rights": "100%",
+      "rightsN": "346"
+    },
+    "protection": {
+      "abuseType": {
+        "available": true,
+        "n": 0,
+        "categories": [
+          {
+            "label": "Based on gender",
+            "count": 0
+          },
+          {
+            "label": "Displacement status",
+            "count": 0
+          },
+          {
+            "label": "Age",
+            "count": 0
+          },
+          {
+            "label": "Other (specify)",
+            "count": 0
+          }
+        ]
+      },
+      "kpi": [
+        {
+          "val": "100%",
+          "label": "Feel Safe Accessing Services",
+          "sub": "346/346 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Treated with Respect & Dignity",
+          "sub": "346/346 respondents",
+          "cls": "green"
+        },
+        {
+          "val": "0%",
+          "label": "Reported Abuse / Discrimination",
+          "sub": "0/346 \u2014 needs follow-up",
+          "cls": "green"
+        },
+        {
+          "val": "98%",
+          "label": "Aware of Complaint Mechanism",
+          "sub": "338/346 beneficiaries",
+          "cls": "green"
+        }
+      ],
+      "radarData": [
+        100,
+        100,
+        100,
+        99,
+        100,
+        98
+      ],
+      "aapData": [
+        167,
+        96,
+        146,
+        163,
+        46,
+        8
+      ],
+      "tableRows": [
+        [
+          "P1. Felt safe accessing services",
+          "346",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P2. Treated with respect & dignity",
+          "346",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P3. Experienced abuse/discrimination",
+          "0",
+          "346",
+          "0%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P4. Disability-inclusive services",
+          "344",
+          "2",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P5. Gender equality in service delivery",
+          "346",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P8. Knows complaint channel",
+          "338",
+          "8",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "P10. Services protect rights & dignity",
+          "346",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ]
+    },
+    "nutrition": {
+      "kpi": [
+        {
+          "val": "154",
+          "label": "Nutrition Respondents",
+          "sub": "OTP: 149 \u00b7 Porridge/Tombrown: 5",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "RUTF Received",
+          "sub": "149/149 OTP clients confirmed",
+          "cls": "green"
+        },
+        {
+          "val": "95%",
+          "label": "Appetite Test Conducted",
+          "sub": "141/149 observed",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Immunization Available",
+          "sub": "144/144 at facility",
+          "cls": "green"
+        }
+      ],
+      "radarData": [
+        95,
+        99,
+        100,
+        100,
+        99,
+        98
+      ],
+      "tableRows": [
+        [
+          "Appetite test conducted",
+          "141",
+          "8",
+          "95%",
+          "green",
+          "Good"
+        ],
+        [
+          "Routine medications given",
+          "147",
+          "2",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "RUTF (Plumpy'Nut) received",
+          "149",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization services available",
+          "144",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Referral explained if needed",
+          "149",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Proper screening equipment used",
+          "149",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "OTP register updated",
+          "145",
+          "1",
+          "99%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Immunization tally sheets updated",
+          "145",
+          "3",
+          "98%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Cold chain temperature correct",
+          "146",
+          "3",
+          "98%",
+          "green",
+          "Excellent"
+        ]
+      ]
+    },
+    "health": {
+      "kpi": [
+        {
+          "val": "103",
+          "label": "Health Respondents",
+          "sub": "Facility observations",
+          "cls": "blue"
+        },
+        {
+          "val": "94%",
+          "label": "Gloves / PPE Available",
+          "sub": "97/103 facilities",
+          "cls": "green"
+        },
+        {
+          "val": "89%",
+          "label": "Hand Hygiene Observed",
+          "sub": "Staff before patient contact",
+          "cls": "green"
+        },
+        {
+          "val": "47%",
+          "label": "Electricity Available",
+          "sub": "48/103 functional",
+          "cls": "red"
+        }
+      ],
+      "barData": [
+        77,
+        94,
+        93,
+        89,
+        78,
+        47
+      ],
+      "tableRows": [
+        [
+          "Facility environment clean",
+          "79",
+          "24",
+          "77%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Gloves / PPE available",
+          "97",
+          "6",
+          "94%",
+          "green",
+          "Good"
+        ],
+        [
+          "Instruments from sterile packs",
+          "96",
+          "7",
+          "93%",
+          "green",
+          "Good"
+        ],
+        [
+          "Staff hand hygiene observed",
+          "92",
+          "11",
+          "89%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Waste properly disposed",
+          "80",
+          "23",
+          "78%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Sterilization equipment functional",
+          "94",
+          "9",
+          "91%",
+          "green",
+          "Good"
+        ],
+        [
+          "Drugs prescribed available",
+          "70",
+          "33",
+          "68%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Electricity functional",
+          "48",
+          "55",
+          "47%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Disability physical access",
+          "86",
+          "17",
+          "83%",
+          "green",
+          "Acceptable"
+        ]
+      ]
+    },
+    "wash": {
+      "kpi": [
+        {
+          "val": "70",
+          "label": "WASH Respondents",
+          "sub": "Boreholes, latrines, hygiene",
+          "cls": "blue"
+        },
+        {
+          "val": "49%",
+          "label": "Daily Water Availability",
+          "sub": "34/70 report daily",
+          "cls": "red"
+        },
+        {
+          "val": "73%",
+          "label": "Latrines Clean",
+          "sub": "51/70 sites",
+          "cls": "amber"
+        },
+        {
+          "val": "19%",
+          "label": "Handwashing Stations Available",
+          "sub": "13/70 with soap & water",
+          "cls": "red"
+        }
+      ],
+      "radarData": [
+        49,
+        100,
+        73,
+        80,
+        36,
+        19,
+        53,
+        89
+      ],
+      "barMet": [
+        49,
+        100,
+        73,
+        19,
+        53,
+        89
+      ],
+      "barNotMet": [
+        51,
+        0,
+        27,
+        81,
+        47,
+        11
+      ],
+      "tableRows": [
+        [
+          "Water available daily",
+          "34",
+          "36",
+          "49%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water perceived as good quality",
+          "70",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Latrines clean (no odor/overflow)",
+          "51",
+          "19",
+          "73%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Latrine doors have privacy locks",
+          "56",
+          "14",
+          "80%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Latrines segregated by sex",
+          "25",
+          "45",
+          "36%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Handwashing facility with soap",
+          "13",
+          "57",
+          "19%",
+          "red",
+          "Critical"
+        ],
+        [
+          "Water point safe for women & girls",
+          "37",
+          "33",
+          "53%",
+          "amber",
+          "Monitor"
+        ],
+        [
+          "Hygiene promotion messages received",
+          "62",
+          "8",
+          "89%",
+          "green",
+          "Acceptable"
+        ],
+        [
+          "Hygiene kit received",
+          "13",
+          "57",
+          "19%",
+          "red",
+          "Critical"
+        ],
+        [
+          "No diarrhea cases (last 3 months)",
+          "62",
+          "8",
+          "89%",
+          "green",
+          "Acceptable"
+        ]
+      ]
+    },
+    "mhpss": {
+      "n": 19,
+      "kpi": [
+        {
+          "val": "19",
+          "label": "MHPSS Respondents",
+          "sub": "Aug 2026 \u00b7 3 LGAs covered",
+          "cls": "blue"
+        },
+        {
+          "val": "100%",
+          "label": "Felt Emotionally Safe",
+          "sub": "19/19 \u2014 0 reported feeling unsafe",
+          "cls": "green"
+        },
+        {
+          "val": "100%",
+          "label": "Satisfaction Rate",
+          "sub": "Very Satisfied (32%) \u00b7 Satisfied (68%)",
+          "cls": "green"
+        },
+        {
+          "val": "0",
+          "label": "Emotional Safety Gaps",
+          "sub": "Needs follow-up \u2014 flagged across service types",
+          "cls": "green"
+        }
+      ],
+      "typeLabels": [
+        "PFA \u2014 Psych. First Aid (0)",
+        "Psychoeducation (11)",
+        "Counselling (0)",
+        "Peer Support (8)",
+        "Not Sure (0)"
+      ],
+      "typeData": [
+        0,
+        11,
+        0,
+        8,
+        0
+      ],
+      "qualityData": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "satData": [
+        6,
+        13
+      ],
+      "lgaTypeData": {
+        "PFA (Psychological First Aid)": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Psychoeducation": [
+          0,
+          1,
+          0,
+          10
+        ],
+        "Peer Support": [
+          0,
+          1,
+          7,
+          0
+        ],
+        "Counselling": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "Not sure": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "satTypeLabels": [
+        "PFA (0)",
+        "Psychoeducation (11)",
+        "Counselling (0)",
+        "Peer Support (8)"
+      ],
+      "satTypeData": {
+        "verySatisfied": [
+          0,
+          2,
+          0,
+          4
+        ],
+        "satisfied": [
+          0,
+          9,
+          0,
+          4
+        ]
+      },
+      "tableRows": [
+        [
+          "Staff clearly explained purpose of session",
+          "19",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Beneficiary felt emotionally safe",
+          "19",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Enough time given to express self",
+          "19",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Staff showed empathy & non-judgment",
+          "19",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ],
+        [
+          "Privacy ensured during session",
+          "19",
+          "0",
+          "100%",
+          "green",
+          "Excellent"
+        ]
+      ],
+      "lgaCoverage": {
+        "Kaga": 2,
+        "Mobbar": 7,
+        "Gubio": 10
+      },
+      "unofficialFees": 1
+    },
+    "food": {
+      "n": 0,
+      "kpi": [
+        {
+          "val": "0",
+          "label": "Food Assistance Respondents",
+          "sub": "No Food Assistance submissions this month",
+          "cls": "blue"
+        },
+        {
+          "val": "\u2014",
+          "label": "Correct Quantity Received",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "\u2014",
+          "label": "Harassment / Exploitation Reported",
+          "sub": "No data available",
+          "cls": "blue"
+        },
+        {
+          "val": "\u2014",
+          "label": "Weighing Scales Accurate",
+          "sub": "No data available",
+          "cls": "blue"
+        }
+      ],
+      "profileLabels": [
+        "Host Community",
+        "IDP",
+        "Returnee"
+      ],
+      "profileMale": [
+        0,
+        0,
+        0
+      ],
+      "profileFemale": [
+        0,
+        0,
+        0
+      ],
+      "vendorRadarData": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "tableRows": [],
+      "lgaCoverage": {}
     }
   }
 };
